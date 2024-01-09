@@ -1,5 +1,5 @@
 ---
-import { GlobeIcon, MailIcon, PhoneIcon } from "lucide-react";
+import { GlobeIcon, MailIcon, PhoneIcon, ScrollText } from "lucide-react";
 
 import "@/styles/globals.css";
 
@@ -8,6 +8,7 @@ import { RESUME_DATA } from "@/data/resume-data.ts";
 import { cn } from "@/lib/utils";
 
 import { AvatarWrapper } from "@/components/avatar-wrapper";
+import { ContactLink } from "@/components/contact-link";
 import { ProjectCard } from "@/components/project-card";
 import { CommandMenu } from "@/components/command-menu";
 
@@ -26,6 +27,10 @@ import { Section } from "@/components/ui/section";
     <title>{RESUME_DATA.name}</title>
     <meta name="description" content={RESUME_DATA.about} />
     <meta name="author" content={RESUME_DATA.name} />
+    <!-- <script
+      defer
+      src="https://us.umami.is/script.js"
+      data-website-id="75aa81ff-9c6d-4ef9-8829-6eaca8616ba9"></script> -->
   </head>
   <body>
     <main
@@ -59,51 +64,48 @@ import { Section } from "@/components/ui/section";
             >
               {
                 RESUME_DATA.contact.email ? (
-                  <a
-                    class={cn(
-                      buttonVariants({
-                        variant: "outline",
-                        size: "icon",
-                      }),
-                      "size-8"
-                    )}
+                  <ContactLink
                     href={`mailto:${RESUME_DATA.contact.email}`}
+                    tooltip="Email"
+                    client:load
                   >
                     <MailIcon className="size-4" />
-                  </a>
+                  </ContactLink>
                 ) : null
               }
               {
                 RESUME_DATA.contact.tel ? (
-                  <a
-                    class={cn(
-                      buttonVariants({
-                        variant: "outline",
-                        size: "icon",
-                      }),
-                      "size-8"
-                    )}
+                  <ContactLink
                     href={`tel:${RESUME_DATA.contact.tel}`}
+                    tooltip="Phone"
+                    client:load
                   >
                     <PhoneIcon className="size-4" />
-                  </a>
+                  </ContactLink>
+                ) : null
+              }
+              {
+                RESUME_DATA.contact.resume ? (
+                  <ContactLink
+                    href={RESUME_DATA.contact.resume}
+                    tooltip="Resume"
+                    newtab={true}
+                    client:load
+                  >
+                    <ScrollText className="size-4" />
+                  </ContactLink>
                 ) : null
               }
               {
                 RESUME_DATA.contact.social.map((social) => (
-                  <a
-                    class={cn(
-                      buttonVariants({
-                        variant: "outline",
-                        size: "icon",
-                      }),
-                      "size-8"
-                    )}
+                  <ContactLink
                     href={social.url}
-                    target="_blank"
+                    tooltip={social.name}
+                    newtab={true}
+                    client:load
                   >
                     <social.icon className="size-4" />
-                  </a>
+                  </ContactLink>
                 ))
               }
             </div>
@@ -146,7 +148,11 @@ import { Section } from "@/components/ui/section";
                   <CardHeader>
                     <div class="flex items-center justify-between gap-x-2 text-base">
                       <h3 class="inline-flex items-center justify-center gap-x-1 font-semibold leading-none">
-                        <a class="hover:underline" href={work.link}>
+                        <a
+                          class="hover:underline"
+                          href={work.link}
+                          target="_blank"
+                        >
                           {work.company}
                         </a>
 
@@ -201,6 +207,37 @@ import { Section } from "@/components/ui/section";
         </Section>
 
         <Section>
+          <h2 class="text-xl font-bold">Honors &amp; Awards</h2>
+          {
+            RESUME_DATA.awards.map((award) => {
+              return (
+                <Card>
+                  <CardHeader>
+                    <div class="flex items-center justify-between gap-x-2 text-base">
+                      <h3 class="font-semibold leading-none">
+                        <a
+                          class="hover:underline"
+                          href={award.link.href}
+                          target="_blank"
+                        >
+                          {award.title}
+                        </a>
+                      </h3>
+                      <div class="text-sm tabular-nums text-gray-500">
+                        {award.date}
+                      </div>
+                    </div>
+                  </CardHeader>
+                  <CardContent className="mt-2">
+                    {award.description}
+                  </CardContent>
+                </Card>
+              );
+            })
+          }
+        </Section>
+
+        <Section>
           <h2 class="text-xl font-bold">Skills</h2>
           <div class="flex flex-wrap gap-1">
             {
@@ -209,17 +246,6 @@ import { Section } from "@/components/ui/section";
               })
             }
           </div>
-        </Section>
-
-        <Section>
-          <h2 class="text-xl font-bold">Honors &amp; Awards</h2>
-          <ul class="list-disc list-inside">
-            {
-              RESUME_DATA.awards.map((award) => {
-                return <li>{award.title}</li>;
-              })
-            }
-          </ul>
         </Section>
 
         <Section className="scroll-mb-16">

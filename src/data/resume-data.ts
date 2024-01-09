@@ -14,6 +14,8 @@ export const RESUME_DATA = {
   contact: {
     email: "kent.liusudarso@gmail.com",
     tel: "+6289630922739",
+    resume:
+      "https://drive.google.com/file/d/1LjGG-d0nsN7WLLKyTAh4ReZcQfn7EtZV/view?usp=sharing",
     social: [
       {
         name: "GitHub",
@@ -105,9 +107,10 @@ export const RESUME_DATA = {
   awards: [
     {
       title: "2nd Place, Digihatch: Dexa Group Hackathon",
-      techStack: ["Side Project", "TypeScript", "Next.js", "Vite"],
       description:
         "Developed an intelligent transportation management system for pharmaceutical drugs distribution.",
+      issuer: "Dexa Group",
+      date: "Nov 2023",
       link: {
         label: "Digihatch: Dexa Group Hackathon",
         href: "https://sites.google.com/dexa-medica.com/digihatch/",
