@@ -11,11 +11,11 @@ export const RESUME_DATA = {
     "As a final year student at Institut Teknologi Bandung, I have experience in building various types of applications, such as web, native mobile, even 3D video game. I am a fast learner and I am always looking for new challenges. Currently, I work mostly with React, Node.js, Golang, GCP, and K8s.",
   avatarUrl: "https://avatars.githubusercontent.com/u/71258048?v=4",
   personalWebsiteUrl: "https://kentliu.me",
+  resumeUrl:
+    "https://drive.google.com/file/d/1LjGG-d0nsN7WLLKyTAh4ReZcQfn7EtZV/view?usp=sharing",
   contact: {
     email: "kent.liusudarso@gmail.com",
     tel: "+6289630922739",
-    resume:
-      "https://drive.google.com/file/d/1LjGG-d0nsN7WLLKyTAh4ReZcQfn7EtZV/view?usp=sharing",
     social: [
       {
         name: "GitHub",

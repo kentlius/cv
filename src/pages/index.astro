@@ -85,9 +85,9 @@ import { Section } from "@/components/ui/section";
                 ) : null
               }
               {
-                RESUME_DATA.contact.resume ? (
+                RESUME_DATA.resumeUrl ? (
                   <ContactLink
-                    href={RESUME_DATA.contact.resume}
+                    href={RESUME_DATA.resumeUrl}
                     tooltip="Resume"
                     newtab={true}
                     client:load
@@ -271,6 +271,10 @@ import { Section } from "@/components/ui/section";
 
       <CommandMenu
         links={[
+          {
+            url: RESUME_DATA.resumeUrl,
+            title: "Resume",
+          },
           {
             url: RESUME_DATA.personalWebsiteUrl,
             title: "Personal Website",
