@@ -214,15 +214,20 @@ import { Section } from "@/components/ui/section";
                 <Card>
                   <CardHeader>
                     <div class="flex items-center justify-between gap-x-2 text-base">
-                      <h3 class="font-semibold leading-none">
-                        <a
-                          class="hover:underline"
-                          href={award.link.href}
-                          target="_blank"
-                        >
-                          {award.title}
-                        </a>
-                      </h3>
+                      <div class="flex flex-col gap-y-1">
+                        <h3 class="font-semibold leading-none">
+                          <a
+                            class="hover:underline"
+                            href={award.link.href}
+                            target="_blank"
+                          >
+                            {award.title}
+                          </a>
+                        </h3>
+                        <h4 class="font-mono text-sm leading-none">
+                          Issued by {award.issuer}
+                        </h4>
+                      </div>
                       <div class="text-sm tabular-nums text-gray-500">
                         {award.date}
                       </div>

@@ -110,10 +110,20 @@ export const RESUME_DATA = {
       description:
         "Developed an intelligent transportation management system for pharmaceutical drugs distribution.",
       issuer: "Dexa Group",
-      date: "Nov 2023",
+      date: "Nov. 2023",
       link: {
         label: "Digihatch: Dexa Group Hackathon",
         href: "https://sites.google.com/dexa-medica.com/digihatch/",
+      },
+    },
+    {
+      title: "Top 50 out of 600+ Teams, Bangkit 2023 Project Capstone",
+      description: "Developed a mobile application to detect yoga poses.",
+      issuer: "Bangkit Academy by Google, GoTo, Traveloka",
+      date: "Jan. 2024",
+      link: {
+        label: "Bangkit Academy by Google, GoTo, Traveloka",
+        href: "https://grow.google/intl/id_id/bangkit/",
       },
     },
   ],
@@ -125,7 +135,61 @@ export const RESUME_DATA = {
         "Render 2D and 3D models on the web using pure WebGL with functional tools such as transform, edit, save/load, and camera adjustments.",
       link: {
         label: "github.com",
-        href: "https://github.com/kentlius/3d-hollow-object",
+        href: "https://github.com/kentlius/IF3260_Tugas3_K02_G01",
+      },
+    },
+    {
+      title: "Folder Crawler",
+      techStack: ["Side Project", "C#", "WPF", ".Net"],
+      description:
+        "A desktop application that can crawl through folders and files to find a specific file using BFS and DFS.",
+      link: {
+        label: "github.com",
+        href: "https://github.com/Fnhafiz/Tubes2_13520027",
+      },
+    },
+    {
+      title: "Pose API",
+      techStack: ["Side Project", "Golang", "Postgres", "GCP"],
+      description:
+        "A REST API to provide poses data for yoga pose detection application.",
+      link: {
+        label: "github.com",
+        href: "https://github.com/CH2-PS254/pose-service"
+      },
+    },
+    {
+      title: "DNA Test",
+      techStack: [
+        "Side Project",
+        "Next.js",
+        "Tailwind CSS",
+        "Golang",
+        "Postgres",
+      ],
+      description:
+        "A web application that can detect the type of illness from a given sequence of DNA.",
+      link: {
+        label: "github.com",
+        href: "https://github.com/kentlius/Tubes3_13520069",
+      },
+    },
+    {
+      title: "15 Puzzle Solver",
+      techStack: ["Side Project", "Python"],
+      description: "Using branch and bound algorithm to solve 15 puzzle.",
+      link: {
+        label: "github.com",
+        href: "https://github.com/kentlius/Tucil3_13520069",
+      },
+    },
+    {
+      title: "dBug",
+      techStack: ["Side Project", "Unity", "C#"],
+      description: "A 2D platformer game built with Unity.",
+      link: {
+        label: "github.com",
+        href: "https://github.com/kentlius/d-bug",
       },
     },
     {
