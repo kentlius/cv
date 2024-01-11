@@ -5,14 +5,11 @@ import "@/styles/globals.css";
 
 import { RESUME_DATA } from "@/data/resume-data.ts";
 
-import { cn } from "@/lib/utils";
-
 import { AvatarWrapper } from "@/components/avatar-wrapper";
 import { ContactLink } from "@/components/contact-link";
 import { ProjectCard } from "@/components/project-card";
 import { CommandMenu } from "@/components/command-menu";
 
-import { buttonVariants } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
 import { Card, CardHeader, CardContent } from "@/components/ui/card";
 import { Section } from "@/components/ui/section";
@@ -220,6 +217,7 @@ import { Section } from "@/components/ui/section";
                             class="hover:underline"
                             href={award.link.href}
                             target="_blank"
+                            data-confetti-hover
                           >
                             {award.title}
                           </a>
@@ -294,3 +292,18 @@ import { Section } from "@/components/ui/section";
     </main>
   </body>
 </html>
+
+<script>
+  import confetti from "canvas-confetti";
+
+  document.querySelectorAll("[data-confetti-hover]").forEach((element) => {
+    element.addEventListener("mouseenter", (e) => {
+      confetti({
+        origin: {
+          x: (e as MouseEvent).clientX / window.innerWidth,
+          y: (e as MouseEvent).clientY / window.innerHeight,
+        },
+      });
+    });
+  });
+</script>
