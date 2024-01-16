@@ -113,7 +113,7 @@ export const RESUME_DATA = {
       date: "Nov. 2023",
       link: {
         label: "Digihatch: Dexa Group Hackathon",
-        href: "https://sites.google.com/dexa-medica.com/digihatch/",
+        href: "https://sites.google.com/dexa-medica.com/digihatch/pengumuman-pemenang#:~:text=Kent%20Liusudarso",
       },
     },
     {
