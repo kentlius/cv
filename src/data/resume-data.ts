@@ -106,6 +106,16 @@ export const RESUME_DATA = {
   ],
   awards: [
     {
+      title: "Top 10 out of 600+ Teams, Bangkit 2023 Project Capstone",
+      description: "Developed a mobile application to detect yoga poses.",
+      issuer: "Bangkit Academy by Google, GoTo, Traveloka",
+      date: "Jan. 2024",
+      link: {
+        label: "Bangkit Academy by Google, GoTo, Traveloka",
+        href: "https://grow.google/intl/id_id/bangkit/",
+      },
+    },
+    {
       title: "2nd Place, Digihatch: Dexa Group Hackathon",
       description:
         "Developed an intelligent transportation management system for pharmaceutical drugs distribution.",
@@ -114,16 +124,6 @@ export const RESUME_DATA = {
       link: {
         label: "Digihatch: Dexa Group Hackathon",
         href: "https://sites.google.com/dexa-medica.com/digihatch/pengumuman-pemenang#:~:text=Kent%20Liusudarso",
-      },
-    },
-    {
-      title: "Top 50 out of 600+ Teams, Bangkit 2023 Project Capstone",
-      description: "Developed a mobile application to detect yoga poses.",
-      issuer: "Bangkit Academy by Google, GoTo, Traveloka",
-      date: "Jan. 2024",
-      link: {
-        label: "Bangkit Academy by Google, GoTo, Traveloka",
-        href: "https://grow.google/intl/id_id/bangkit/",
       },
     },
   ],
@@ -155,7 +155,7 @@ export const RESUME_DATA = {
         "A REST API to provide poses data for yoga pose detection application.",
       link: {
         label: "github.com",
-        href: "https://github.com/CH2-PS254/pose-service"
+        href: "https://github.com/CH2-PS254/pose-service",
       },
     },
     {
