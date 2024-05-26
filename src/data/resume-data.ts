@@ -10,7 +10,7 @@ export const RESUME_DATA = {
   summary:
     "As a final year student at Institut Teknologi Bandung, I have experience in building various types of applications, such as web, native mobile, even 3D video game. I am a fast learner and I am always looking for new challenges. Currently, I work mostly with React, Node.js, Golang, GCP, and K8s.",
   avatarUrl: "https://avatars.githubusercontent.com/u/71258048?v=4",
-  personalWebsiteUrl: "https://kentliu.me",
+  personalWebsiteUrl: "https://kntl.zip",
   resumeUrl:
     "https://drive.google.com/file/d/1LjGG-d0nsN7WLLKyTAh4ReZcQfn7EtZV/view?usp=sharing",
   contact: {
@@ -24,7 +24,7 @@ export const RESUME_DATA = {
       },
       {
         name: "LinkedIn",
-        url: "https://www.linkedin.com/in/kentliusudarso/",
+        url: "https://www.linkedin.com/in/kentlius/",
         icon: Linkedin,
       },
       {
@@ -41,8 +41,23 @@ export const RESUME_DATA = {
       start: "2020",
       end: "2024",
     },
+    {
+      school: "Bangkit Academy by Google, GoTo, Traveloka",
+      degree: "Cloud Computing",
+      start: "Aug. 2023",
+      end: "Jan. 2024",
+    },
   ],
   work: [
+    {
+      company: "PT Kalbe Farma Tbk",
+      link: "https://www.kalbe.co.id/",
+      badges: ["Internship"],
+      title: "Software Engineer",
+      start: "Mar. 2024",
+      description:
+        "Improved quality of medical care through Radiological Information System (RIS)",
+    },
     {
       company: "PT Bank Central Asia Tbk (BCA)",
       link: "https://www.bca.co.id/",
@@ -59,7 +74,6 @@ export const RESUME_DATA = {
       badges: ["Part-Time"],
       title: "System Administrator",
       start: "Sep. 2022",
-      end: "Present",
       description:
         "Maintaining hundreds of computers for labs and events using Ansible, setup network and proxy server for STEI ITB, worked on Moodle load testing for thousands users using JMeter",
     },
@@ -98,6 +112,7 @@ export const RESUME_DATA = {
     "Git",
     "GCP",
     "CI/CD",
+    "RabbitMQ",
     "Kubernetes",
     "Ansible",
     "JMeter",
@@ -159,7 +174,7 @@ export const RESUME_DATA = {
       },
     },
     {
-      title: "DNA Test",
+      title: "DNA Tester",
       techStack: [
         "Side Project",
         "Next.js",
@@ -198,8 +213,8 @@ export const RESUME_DATA = {
       description:
         "My personal website and blog. Built with Astro and Tailwind CSS.",
       link: {
-        label: "kentliu.me",
-        href: "https://kentliu.me/",
+        label: "kntl.zip",
+        href: "https://kntl.zip/",
       },
     },
   ],
