@@ -25,6 +25,7 @@ import { Section } from "@/components/ui/section";
     <meta name="description" content={RESUME_DATA.about} />
     <meta name="author" content={RESUME_DATA.name} />
     <script
+      is:inline
       defer
       src="https://cloud.umami.is/script.js"
       data-website-id="75aa81ff-9c6d-4ef9-8829-6eaca8616ba9"></script>
@@ -165,7 +166,7 @@ import { Section } from "@/components/ui/section";
                         </span>
                       </h3>
                       <div class="text-sm tabular-nums text-gray-500">
-                        {work.start} - {work.end ?? "Present"}
+                        {work.start} - {(work as { end?: string }).end ?? "Present"}
                       </div>
                     </div>
 
