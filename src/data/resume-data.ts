@@ -119,6 +119,19 @@ export const RESUME_DATA = {
     "WPF",
     "WebGL",
   ],
+  certifications: [
+    {
+      title: "Google Cloud Associate Cloud Engineer",
+      issuer: "Google Cloud",
+      date: "Mar. 2024",
+      link: {
+        label: "Associate Cloud Engineer",
+        href: "https://www.credly.com/badges/0b09afcc-193b-4b23-949e-a8a6c7c6a766/public_url",
+      },
+      image:
+        "https://api.accredible.com/v1/frontend/credential_website_embed_image/certificate/98681700",
+    },
+  ],
   awards: [
     {
       title: "Top 10 out of 600+ Teams, Bangkit 2023 Project Capstone",
