@@ -7,6 +7,8 @@ out/
 .vercel/
 .netlify/
 .turbo/
+.wrangler/
+worker-configuration.d.ts
 
 # Dependencies
 node_modules/
