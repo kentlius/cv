@@ -18,7 +18,7 @@
 
 - Thesis: Predictive Autoscaling for RabbitMQ Consumer Pods in Kubernetes
 
-- Selected member of Google Developer Student Club
+- Member of Google Developer Student Club
 
 
 
@@ -75,7 +75,7 @@
 
 - Redesigned RIS-HIS integration architecture to standardize clinical data exchange across hospital platforms
 
-- Engineered a FHIR-based integration layer for third-party hospital systems, enabling reusable healthcare data mappings and interoperable API workflows
+- Engineered a FHIR-based integration layer for third-party hospital systems by adopting the standardized FHIR design over a custom-built API, eliminating reinvented schemas and reducing long-term maintenance
 
 - Refactored data integration workflows into clearer request, validation, and transformation paths to support maintainable healthcare interoperability
 
@@ -111,7 +111,7 @@
 
 - Designed and deployed network and proxy server infrastructure to enforce controlled access across internal lab environments
 
-- Scaled the university's Moodle platform to support 10K+ concurrent users during entrance exams by conducting load testing and performance optimization with JMeter
+- Scaled the university's Moodle platform to support 10K+ concurrent students during the actual university entrance exam, validated beforehand through JMeter load testing and performance optimization
 
 
 
@@ -190,12 +190,12 @@ Validates skills in GCP, Kubernetes, and cloud-native application deployment
 
 **Web Frameworks:** React.js, Node.js, Next.js, FastAPI, WebSockets, OAuth2/JWT
 
-**Data & Messaging:** PostgreSQL, RabbitMQ, ETL/ELT Pipelines
+**Data & Messaging:** PostgreSQL, RabbitMQ, MQTT, ETL/ELT Pipelines
 
-**Infrastructure & Cloud:** Docker, Kubernetes, AWS, GCP, Proxmox, Terraform, Ansible, Cloudflare
+**Infrastructure & Cloud:** Docker, Kubernetes, GCP, Proxmox, Terraform, Ansible, Cloudflare
 
 **Observability:** Prometheus, Grafana, JMeter
 
-**AI & Agentic Systems:** LLM Integration, RAG Pipelines, Agentic Workflows, MCP
+**AI-Augmented Development:** Claude Code, Copilot, Agentic Coding Workflows
 
 **DevOps:** Git, CI/CD, Linux
