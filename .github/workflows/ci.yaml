@@ -49,5 +49,5 @@ jobs:
             echo "No RenderCV file found!"
             exit 1
           fi
-          uv run --package cv rendercv render "$cv_file" --output-path /tmp/rendercv_smoke
-          test -f /tmp/rendercv_smoke/*_CV.pdf
+          uv run --package cv rendercv render "$cv_file"
+          test -f Kent_Liusudarso_CV/Kent_Liusudarso_CV.pdf || test -f rendercv_output/Kent_Liusudarso_CV.pdf
