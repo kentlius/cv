@@ -1,0 +1,144 @@
+# yaml-language-server: $schema=https://raw.githubusercontent.com/rendercv/rendercv/refs/tags/v2.8/schema.json
+cv:
+  name: Kent Liusudarso
+  headline: Software Engineer | Cloud Infrastructure, Data Pipelines, Digital Twin & Physical AI
+  location: Shizuoka, Japan
+  email: kent.liusudarso@gmail.com
+  phone: +81-70-1513-6395
+  social_networks:
+    - network: LinkedIn
+      username: kentlius
+    - network: GitHub
+      username: kentlius
+  sections:
+    education:
+      - institution: Institut Teknologi Bandung
+        area: Computer Science
+        degree: BS
+        start_date: 2020
+        end_date: 2024
+        location: Bandung, Indonesia
+        highlights:
+          - "Thesis: Predictive Autoscaling for RabbitMQ Consumer Pods in Kubernetes"
+          - Selected member of Google Developer Student Club
+      - institution: Bangkit Academy (by Google, GoTo, Traveloka)
+        area: Cloud Computing
+        start_date: 2023-08
+        end_date: 2024-01
+        location: Remote
+        highlights:
+          - Graduated with Distinction (Top 10%)
+          - Top 10 out of 600+ teams in Capstone Project
+      - institution: CBS Techno
+        area: Japanese Language Training
+        start_date: 2025-01
+        end_date: 2025-06
+        location: Nagoya, Japan
+        highlights:
+          - Completed Business Japanese training program
+    experience:
+      - company: Toyota Motor East Japan
+        position: Software Engineer
+        start_date: 2025-08
+        end_date: present
+        location: Shizuoka, Japan
+        highlights:
+          - Built internal development infrastructure in a restricted enterprise environment, deploying Proxmox virtualization, GitLab version control, and secure application/database hosting for engineering teams
+          - Replaced ad-hoc NAS-based development workflows with GitLab and collaborative version-control practices, improving source-code traceability and release coordination
+          - Designed an end-to-end MBOM ETL pipeline by reverse engineering legacy system APIs, reducing manual RPA-based processing time by ~94% (8 hours to 30 minutes)
+          - Processed 500K+ MBOM records with Slowly Changing Dimension modeling, enabling historical tracking, version comparison, and auditability through an internal visualization app
+          - Researching NVIDIA Isaac Sim and Omniverse workflows for physical AI and factory digital twin initiatives, simulating Universal Robots training scenarios to generate synthetic learning data and reduce manual robot teaching effort
+      - company: PT Kalbe Farma Tbk
+        position: Software Engineer Intern
+        start_date: 2024-03
+        end_date: 2024-09
+        location: Remote
+        highlights:
+          - Redesigned RIS-HIS integration architecture to standardize clinical data exchange across hospital platforms
+          - Engineered a FHIR-based integration layer for third-party hospital systems, enabling reusable healthcare data mappings and interoperable API workflows
+          - Refactored data integration workflows into clearer request, validation, and transformation paths to support maintainable healthcare interoperability
+      - company: PT Bank Central Asia Tbk (BCA)
+        position: Application Developer Intern
+        start_date: 2023-06
+        end_date: 2023-11
+        location: Tangerang, Indonesia
+        highlights:
+          - Developed a web-based dashboard for ATM hardware inventory, giving operations teams centralized visibility into devices requiring maintenance
+          - Built a desktop interface for ATM systems to streamline operator interaction with hardware and software inventory data
+          - Automated operational workflows using REST APIs and trigger-based processes, reducing repeated manual handoffs across support processes
+          - Developed low-level monitoring agents in C/C++ to track sensor data and software inventory for earlier ATM issue detection
+      - company: School of Electrical Engineering and Informatics ITB (STEI ITB)
+        position: System Administrator
+        start_date: 2022-09
+        end_date: 2024-08
+        location: Bandung, Indonesia
+        highlights:
+          - Automated configuration management for hundreds of lab workstations using Ansible, standardizing system setup and security controls
+          - Designed and deployed network and proxy server infrastructure to enforce controlled access across internal lab environments
+          - Scaled the university's Moodle platform to support 10K+ concurrent users during entrance exams by conducting load testing and performance optimization with JMeter
+      - company: PT Indojaya Mitra Sarana (IMS Automation)
+        position: Software Engineer Intern
+        start_date: 2022-06
+        end_date: 2022-08
+        location: Tangerang, Indonesia
+        highlights:
+          - Built a web-based EV charging platform using Next.js for charger discovery, session management, and customer-facing station workflows
+          - Engineered an Open Charge Point Protocol (OCPP) server to enable remote control, monitoring, and testing of charging stations
+          - Integrated Xendit payment APIs to support authenticated EV charging transactions and payment confirmation flows
+      - company: Institut Teknologi Bandung
+        position: Introduction to Computation Lab Assistant
+        start_date: 2021-10
+        end_date: 2021-12
+        location: Bandung, Indonesia
+        highlights:
+          - Mentored 60+ students in programming fundamentals through structured instruction, debugging support, and detailed code reviews
+    awards:
+      - name: Bangkit Capstone Project - AI-Powered Yoga Pose Detection App
+        date: 2024-01
+        summary: Ranked Top 10 out of 600+ teams nationwide
+        highlights:
+          - Selected for incubation program with $10,000 USD funding opportunity
+          - Developed a mobile application enabling real-time yoga pose detection and corrective feedback using computer vision
+          - Collaborated in a cross-functional team to deliver an end-to-end ML-powered product under production-like Google Cloud Platform constraints
+      - name: Digihatch Hackathon [(Dexa Group)](https://www.dexagroup.com/) - Intelligent Logistics Optimization System
+        date: 2023-11
+        location: Jakarta, Indonesia
+        summary: Awarded 2nd Place among competing teams
+        highlights:
+          - Led the design and development of a transportation management system for pharmaceutical distribution, addressing complex multi-node delivery and routing constraints
+          - Engineered route optimization using a Vehicle Routing Problem (VRP) approach for multi-node pharmaceutical delivery planning
+          - Developed a real-time monitoring system using MQTT-based data streaming to track critical environmental conditions during delivery
+    certifications:
+      - name: Google Cloud Associate Cloud Engineer
+        date: 2024
+        location: "[Show Certificate](https://www.credly.com/badges/0b09afcc-193b-4b23-949e-a8a6c7c6a766/public_url)"
+        summary: Validates skills in GCP, Kubernetes, and cloud-native application deployment
+    skills:
+      - label: Languages
+        details: Python, Go, TypeScript, C/C++, Java, SQL
+      - label: Web Frameworks
+        details: React.js, Node.js, Next.js, FastAPI, WebSockets, OAuth2/JWT
+      - label: Data & Messaging
+        details: PostgreSQL, RabbitMQ, ETL/ELT Pipelines
+      - label: Infrastructure & Cloud
+        details: Docker, Kubernetes, AWS, GCP, Proxmox, Terraform, Ansible, Cloudflare
+      - label: Observability
+        details: Prometheus, Grafana, JMeter
+      - label: AI & Agentic Systems
+        details: LLM Integration, RAG Pipelines, Agentic Workflows, MCP
+      - label: DevOps
+        details: Git, CI/CD, Linux
+design:
+  theme: sb2nov
+locale:
+  language: english
+settings:
+  current_date: today
+  render_command:
+    output_folder: rendercv_output
+    typst_path: OUTPUT_FOLDER/NAME_IN_SNAKE_CASE_CV.typ
+    pdf_path: OUTPUT_FOLDER/NAME_IN_SNAKE_CASE_CV.pdf
+    markdown_path: README.md
+    dont_generate_html: true
+    dont_generate_png: true
+  pdf_title: NAME - CV

@@ -1,0 +1,53 @@
+name: CI
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+
+concurrency:
+  group: ${{ github.workflow }}-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  web:
+    name: apps/web (astro)
+    runs-on: ubuntu-latest
+    defaults:
+      run:
+        working-directory: apps/web
+    steps:
+      - uses: actions/checkout@v4
+      - uses: pnpm/action-setup@v4
+        with:
+          version: 9
+      - uses: actions/setup-node@v4
+        with:
+          node-version-file: .nvmrc
+          cache: pnpm
+      - run: pnpm install --frozen-lockfile
+      - run: pnpm run build
+
+  cv:
+    name: cv (rendercv)
+    runs-on: ubuntu-latest
+    defaults:
+      run:
+        working-directory: cv
+    steps:
+      - uses: actions/checkout@v4
+      - uses: astral-sh/setup-uv@v4
+        with:
+          python-version-file: .python-version
+          enable-cache: true
+          cache-dependency-glob: "uv.lock"
+      - run: uv sync --package cv --frozen
+      - name: Smoke test rendercv
+        run: |
+          cv_file=$(find . -maxdepth 1 -type f -name "*_CV.yaml" | head -n 1)
+          if [ -z "$cv_file" ]; then
+            echo "No RenderCV file found!"
+            exit 1
+          fi
+          uv run --package cv rendercv render "$cv_file" --output-path /tmp/rendercv_smoke
+          test -f /tmp/rendercv_smoke/*_CV.pdf

@@ -1,0 +1,4 @@
+* text=auto eol=lf
+
+# Markdown
+*.md linguist-documentation

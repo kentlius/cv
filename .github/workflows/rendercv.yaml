@@ -1,0 +1,73 @@
+name: Render a CV
+
+on:
+  push:
+    branches:
+      - main
+    paths:
+      - "cv/**"
+      - ".github/workflows/rendercv.yaml"
+  workflow_call:
+
+permissions:
+  contents: write
+
+jobs:
+  rendercv:
+    name: RenderCV
+    runs-on: ubuntu-latest
+    defaults:
+      run:
+        working-directory: cv
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          ref: ${{ github.ref }}
+
+      - name: Install uv
+        uses: astral-sh/setup-uv@v4
+        with:
+          python-version-file: .python-version
+          enable-cache: true
+          cache-dependency-glob: "uv.lock"
+
+      - name: Install dependencies
+        run: uv sync --package cv --frozen
+
+      - name: Render CV
+        run: |
+          cv_file=$(find . -maxdepth 1 -type f -name "*_CV.yaml" | head -n 1)
+          if [ -z "$cv_file" ]; then
+            echo "No RenderCV file found!"
+            exit 1
+          fi
+          uv run --package cv rendercv render "$cv_file" --output-path rendercv_output
+
+      - name: Upload rendercv_output as an artifact
+        uses: actions/upload-artifact@v4
+        with:
+          name: RenderCV Output
+          path: cv/rendercv_output
+
+      - uses: dorny/paths-filter@v3
+        id: changes
+        with:
+          base: HEAD
+          filters: |
+            cv:
+              - 'cv/*_CV.typ'
+              - 'cv/README.md'
+
+      - name: Push the changes
+        if: steps.changes.outputs.cv == 'true' && github.ref_type == 'branch'
+        run: |
+          git config --global user.name "${{ github.actor }}"
+          git config --global user.email "${{ github.actor }}@users.noreply.github.com"
+          git add -A
+          # Check if there are actual changes to commit
+          if git diff --staged --quiet; then
+            echo "No content changes detected, skipping commit"
+            exit 0
+          fi
+          git commit -m "render the latest CV"
+          git push

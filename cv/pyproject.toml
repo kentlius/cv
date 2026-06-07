@@ -1,0 +1,10 @@
+[project]
+name = "cv"
+version = "0.1.0"
+description = "Kent Liusudarso's CV: YAML source + rendercv pipeline"
+requires-python = ">=3.11"
+readme = "README.md"
+
+dependencies = [
+    "rendercv[full]==2.8",
+]
