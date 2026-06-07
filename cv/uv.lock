@@ -2,11 +2,6 @@ version = 1
 revision = 3
 requires-python = ">=3.12"
 
-[manifest]
-members = [
-    "cv",
-]
-
 [[package]]
 name = "annotated-doc"
 version = "0.0.4"
@@ -37,7 +32,7 @@ wheels = [
 [[package]]
 name = "cv"
 version = "0.1.0"
-source = { virtual = "cv" }
+source = { virtual = "." }
 dependencies = [
     { name = "rendercv", extra = ["full"] },
 ]

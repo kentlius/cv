@@ -29,10 +29,10 @@ jobs:
         with:
           python-version-file: .python-version
           enable-cache: true
-          cache-dependency-glob: "uv.lock"
+          cache-dependency-glob: "cv/uv.lock"
 
       - name: Install dependencies
-        run: uv sync --package cv --frozen
+        run: uv sync --frozen
 
       - name: Render CV
         run: |
@@ -41,7 +41,7 @@ jobs:
             echo "No RenderCV file found!"
             exit 1
           fi
-          uv run --package cv rendercv render "$cv_file"
+          uv run rendercv render "$cv_file"
 
       - name: Upload rendercv_output as an artifact
         uses: actions/upload-artifact@v4

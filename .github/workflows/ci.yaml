@@ -40,8 +40,8 @@ jobs:
         with:
           python-version-file: .python-version
           enable-cache: true
-          cache-dependency-glob: "uv.lock"
-      - run: uv sync --package cv --frozen
+          cache-dependency-glob: "cv/uv.lock"
+      - run: uv sync --frozen
       - name: Smoke test rendercv
         run: |
           cv_file=$(find . -maxdepth 1 -type f -name "*_CV.yaml" | head -n 1)
@@ -49,5 +49,5 @@ jobs:
             echo "No RenderCV file found!"
             exit 1
           fi
-          uv run --package cv rendercv render "$cv_file"
+          uv run rendercv render "$cv_file"
           test -f Kent_Liusudarso_CV/Kent_Liusudarso_CV.pdf || test -f rendercv_output/Kent_Liusudarso_CV.pdf
