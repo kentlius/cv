@@ -1,13 +1,18 @@
+import * as React from "react";
+
 import { cn } from "@/lib/utils";
-import React from "react";
 
-export interface BadgeProps extends React.HTMLAttributes<HTMLDivElement> {}
-
-export function Section({ className, ...props }: BadgeProps) {
+function Section({
+  className,
+  ...props
+}: React.ComponentProps<"section">) {
   return (
     <section
-      className={cn("flex min-h-0 flex-col gap-y-3", className)}
+      data-slot="section"
+      className={cn("space-y-3 print:space-y-2", className)}
       {...props}
     />
   );
 }
+
+export { Section };

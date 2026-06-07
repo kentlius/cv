@@ -1,18 +1,108 @@
 ---
-import { GlobeIcon, MailIcon, PhoneIcon, ScrollText } from "lucide-react";
+import * as React from "react";
+import { GlobeIcon, MailIcon, PhoneIcon } from "lucide-react";
 
 import "@/styles/globals.css";
 
-import { RESUME_DATA } from "@/data/resume-data.ts";
+import { getEntry } from "astro:content";
 
 import { AvatarWrapper } from "@/components/avatar-wrapper";
-import { ContactLink } from "@/components/contact-link";
-import { ProjectCard } from "@/components/project-card";
 import { CommandMenu } from "@/components/command-menu";
-
+import { ContactLink } from "@/components/contact-link";
+import { GitHubIcon, LinkedInIcon } from "@/components/icons/brand-icons";
 import { Badge } from "@/components/ui/badge";
-import { Card, CardHeader, CardContent } from "@/components/ui/card";
+import { Card, CardContent, CardHeader } from "@/components/ui/card";
 import { Section } from "@/components/ui/section";
+
+const cvEntry = await getEntry("cv", "kent");
+if (!cvEntry) {
+  throw new Error("CV not found in content collection");
+}
+const cv = cvEntry.data.cv;
+
+function formatDate(value: string | undefined): string {
+  if (!value) return "";
+  const v = value.trim();
+  if (v.toLowerCase() === "present") return "Present";
+  if (/^\d{4}-\d{2}$/.test(v)) {
+    const [year, month] = v.split("-");
+    const date = new Date(Number(year), Number(month) - 1, 1);
+    return date.toLocaleString("en-US", {
+      month: "short",
+      year: "numeric",
+    });
+  }
+  if (/^\d{4}$/.test(v)) return v;
+  return v;
+}
+
+function formatRange(start: string | undefined, end: string | undefined): string {
+  const s = formatDate(start);
+  const e = formatDate(end);
+  if (s && e) return `${s} – ${e}`;
+  if (s) return s;
+  if (e) return e;
+  return "";
+}
+
+const SOCIAL_URLS: Record<string, (username: string) => string> = {
+  LinkedIn: (u) => `https://linkedin.com/in/${u}`,
+  GitHub: (u) => `https://github.com/${u}`,
+  Twitter: (u) => `https://x.com/${u}`,
+  X: (u) => `https://x.com/${u}`,
+  Instagram: (u) => `https://instagram.com/${u}`,
+  YouTube: (u) => `https://youtube.com/@${u}`,
+  Facebook: (u) => `https://facebook.com/${u}`,
+  Website: (u) => (u.startsWith("http") ? u : `https://${u}`),
+};
+
+function socialUrl(network: string, username: string): string {
+  const fn = SOCIAL_URLS[network];
+  return fn ? fn(username) : `https://${username}`;
+}
+
+const NETWORK_ICON: Record<
+  string,
+  React.ComponentType<{ className?: string }>
+> = {
+  LinkedIn: LinkedInIcon,
+  GitHub: GitHubIcon,
+};
+
+function parseMarkdownLink(
+  text: string | undefined,
+): { text: string; href: string } | null {
+  if (!text) return null;
+  const m = /^\[([^\]]+)\]\(([^)]+)\)\s*$/.exec(text.trim());
+  return m ? { text: m[1], href: m[2] } : null;
+}
+
+const initials = cv.name
+  .split(/\s+/)
+  .map((part) => part[0])
+  .join("")
+  .slice(0, 2)
+  .toUpperCase();
+
+const locationQuery = encodeURIComponent(cv.location ?? "");
+const locationHref = locationQuery
+  ? `https://www.google.com/maps/search/?api=1&query=${locationQuery}`
+  : undefined;
+
+const experience = cv.sections?.experience ?? [];
+const education = cv.sections?.education ?? [];
+const certifications = cv.sections?.certifications ?? [];
+const awards = cv.sections?.awards ?? [];
+const skills = cv.sections?.skills ?? [];
+
+const commandLinks = [
+  ...(cv.email ? [{ url: `mailto:${cv.email}`, title: "Email" }] : []),
+  ...(cv.phone ? [{ url: `tel:${cv.phone}`, title: "Phone" }] : []),
+  ...(cv.social_networks ?? []).map((s) => ({
+    url: socialUrl(s.network, s.username),
+    title: s.network,
+  })),
+];
 ---
 
 <html lang="en">
@@ -21,9 +111,9 @@ import { Section } from "@/components/ui/section";
     <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
     <meta name="viewport" content="width=device-width" />
     <meta name="generator" content={Astro.generator} />
-    <title>{RESUME_DATA.name}</title>
-    <meta name="description" content={RESUME_DATA.about} />
-    <meta name="author" content={RESUME_DATA.name} />
+    <title>{cv.name}</title>
+    <meta name="description" content={cv.headline} />
+    <meta name="author" content={cv.name} />
     <script
       is:inline
       defer
@@ -39,294 +129,288 @@ import { Section } from "@/components/ui/section";
       >
         <div class="flex items-center justify-between">
           <div class="flex-1 space-y-1.5">
-            <h1 class="text-2xl font-bold">{RESUME_DATA.name}</h1>
-            <p
-              class="max-w-md text-pretty font-mono text-sm text-muted-foreground"
-            >
-              {RESUME_DATA.about}
-            </p>
-            <p
-              class="max-w-md items-center text-pretty font-mono text-xs text-muted-foreground"
-            >
-              <a
-                class="inline-flex gap-x-1.5 align-baseline leading-none hover:underline"
-                href={RESUME_DATA.locationLink}
-                target="_blank"
+            <h1 class="text-2xl font-bold">{cv.name}</h1>
+            {cv.headline ? (
+              <p
+                class="max-w-md text-pretty font-mono text-sm text-muted-foreground"
               >
-                <GlobeIcon className="size-3" />
-                {RESUME_DATA.location}
-              </a>
-            </p>
+                {cv.headline}
+              </p>
+            ) : null}
+            {cv.location ? (
+              <p
+                class="max-w-md items-center text-pretty font-mono text-xs text-muted-foreground"
+              >
+                {locationHref ? (
+                  <a
+                    class="inline-flex gap-x-1.5 align-baseline leading-none hover:underline"
+                    href={locationHref}
+                    target="_blank"
+                    rel="noreferrer noopener"
+                  >
+                    <GlobeIcon />
+                    {cv.location}
+                  </a>
+                ) : (
+                  <span>{cv.location}</span>
+                )}
+              </p>
+            ) : null}
             <div
               class="flex gap-x-1 pt-1 font-mono text-sm text-muted-foreground print:hidden"
             >
-              {
-                RESUME_DATA.contact.email ? (
+              {cv.email ? (
+                <ContactLink
+                  href={`mailto:${cv.email}`}
+                  tooltip="Email"
+                  client:load
+                >
+                  <MailIcon className="size-4" />
+                </ContactLink>
+              ) : null}
+              {cv.phone ? (
+                <ContactLink
+                  href={`tel:${cv.phone}`}
+                  tooltip="Phone"
+                  client:load
+                >
+                  <PhoneIcon className="size-4" />
+                </ContactLink>
+              ) : null}
+              {(cv.social_networks ?? []).map((social) => {
+                const Icon = NETWORK_ICON[social.network];
+                return (
                   <ContactLink
-                    href={`mailto:${RESUME_DATA.contact.email}`}
-                    tooltip="Email"
-                    client:load
-                  >
-                    <MailIcon className="size-4" />
-                  </ContactLink>
-                ) : null
-              }
-              {
-                RESUME_DATA.contact.tel ? (
-                  <ContactLink
-                    href={`tel:${RESUME_DATA.contact.tel}`}
-                    tooltip="Phone"
-                    client:load
-                  >
-                    <PhoneIcon className="size-4" />
-                  </ContactLink>
-                ) : null
-              }
-              {
-                RESUME_DATA.resumeUrl ? (
-                  <ContactLink
-                    href={RESUME_DATA.resumeUrl}
-                    tooltip="Resume"
+                    href={socialUrl(social.network, social.username)}
+                    tooltip={social.network}
                     newtab={true}
                     client:load
                   >
-                    <ScrollText className="size-4" />
+                    {Icon ? <Icon className="size-4" /> : null}
                   </ContactLink>
-                ) : null
-              }
-              {
-                RESUME_DATA.contact.social.map((social) => (
-                  <ContactLink
-                    href={social.url}
-                    tooltip={social.name}
-                    newtab={true}
-                    client:load
-                  >
-                    <social.icon className="size-4" />
-                  </ContactLink>
-                ))
-              }
+                );
+              })}
             </div>
             <div
               class="hidden flex-col gap-x-1 font-mono text-sm text-muted-foreground print:flex"
             >
-              {
-                RESUME_DATA.contact.email ? (
-                  <a href={`mailto:${RESUME_DATA.contact.email}`}>
-                    <span class="underline">{RESUME_DATA.contact.email}</span>
-                  </a>
-                ) : null
-              }
-              {
-                RESUME_DATA.contact.tel ? (
-                  <a href={`tel:${RESUME_DATA.contact.tel}`}>
-                    <span class="underline">{RESUME_DATA.contact.tel}</span>
-                  </a>
-                ) : null
-              }
+              {cv.email ? (
+                <a href={`mailto:${cv.email}`}>
+                  <span class="underline">{cv.email}</span>
+                </a>
+              ) : null}
+              {cv.phone ? (
+                <a href={`tel:${cv.phone}`}>
+                  <span class="underline">{cv.phone}</span>
+                </a>
+              ) : null}
             </div>
           </div>
 
-          <AvatarWrapper client:load />
+          <AvatarWrapper
+            name={cv.name}
+            initials={initials}
+            client:load
+          />
         </div>
 
-        <Section>
-          <h2 class="text-xl font-bold">About</h2>
-          <p class="text-pretty font-mono text-sm text-muted-foreground">
-            {RESUME_DATA.summary}
-          </p>
-        </Section>
-
-        <Section>
-          <h2 class="text-xl font-bold">Work Experience</h2>
-          {
-            RESUME_DATA.work.map((work) => {
-              return (
-                <Card key={work.company}>
-                  <CardHeader>
-                    <div class="flex items-center justify-between gap-x-2 text-base">
-                      <h3 class="inline-flex items-center justify-center gap-x-1 font-semibold leading-none">
-                        <a
-                          class="hover:underline"
-                          href={work.link}
-                          target="_blank"
-                        >
-                          {work.company}
-                        </a>
-
-                        <span class="inline-flex gap-x-1">
-                          {work.badges.map((badge) => (
-                            <Badge
-                              variant="secondary"
-                              className="align-middle text-xs"
-                            >
-                              {badge}
-                            </Badge>
-                          ))}
+        {experience.length > 0 ? (
+          <Section>
+            <h2 class="text-xl font-bold">Work Experience</h2>
+            {experience.map((job) => (
+              <Card>
+                <CardHeader>
+                  <div class="flex items-center justify-between gap-x-2 text-base">
+                    <h3 class="font-semibold leading-none">
+                      {job.company}
+                      {job.location ? (
+                        <span class="ml-2 font-mono text-xs font-normal text-muted-foreground">
+                          · {job.location}
                         </span>
-                      </h3>
-                      <div class="text-sm tabular-nums text-gray-500">
-                        {work.start} - {(work as { end?: string }).end ?? "Present"}
-                      </div>
+                      ) : null}
+                    </h3>
+                    <div class="text-sm tabular-nums text-muted-foreground">
+                      {formatRange(job.start_date, job.end_date)}
                     </div>
-
-                    <h4 class="font-mono text-sm leading-none">{work.title}</h4>
-                  </CardHeader>
+                  </div>
+                  <h4 class="font-mono text-sm leading-none text-muted-foreground">
+                    {job.position}
+                  </h4>
+                </CardHeader>
+                {job.highlights && job.highlights.length > 0 ? (
                   <CardContent className="mt-2 text-xs">
-                    {work.description}
+                    <ul class="list-disc space-y-1 pl-4">
+                      {job.highlights.map((h) => <li>{h}</li>)}
+                    </ul>
                   </CardContent>
-                </Card>
-              );
-            })
-          }
-        </Section>
+                ) : null}
+              </Card>
+            ))}
+          </Section>
+        ) : null}
 
-        <Section>
-          <h2 class="text-xl font-bold">Education</h2>
-          {
-            RESUME_DATA.education.map((education) => {
-              return (
-                <Card key={education.school}>
-                  <CardHeader>
-                    <div class="flex items-center justify-between gap-x-2 text-base">
-                      <h3 class="font-semibold leading-none">
-                        {education.school}
-                      </h3>
-                      <div class="text-sm tabular-nums text-gray-500">
-                        {education.start} - {education.end}
-                      </div>
+        {education.length > 0 ? (
+          <Section>
+            <h2 class="text-xl font-bold">Education</h2>
+            {education.map((ed) => (
+              <Card>
+                <CardHeader>
+                  <div class="flex items-center justify-between gap-x-2 text-base">
+                    <h3 class="font-semibold leading-none">
+                      {ed.institution}
+                      {ed.location ? (
+                        <span class="ml-2 font-mono text-xs font-normal text-muted-foreground">
+                          · {ed.location}
+                        </span>
+                      ) : null}
+                    </h3>
+                    <div class="text-sm tabular-nums text-muted-foreground">
+                      {formatRange(ed.start_date, ed.end_date)}
                     </div>
-                  </CardHeader>
-                  <CardContent className="mt-2">{education.degree}</CardContent>
-                </Card>
-              );
-            })
-          }
-        </Section>
+                  </div>
+                  {ed.area || ed.degree ? (
+                    <h4 class="font-mono text-sm leading-none text-muted-foreground">
+                      {[ed.degree, ed.area].filter(Boolean).join(" · ")}
+                    </h4>
+                  ) : null}
+                </CardHeader>
+                {ed.highlights && ed.highlights.length > 0 ? (
+                  <CardContent className="mt-2 text-xs">
+                    <ul class="list-disc space-y-1 pl-4">
+                      {ed.highlights.map((h) => <li>{h}</li>)}
+                    </ul>
+                  </CardContent>
+                ) : null}
+              </Card>
+            ))}
+          </Section>
+        ) : null}
 
-        <Section>
-          <h2 class="text-xl font-bold">Certifications</h2>
-          {
-            RESUME_DATA.certifications.map((certification) => {
+        {certifications.length > 0 ? (
+          <Section>
+            <h2 class="text-xl font-bold">Certifications</h2>
+            {certifications.map((cert) => {
+              const link = parseMarkdownLink(cert.location);
+              const detail = link?.text ?? cert.location;
               return (
                 <Card>
                   <CardHeader>
                     <div
-                      class="flex items
-                    -center justify-between gap-x-2 text-base"
+                      class="flex items-center justify-between gap-x-2 text-base"
                     >
-                      <div class="flex flex-col gap-y-1">
-                        <h3 class="font-semibold leading-none">
+                      <h3 class="font-semibold leading-none">
+                        {link ? (
                           <a
                             class="hover:underline"
-                            href={certification.link.href}
+                            href={link.href}
                             target="_blank"
+                            rel="noreferrer noopener"
                             data-confetti-hover
                           >
-                            {certification.title}
+                            {cert.name}
                           </a>
-                        </h3>
-                        <h4 class="font-mono text-sm leading-none">
-                          Issued by {certification.issuer}
-                        </h4>
-                      </div>
-                      <div class="text-sm tabular-nums text-gray-500">
-                        Issued on {certification.date}
-                      </div>
+                        ) : (
+                          cert.name
+                        )}
+                      </h3>
+                      {cert.date ? (
+                        <div class="text-sm tabular-nums text-muted-foreground">
+                          {formatDate(cert.date)}
+                        </div>
+                      ) : null}
                     </div>
+                    {detail ? (
+                      <h4 class="font-mono text-sm leading-none text-muted-foreground">
+                        {detail}
+                      </h4>
+                    ) : null}
+                    {cert.summary ? (
+                      <p class="text-xs text-muted-foreground">
+                        {cert.summary}
+                      </p>
+                    ) : null}
                   </CardHeader>
                 </Card>
               );
-            })
-          }
-        </Section>
+            })}
+          </Section>
+        ) : null}
 
-        <Section>
-          <h2 class="text-xl font-bold">Honors &amp; Awards</h2>
-          {
-            RESUME_DATA.awards.map((award) => {
+        {awards.length > 0 ? (
+          <Section>
+            <h2 class="text-xl font-bold">Honors &amp; Awards</h2>
+            {awards.map((award) => {
+              const link = parseMarkdownLink(award.location);
               return (
                 <Card>
                   <CardHeader>
                     <div class="flex items-center justify-between gap-x-2 text-base">
-                      <div class="flex flex-col gap-y-1">
-                        <h3 class="font-semibold leading-none">
+                      <h3 class="font-semibold leading-none">
+                        {link ? (
                           <a
                             class="hover:underline"
-                            href={award.link.href}
+                            href={link.href}
                             target="_blank"
+                            rel="noreferrer noopener"
                             data-confetti-hover
                           >
-                            {award.title}
+                            {award.name}
                           </a>
-                        </h3>
-                        <h4 class="font-mono text-sm leading-none">
-                          Issued by {award.issuer}
-                        </h4>
-                      </div>
-                      <div class="text-sm tabular-nums text-gray-500">
-                        {award.date}
-                      </div>
+                        ) : (
+                          award.name
+                        )}
+                      </h3>
+                      {award.date ? (
+                        <div class="text-sm tabular-nums text-muted-foreground">
+                          {formatDate(award.date)}
+                        </div>
+                      ) : null}
                     </div>
+                    {award.summary ? (
+                      <p class="text-xs text-muted-foreground">
+                        {award.summary}
+                      </p>
+                    ) : null}
                   </CardHeader>
-                  <CardContent className="mt-2">
-                    {award.description}
-                  </CardContent>
+                  {award.highlights && award.highlights.length > 0 ? (
+                    <CardContent className="mt-2 text-xs">
+                      <ul class="list-disc space-y-1 pl-4">
+                        {award.highlights.map((h) => <li>{h}</li>)}
+                      </ul>
+                    </CardContent>
+                  ) : null}
                 </Card>
               );
-            })
-          }
-        </Section>
+            })}
+          </Section>
+        ) : null}
 
-        <Section>
-          <h2 class="text-xl font-bold">Skills</h2>
-          <div class="flex flex-wrap gap-1">
-            {
-              RESUME_DATA.skills.map((skill) => {
-                return <Badge>{skill}</Badge>;
-              })
-            }
-          </div>
-        </Section>
+        {skills.length > 0 ? (
+          <Section>
+            <h2 class="text-xl font-bold">Skills</h2>
+            <div class="space-y-3">
+              {skills.map((group) => (
+                <div class="space-y-1.5">
+                  <p class="font-mono text-xs text-muted-foreground">
+                    {group.label}
+                  </p>
+                  <div class="flex flex-wrap gap-1">
+                    {group.details
+                      .split(",")
+                      .map((s) => s.trim())
+                      .filter(Boolean)
+                      .map((skill) => (
+                        <Badge variant="secondary">{skill}</Badge>
+                      ))}
+                  </div>
+                </div>
+              ))}
+            </div>
+          </Section>
+        ) : null}
 
-        <Section className="scroll-mb-16">
-          <h2 class="text-xl font-bold">Projects</h2>
-          <div
-            class="-mx-3 grid grid-cols-1 gap-3 print:grid-cols-3 print:gap-2 md:grid-cols-2 lg:grid-cols-3"
-          >
-            {
-              RESUME_DATA.projects.map((project) => {
-                return (
-                  <ProjectCard
-                    title={project.title}
-                    description={project.description}
-                    tags={project.techStack}
-                    link={"link" in project ? project.link.href : undefined}
-                  />
-                );
-              })
-            }
-          </div>
-        </Section>
+        <CommandMenu links={commandLinks} client:load />
       </section>
-
-      <CommandMenu
-        links={[
-          {
-            url: RESUME_DATA.resumeUrl,
-            title: "Resume",
-          },
-          {
-            url: RESUME_DATA.personalWebsiteUrl,
-            title: "Personal Website",
-          },
-          ...RESUME_DATA.contact.social.map((socialMediaLink) => ({
-            url: socialMediaLink.url,
-            title: socialMediaLink.name,
-          })),
-        ]}
-        client:load
-      />
     </main>
   </body>
 </html>

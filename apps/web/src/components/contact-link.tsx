@@ -13,29 +13,35 @@ export function ContactLink({
   href,
   tooltip,
   newtab,
+  className,
 }: {
   children: React.ReactNode;
   href: string;
   tooltip: string;
   newtab?: boolean;
+  className?: string;
 }) {
   return (
-    <TooltipProvider>
+    <TooltipProvider delay={0}>
       <Tooltip>
-        <TooltipTrigger>
-          <a
-            className={cn(
-              buttonVariants({
-                variant: "outline",
-                size: "icon",
-              }),
-              "size-8"
-            )}
-            href={href}
-            target={newtab ? "_blank" : undefined}
-          >
-            {children}
-          </a>
+        <TooltipTrigger
+          render={
+            <a
+              className={cn(
+                buttonVariants({
+                  variant: "outline",
+                  size: "icon",
+                }),
+                "size-8",
+                className
+              )}
+              href={href}
+              target={newtab ? "_blank" : undefined}
+              rel={newtab ? "noreferrer noopener" : undefined}
+            />
+          }
+        >
+          {children}
         </TooltipTrigger>
         <TooltipContent>
           <p>{tooltip}</p>
