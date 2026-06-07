@@ -1,7 +1,6 @@
 # yaml-language-server: $schema=https://raw.githubusercontent.com/rendercv/rendercv/refs/tags/v2.8/schema.json
 cv:
   name: Kent Liusudarso
-  headline: Software Engineer | Cloud Infrastructure, Data Pipelines, Digital Twin & Physical AI
   location: Shizuoka, Japan
   email: kent.liusudarso@gmail.com
   phone: +81-70-1513-6395
@@ -20,7 +19,7 @@ cv:
         location: Bandung, Indonesia
         highlights:
           - "Thesis: Predictive Autoscaling for RabbitMQ Consumer Pods in Kubernetes"
-          - Selected member of Google Developer Student Club
+          - Member of Google Developer Student Club
       - institution: Bangkit Academy (by Google, GoTo, Traveloka)
         area: Cloud Computing
         start_date: 2023-08
@@ -53,7 +52,7 @@ cv:
         location: Remote
         highlights:
           - Redesigned RIS-HIS integration architecture to standardize clinical data exchange across hospital platforms
-          - Engineered a FHIR-based integration layer for third-party hospital systems, enabling reusable healthcare data mappings and interoperable API workflows
+          - Engineered a FHIR-based integration layer for third-party hospital systems by adopting the standardized FHIR design over a custom-built API, eliminating reinvented schemas and reducing long-term maintenance
           - Refactored data integration workflows into clearer request, validation, and transformation paths to support maintainable healthcare interoperability
       - company: PT Bank Central Asia Tbk (BCA)
         position: Application Developer Intern
@@ -73,7 +72,7 @@ cv:
         highlights:
           - Automated configuration management for hundreds of lab workstations using Ansible, standardizing system setup and security controls
           - Designed and deployed network and proxy server infrastructure to enforce controlled access across internal lab environments
-          - Scaled the university's Moodle platform to support 10K+ concurrent users during entrance exams by conducting load testing and performance optimization with JMeter
+          - Scaled the university's Moodle platform to support 10K+ concurrent students during the actual university entrance exam, validated beforehand through JMeter load testing and performance optimization
       - company: PT Indojaya Mitra Sarana (IMS Automation)
         position: Software Engineer Intern
         start_date: 2022-06
@@ -117,13 +116,13 @@ cv:
       - label: Web Frameworks
         details: React.js, Node.js, Next.js, FastAPI, WebSockets, OAuth2/JWT
       - label: Data & Messaging
-        details: PostgreSQL, RabbitMQ, ETL/ELT Pipelines
+        details: PostgreSQL, RabbitMQ, MQTT, ETL/ELT Pipelines
       - label: Infrastructure & Cloud
-        details: Docker, Kubernetes, AWS, GCP, Proxmox, Terraform, Ansible, Cloudflare
+        details: Docker, Kubernetes, GCP, Proxmox, Terraform, Ansible, Cloudflare
       - label: Observability
         details: Prometheus, Grafana, JMeter
-      - label: AI & Agentic Systems
-        details: LLM Integration, RAG Pipelines, Agentic Workflows, MCP
+      - label: AI-Augmented Development
+        details: Claude Code, Copilot, Agentic Coding Workflows
       - label: DevOps
         details: Git, CI/CD, Linux
 design:
