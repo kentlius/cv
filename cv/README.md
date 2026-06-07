@@ -57,13 +57,9 @@
 
 *Toyota Motor East Japan*
 
-- Built internal development infrastructure in a restricted enterprise environment, deploying Proxmox virtualization, GitLab version control, and secure application/database hosting for engineering teams
+- Initiated and built the company's first dedicated development infrastructure in a restricted enterprise environment, deploying Proxmox virtualization, GitLab version control, and secure application/database hosting to replace ad-hoc NAS-based workflows and establish source-code traceability and collaborative release coordination.
 
-- Replaced ad-hoc NAS-based development workflows with GitLab and collaborative version-control practices, improving source-code traceability and release coordination
-
-- Designed an end-to-end MBOM ETL pipeline by reverse engineering legacy system APIs, reducing manual RPA-based processing time by ~94% (8 hours to 30 minutes)
-
-- Processed 500K+ MBOM records with Slowly Changing Dimension modeling, enabling historical tracking, version comparison, and auditability through an internal visualization app
+- Engineered a scalable ETL data pipeline by reverse engineering legacy system APIs to process 500K+ MBOM records with Slowly Changing Dimensions for historical tracking, version comparison, and auditability, reducing manual RPA-based processing time by 94% (from 8 hours to ~30 minutes).
 
 - Researching NVIDIA Isaac Sim and Omniverse workflows for physical AI and factory digital twin initiatives, simulating Universal Robots training scenarios to generate synthetic learning data and reduce manual robot teaching effort
 
