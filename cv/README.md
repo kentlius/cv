@@ -22,7 +22,7 @@
 
 
 
-## **Bangkit Academy (by Google, GoTo, Traveloka)**
+## **Bangkit Academy led by Google, GoTo, and Traveloka**
 *Remote*
 
 
@@ -32,7 +32,7 @@
 
 - Graduated with Distinction (Top 10%)
 
-- Top 10 out of 600+ teams in Capstone Project
+- Ranked Top 10 among 600+ teams in the national Capstone Project competition
 
 
 
@@ -44,7 +44,7 @@
 
  *in* *Japanese Language Training*
 
-- Completed Business Japanese training program
+- Completed intensive Business Japanese training program
 
 
 
@@ -57,11 +57,11 @@
 
 *Toyota Motor East Japan*
 
-- Initiated and built the company's first dedicated development infrastructure in a restricted enterprise environment, deploying Proxmox virtualization, GitLab version control, and secure application/database hosting to replace ad-hoc NAS-based workflows and establish source-code traceability and collaborative release coordination.
+- Architected and deployed the company's first dedicated development infrastructure within a restricted enterprise environment, introducing Proxmox virtualization, GitLab source control, and secure application and database hosting to replace ad hoc NAS-based workflows and establish auditable source-code traceability and coordinated release management.
 
-- Engineered a scalable ETL data pipeline by reverse engineering legacy system APIs to process 500K+ MBOM records with Slowly Changing Dimensions for historical tracking, version comparison, and auditability, reducing manual RPA-based processing time by 94% (from 8 hours to ~30 minutes).
+- Reverse-engineered legacy system APIs and engineered a scalable ETL pipeline to process 500,000+ MBOM records using Slowly Changing Dimensions for historical tracking, version comparison, and auditability, cutting end-to-end processing time by 97.9%.
 
-- Researching NVIDIA Isaac Sim and Omniverse workflows for physical AI and factory digital twin initiatives, simulating Universal Robots training scenarios to generate synthetic learning data and reduce manual robot teaching effort
+- Developed simulation workflows supporting physical AI and factory digital twin initiatives, modeling robot-manipulator training scenarios to generate synthetic learning data and reduce reliance on manual robot-teaching workflows.
 
 
 
@@ -73,11 +73,11 @@
 
 *PT Kalbe Farma Tbk*
 
-- Redesigned RIS-HIS integration architecture to standardize clinical data exchange across hospital platforms
+- Redesigned the RIS-HIS integration architecture to standardize clinical data exchange across hospital platforms and reduce fragmentation between healthcare systems.
 
-- Engineered a FHIR-based integration layer for third-party hospital systems by adopting the standardized FHIR design over a custom-built API, eliminating reinvented schemas and reducing long-term maintenance
+- Engineered a FHIR-based interoperability layer for third-party hospital systems, replacing bespoke API schemas with a standardized healthcare data model to reduce duplicated integration work and long-term maintenance overhead.
 
-- Refactored data integration workflows into clearer request, validation, and transformation paths to support maintainable healthcare interoperability
+- Refactored integration workflows into explicit request, validation, and transformation stages, improving maintainability, traceability, and consistency across healthcare data-processing flows.
 
 
 
@@ -89,13 +89,11 @@
 
 *PT Bank Central Asia Tbk (BCA)*
 
-- Developed a web-based dashboard for ATM hardware inventory, giving operations teams centralized visibility into devices requiring maintenance
+- Developed a web-based ATM hardware inventory dashboard that centralized maintenance status and device information for operations teams.
 
-- Built a desktop interface for ATM systems to streamline operator interaction with hardware and software inventory data
+- Automated operational processes through REST APIs and event-triggered workflows, reducing repetitive manual handoffs across support operations.
 
-- Automated operational workflows using REST APIs and trigger-based processes, reducing repeated manual handoffs across support processes
-
-- Developed low-level monitoring agents in C/C++ to track sensor data and software inventory for earlier ATM issue detection
+- Developed low-level monitoring agents in C/C++ to collect sensor telemetry and software inventory data, enabling earlier detection of ATM issues.
 
 
 
@@ -107,11 +105,11 @@
 
 *School of Electrical Engineering and Informatics ITB (STEI ITB)*
 
-- Automated configuration management for hundreds of lab workstations using Ansible, standardizing system setup and security controls
+- Automated configuration management for hundreds of laboratory workstations using Ansible, standardizing system provisioning, configuration, and security controls.
 
-- Designed and deployed network and proxy server infrastructure to enforce controlled access across internal lab environments
+- Designed and deployed network and proxy infrastructure to enforce controlled access and reliable connectivity across internal laboratory environments.
 
-- Scaled the university's Moodle platform to support 10K+ concurrent students during the actual university entrance exam, validated beforehand through JMeter load testing and performance optimization
+- Scaled the university's Moodle platform to support 10,000+ concurrent students during the university entrance examination, validating capacity through JMeter load testing and performance optimization ahead of the live event.
 
 
 
@@ -123,15 +121,15 @@
 
 *PT Indojaya Mitra Sarana (IMS Automation)*
 
-- Built a web-based EV charging platform using Next.js for charger discovery, session management, and customer-facing station workflows
+- Built a web-based EV charging platform covering charger discovery, charging-session management, and customer-facing station workflows.
 
-- Engineered an Open Charge Point Protocol (OCPP) server to enable remote control, monitoring, and testing of charging stations
+- Engineered an Open Charge Point Protocol (OCPP) server to support remote control, monitoring, and testing of EV charging stations.
 
-- Integrated Xendit payment APIs to support authenticated EV charging transactions and payment confirmation flows
+- Integrated Xendit payment APIs to support authenticated charging transactions, payment processing, and confirmation workflows.
 
 
 
-## **Introduction to Computation Lab Assistant**
+## **Computer Lab Assistant**
 
 *Bandung, Indonesia*
 
@@ -139,7 +137,7 @@
 
 *Institut Teknologi Bandung*
 
-- Mentored 60+ students in programming fundamentals through structured instruction, debugging support, and detailed code reviews
+- Mentored 60+ students in programming fundamentals through structured instruction, debugging support, and detailed code reviews.
 
 
 
@@ -150,11 +148,11 @@
 
 Ranked Top 10 out of 600+ teams nationwide
 
-- Selected for incubation program with $10,000 USD funding opportunity
+- Selected for the incubation program with a potential USD 10,000 funding opportunity.
 
-- Developed a mobile application enabling real-time yoga pose detection and corrective feedback using computer vision
+- Developed a mobile application for real-time yoga pose detection and corrective feedback using computer vision.
 
-- Collaborated in a cross-functional team to deliver an end-to-end ML-powered product under production-like Google Cloud Platform constraints
+- Collaborated in a cross-functional team to deliver an end-to-end ML-powered product under production-like Google Cloud Platform constraints.
 
 
 
@@ -164,13 +162,13 @@ Ranked Top 10 out of 600+ teams nationwide
 
 *Nov 2023*
 
-Awarded 2nd Place among competing teams
+Awarded 2nd Place
 
-- Led the design and development of a transportation management system for pharmaceutical distribution, addressing complex multi-node delivery and routing constraints
+- Led the design and development of a transportation management system for pharmaceutical distribution, addressing multi-node delivery and routing constraints.
 
-- Engineered route optimization using a Vehicle Routing Problem (VRP) approach for multi-node pharmaceutical delivery planning
+- Engineered route optimization using a Vehicle Routing Problem (VRP) approach for multi-node pharmaceutical delivery planning.
 
-- Developed a real-time monitoring system using MQTT-based data streaming to track critical environmental conditions during delivery
+- Developed a real-time monitoring system using MQTT-based data streaming to track critical environmental conditions during transportation.
 
 
 
@@ -181,21 +179,19 @@ Awarded 2nd Place among competing teams
 
 *2024*
 
-Validates skills in GCP, Kubernetes, and cloud-native application deployment
+Validates expertise in GCP infrastructure, Kubernetes, and cloud-native application deployment.
 
 
 
 # Skills
 **Languages:** Python, Go, TypeScript, C/C++, Java, SQL
 
-**Web Frameworks:** React.js, Node.js, Next.js, FastAPI, WebSockets, OAuth2/JWT
+**Backend & APIs:** FastAPI, Node.js, Next.js, REST APIs, WebSockets, OAuth2/JWT, FHIR, OCPP
 
-**Data & Messaging:** PostgreSQL, RabbitMQ, MQTT, ETL/ELT Pipelines
+**Data & Messaging:** PostgreSQL, RabbitMQ, MQTT, ETL/ELT Pipelines, Slowly Changing Dimensions
 
-**Infrastructure & Cloud:** Docker, Kubernetes, GCP, Proxmox, Terraform, Ansible, Cloudflare
+**Cloud & Infrastructure:** GCP, Kubernetes, Docker, Proxmox, Terraform, Ansible, Cloudflare, Linux
 
-**Observability:** Prometheus, Grafana, JMeter
+**DevOps, Testing & Observability:** Git, GitLab, CI/CD, Prometheus, Grafana, JMeter
 
-**AI-Augmented Development:** Claude Code, Copilot, Agentic Coding Workflows
-
-**DevOps:** Git, CI/CD, Linux
+**AI-Assisted Development:** Claude Code, GitHub Copilot, Agentic Coding Workflows

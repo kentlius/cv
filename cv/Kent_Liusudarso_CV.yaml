@@ -20,21 +20,21 @@ cv:
         highlights:
           - "Thesis: Predictive Autoscaling for RabbitMQ Consumer Pods in Kubernetes"
           - Member of Google Developer Student Club
-      - institution: Bangkit Academy (by Google, GoTo, Traveloka)
+      - institution: Bangkit Academy led by Google, GoTo, and Traveloka
         area: Cloud Computing
         start_date: 2023-08
         end_date: 2024-01
         location: Remote
         highlights:
           - Graduated with Distinction (Top 10%)
-          - Top 10 out of 600+ teams in Capstone Project
+          - Ranked Top 10 among 600+ teams in the national Capstone Project competition
       - institution: CBS Techno
         area: Japanese Language Training
         start_date: 2025-01
         end_date: 2025-06
         location: Nagoya, Japan
         highlights:
-          - Completed Business Japanese training program
+          - Completed intensive Business Japanese training program
     experience:
       - company: Toyota Motor East Japan
         position: Software Engineer
@@ -42,89 +42,86 @@ cv:
         end_date: present
         location: Shizuoka, Japan
         highlights:
-          - Initiated and built the company's first dedicated development infrastructure in a restricted enterprise environment, deploying Proxmox virtualization, GitLab version control, and secure application/database hosting to replace ad-hoc NAS-based workflows and establish source-code traceability and collaborative release coordination.
-          - Engineered a scalable ETL data pipeline by reverse engineering legacy system APIs to process 500K+ MBOM records with Slowly Changing Dimensions for historical tracking, version comparison, and auditability, reducing manual RPA-based processing time by 94% (from 8 hours to ~30 minutes).
-          - Researching NVIDIA Isaac Sim and Omniverse workflows for physical AI and factory digital twin initiatives, simulating Universal Robots training scenarios to generate synthetic learning data and reduce manual robot teaching effort
+          - Architected and deployed the company's first dedicated development infrastructure within a restricted enterprise environment, introducing Proxmox virtualization, GitLab source control, and secure application and database hosting to replace ad hoc NAS-based workflows and establish auditable source-code traceability and coordinated release management.
+          - Reverse-engineered legacy system APIs and engineered a scalable ETL pipeline to process 500,000+ MBOM records using Slowly Changing Dimensions for historical tracking, version comparison, and auditability, cutting end-to-end processing time by 97.9%. 
+          - Developed simulation workflows supporting physical AI and factory digital twin initiatives, modeling robot-manipulator training scenarios to generate synthetic learning data and reduce reliance on manual robot-teaching workflows.
       - company: PT Kalbe Farma Tbk
         position: Software Engineer Intern
         start_date: 2024-03
         end_date: 2024-09
         location: Remote
         highlights:
-          - Redesigned RIS-HIS integration architecture to standardize clinical data exchange across hospital platforms
-          - Engineered a FHIR-based integration layer for third-party hospital systems by adopting the standardized FHIR design over a custom-built API, eliminating reinvented schemas and reducing long-term maintenance
-          - Refactored data integration workflows into clearer request, validation, and transformation paths to support maintainable healthcare interoperability
+          - Redesigned the RIS-HIS integration architecture to standardize clinical data exchange across hospital platforms and reduce fragmentation between healthcare systems.
+          - Engineered a FHIR-based interoperability layer for third-party hospital systems, replacing bespoke API schemas with a standardized healthcare data model to reduce duplicated integration work and long-term maintenance overhead.
+          - Refactored integration workflows into explicit request, validation, and transformation stages, improving maintainability, traceability, and consistency across healthcare data-processing flows.
       - company: PT Bank Central Asia Tbk (BCA)
         position: Application Developer Intern
         start_date: 2023-06
         end_date: 2023-11
         location: Tangerang, Indonesia
         highlights:
-          - Developed a web-based dashboard for ATM hardware inventory, giving operations teams centralized visibility into devices requiring maintenance
-          - Built a desktop interface for ATM systems to streamline operator interaction with hardware and software inventory data
-          - Automated operational workflows using REST APIs and trigger-based processes, reducing repeated manual handoffs across support processes
-          - Developed low-level monitoring agents in C/C++ to track sensor data and software inventory for earlier ATM issue detection
+          - Developed a web-based ATM hardware inventory dashboard that centralized maintenance status and device information for operations teams.
+          - Automated operational processes through REST APIs and event-triggered workflows, reducing repetitive manual handoffs across support operations.
+          - Developed low-level monitoring agents in C/C++ to collect sensor telemetry and software inventory data, enabling earlier detection of ATM issues.
       - company: School of Electrical Engineering and Informatics ITB (STEI ITB)
         position: System Administrator
         start_date: 2022-09
         end_date: 2024-08
         location: Bandung, Indonesia
         highlights:
-          - Automated configuration management for hundreds of lab workstations using Ansible, standardizing system setup and security controls
-          - Designed and deployed network and proxy server infrastructure to enforce controlled access across internal lab environments
-          - Scaled the university's Moodle platform to support 10K+ concurrent students during the actual university entrance exam, validated beforehand through JMeter load testing and performance optimization
+          - Automated configuration management for hundreds of laboratory workstations using Ansible, standardizing system provisioning, configuration, and security controls.
+          - Designed and deployed network and proxy infrastructure to enforce controlled access and reliable connectivity across internal laboratory environments.
+          - Scaled the university's Moodle platform to support 10,000+ concurrent students during the university entrance examination, validating capacity through JMeter load testing and performance optimization ahead of the live event.
       - company: PT Indojaya Mitra Sarana (IMS Automation)
         position: Software Engineer Intern
         start_date: 2022-06
         end_date: 2022-08
         location: Tangerang, Indonesia
         highlights:
-          - Built a web-based EV charging platform using Next.js for charger discovery, session management, and customer-facing station workflows
-          - Engineered an Open Charge Point Protocol (OCPP) server to enable remote control, monitoring, and testing of charging stations
-          - Integrated Xendit payment APIs to support authenticated EV charging transactions and payment confirmation flows
+          - Built a web-based EV charging platform covering charger discovery, charging-session management, and customer-facing station workflows.
+          - Engineered an Open Charge Point Protocol (OCPP) server to support remote control, monitoring, and testing of EV charging stations.
+          - Integrated Xendit payment APIs to support authenticated charging transactions, payment processing, and confirmation workflows.
       - company: Institut Teknologi Bandung
-        position: Introduction to Computation Lab Assistant
+        position: Computer Lab Assistant
         start_date: 2021-10
         end_date: 2021-12
         location: Bandung, Indonesia
         highlights:
-          - Mentored 60+ students in programming fundamentals through structured instruction, debugging support, and detailed code reviews
+          - Mentored 60+ students in programming fundamentals through structured instruction, debugging support, and detailed code reviews.
     awards:
       - name: Bangkit Capstone Project - AI-Powered Yoga Pose Detection App
         date: 2024-01
         summary: Ranked Top 10 out of 600+ teams nationwide
         highlights:
-          - Selected for incubation program with $10,000 USD funding opportunity
-          - Developed a mobile application enabling real-time yoga pose detection and corrective feedback using computer vision
-          - Collaborated in a cross-functional team to deliver an end-to-end ML-powered product under production-like Google Cloud Platform constraints
+          - Selected for the incubation program with a potential USD 10,000 funding opportunity.
+          - Developed a mobile application for real-time yoga pose detection and corrective feedback using computer vision.
+          - Collaborated in a cross-functional team to deliver an end-to-end ML-powered product under production-like Google Cloud Platform constraints.
       - name: Digihatch Hackathon [(Dexa Group)](https://www.dexagroup.com/) - Intelligent Logistics Optimization System
         date: 2023-11
         location: Jakarta, Indonesia
-        summary: Awarded 2nd Place among competing teams
+        summary: Awarded 2nd Place
         highlights:
-          - Led the design and development of a transportation management system for pharmaceutical distribution, addressing complex multi-node delivery and routing constraints
-          - Engineered route optimization using a Vehicle Routing Problem (VRP) approach for multi-node pharmaceutical delivery planning
-          - Developed a real-time monitoring system using MQTT-based data streaming to track critical environmental conditions during delivery
+          - Led the design and development of a transportation management system for pharmaceutical distribution, addressing multi-node delivery and routing constraints.
+          - Engineered route optimization using a Vehicle Routing Problem (VRP) approach for multi-node pharmaceutical delivery planning.
+          - Developed a real-time monitoring system using MQTT-based data streaming to track critical environmental conditions during transportation.
     certifications:
       - name: Google Cloud Associate Cloud Engineer
         date: 2024
         location: "[Show Certificate](https://www.credly.com/badges/0b09afcc-193b-4b23-949e-a8a6c7c6a766/public_url)"
-        summary: Validates skills in GCP, Kubernetes, and cloud-native application deployment
+        summary: Validates expertise in GCP infrastructure, Kubernetes, and cloud-native application deployment.
     skills:
       - label: Languages
         details: Python, Go, TypeScript, C/C++, Java, SQL
-      - label: Web Frameworks
-        details: React.js, Node.js, Next.js, FastAPI, WebSockets, OAuth2/JWT
+      - label: Backend & APIs
+        details: FastAPI, Node.js, Next.js, REST APIs, WebSockets, OAuth2/JWT, FHIR, OCPP
       - label: Data & Messaging
-        details: PostgreSQL, RabbitMQ, MQTT, ETL/ELT Pipelines
-      - label: Infrastructure & Cloud
-        details: Docker, Kubernetes, GCP, Proxmox, Terraform, Ansible, Cloudflare
-      - label: Observability
-        details: Prometheus, Grafana, JMeter
-      - label: AI-Augmented Development
-        details: Claude Code, Copilot, Agentic Coding Workflows
-      - label: DevOps
-        details: Git, CI/CD, Linux
+        details: PostgreSQL, RabbitMQ, MQTT, ETL/ELT Pipelines, Slowly Changing Dimensions
+      - label: Cloud & Infrastructure
+        details: GCP, Kubernetes, Docker, Proxmox, Terraform, Ansible, Cloudflare, Linux
+      - label: DevOps, Testing & Observability
+        details: Git, GitLab, CI/CD, Prometheus, Grafana, JMeter
+      - label: AI-Assisted Development
+        details: Claude Code, GitHub Copilot, Agentic Coding Workflows
 design:
   theme: sb2nov
 locale:
