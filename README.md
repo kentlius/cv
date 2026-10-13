@@ -14,12 +14,12 @@ A pnpm + uv monorepo containing:
 ├── apps/
 │   └── web/                 # Astro CV site (pnpm)
 ├── cv/                      # CV source + rendercv pipeline (uv)
-│   ├── Kent_Liusudarso_CV.yaml
+│   ├── Kent_Liusudarso_CV.yaml     # English
+│   ├── Kent_Liusudarso_CV_ja.yaml  # Japanese
 │   ├── pyproject.toml       # rendercv[full]==2.8
 │   └── rendercv_output/     # generated, gitignored, released
 ├── .github/workflows/       # CI: rendercv, release, web build
 ├── pnpm-workspace.yaml
-├── pyproject.toml           # uv workspace root
 ├── .python-version          # 3.12
 ├── .nvmrc                   # 20
 ├── ruff.toml
@@ -42,9 +42,11 @@ uv sync
 # Run the Astro site locally (http://localhost:4321)
 pnpm dev
 
-# Render the CV locally
-uv run --package cv rendercv render cv/Kent_Liusudarso_CV.yaml \
-  --output-path cv/rendercv_output
+# Render the CVs locally (English + Japanese)
+cd cv
+for cv_file in *_CV*.yaml; do
+  uv run rendercv render "$cv_file"
+done
 
 # Lint / typecheck / build
 pnpm -r run build
@@ -54,11 +56,14 @@ pnpm -r run typecheck
 ## Releases
 
 Push a tag of the form `v*` (e.g. `v2025.06.0`) to trigger the
-`Release a CV` workflow, which renders the CV and attaches the PDF + Typst
-source to a GitHub release.
+`Release a CV` workflow, which renders every CV and attaches the PDFs + Typst
+sources to a GitHub release.
 
 ## Editing the CV
 
-Edit `cv/Kent_Liusudarso_CV.yaml`. Pushing to `main` re-renders the CV; the
-rendered `cv/README.md` and `cv/Kent_Liusudarso_CV.typ` are auto-committed back
-when their content changes.
+Edit `cv/Kent_Liusudarso_CV.yaml` (English) and/or
+`cv/Kent_Liusudarso_CV_ja.yaml` (Japanese). The two are independent files that
+share no content, so a change to one does not affect the other. Pushing to
+`main` re-renders every CV in `cv/`, and the generated Markdown
+(`cv/README.md`, `cv/README_ja.md`) is auto-committed back when it changes.
+The PDFs and Typst sources are gitignored — they ship as release assets.

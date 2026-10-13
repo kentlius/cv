@@ -36,12 +36,15 @@ jobs:
 
       - name: Render CV
         run: |
-          cv_file=$(find . -maxdepth 1 -type f -name "*_CV.yaml" | head -n 1)
-          if [ -z "$cv_file" ]; then
+          shopt -s nullglob
+          cv_files=(*_CV*.yaml)
+          if [ ${#cv_files[@]} -eq 0 ]; then
             echo "No RenderCV file found!"
             exit 1
           fi
-          uv run rendercv render "$cv_file"
+          for cv_file in "${cv_files[@]}"; do
+            uv run rendercv render "$cv_file"
+          done
 
       - name: Upload rendercv_output as an artifact
         uses: actions/upload-artifact@v4
@@ -55,8 +58,8 @@ jobs:
           base: HEAD
           filters: |
             cv:
-              - 'cv/*_CV.typ'
-              - 'cv/README.md'
+              - 'cv/*_CV*.typ'
+              - 'cv/README*.md'
 
       - name: Push the changes
         if: steps.changes.outputs.cv == 'true' && github.ref_type == 'branch'
