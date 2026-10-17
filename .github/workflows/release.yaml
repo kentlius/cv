@@ -24,11 +24,31 @@ jobs:
         with:
           name: RenderCV Output
           path: cv/rendercv_output
+      - name: Remove previous releases and tags
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: |
+          current="${{ github.ref_name }}"
+          # Delete old releases (and their tags)
+          gh release list --limit 100 --json tagName -q '.[].tagName' | while IFS= read -r tag; do
+            [ -z "$tag" ] && continue
+            if [ "$tag" != "$current" ]; then
+              echo "Deleting release $tag"
+              gh release delete "$tag" --cleanup-tag -y || true
+            fi
+          done
+          # Delete any leftover v* tags except the current one
+          git ls-remote --tags origin 'refs/tags/v*' | awk '{print $2}' | sed 's#refs/tags/##' | sed 's#\^{}##' | sort -u | while IFS= read -r tag; do
+            [ -z "$tag" ] && continue
+            if [ "$tag" != "$current" ]; then
+              echo "Deleting tag $tag"
+              gh api -X DELETE "repos/${{ github.repository }}/git/refs/tags/$tag" || true
+            fi
+          done
       - name: Release
         uses: softprops/action-gh-release@v2
         with:
           files: |
             cv/rendercv_output/*_CV*.pdf
-            cv/rendercv_output/*_CV*.typ
           generate_release_notes: true
           make_latest: true
