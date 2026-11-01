@@ -45,8 +45,9 @@ Only the parts that are not obvious from their names:
   draggable captionless footer globe, and the confetti/console script are the
   only client-side behaviour; everything else ships as static HTML. Header and
   pinned experience-location text links to the labeled globe and focuses its
-  pin; a static sphere remains without JavaScript. The social preview is
-  generated at build by Satori and Resvg (`/og.png`).
+  pin; the current location carries the Cobe pulse. A static sphere remains
+  without JavaScript. The social preview is generated at build by Satori and
+  Resvg (`/og.png`).
 - `cv/source/cv.yaml` — the structured CV, and the only file edited by hand.
 - `cv/scripts` — `build_cv.py` (source → RenderCV YAML) and `render-all.sh`
   (renders every `*_CV*.yaml`).

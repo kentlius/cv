@@ -66,15 +66,17 @@ Confirmed and observed:
   paths.
 - Contact channels are email, phone, LinkedIn (`kentlius`), and GitHub
   (`kentlius`).
-- A captionless, full-bleed half globe closes the page. Pins carry always-visible
-  labels: Shizuoka (current, larger), Tangerang, and Bandung. The Kalbe Farma
-  role is listed as remote rather than given a fabricated pin.
+- A captionless, full-bleed half globe closes the page. Experience pins use
+  Cobe's playground marker treatment: 0.04 dots under always-visible uppercase
+  ink labels with pointer triangles. Shizuoka uses Cobe's pulse — two expanding
+  rings and a 10px dot — as the current indicator. Tangerang's label sits above
+  its pin and Bandung's below. Kalbe Farma was remote and has no pin.
 - Location text in the header and each experience card links to the globe and
   focuses its pin; the remote role scrolls there without a pin. The footer has
   no copy, legend, link, or rule above the globe.
-- Cobe loads as the footer approaches. It renders statically under reduced
-  motion, without auto-rotation, momentum, or eased focus. A no-JavaScript or
-  WebGL failure gets a static SVG sphere with the same labels.
+- Cobe loads as the footer approaches. Under reduced motion the pulse rings are
+  removed and there is no auto-rotation, momentum, or eased focus. A
+  no-JavaScript or WebGL failure gets a static SVG sphere with the same labels.
 - The Open Graph image is generated at build time from the same CV data with
   Satori and Resvg (`/og.png`, 1200×630). There is no hand-made social image.
 - Initial and scroll reveals are progressive enhancement: content is visible

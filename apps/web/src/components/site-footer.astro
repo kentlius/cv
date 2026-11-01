@@ -2,6 +2,7 @@
 import { GLOBE_PINS } from "@/lib/globe-locations";
 
 const pins = GLOBE_PINS;
+const currentPin = pins.find((pin) => pin.current);
 const markers = pins.map((pin) => ({
   location: pin.coords,
   size: pin.size,
@@ -69,17 +70,13 @@ const markers = pins.map((pin) => ({
       {
         pins.map((pin) => (
           <span
-            class:list={[
-              "globe-label bg-background/90 px-1.5 py-0.5 font-mono text-[11px] leading-none",
-              pin.current ? "text-foreground" : "text-muted-foreground",
-            ]}
+            class="globe-label"
             data-globe-label={pin.id}
             data-side={pin.labelSide}
-            data-active="false"
             aria-hidden="true"
             style={`position-anchor: --cobe-${pin.id}; --globe-visible: var(--cobe-visible-${pin.id}, 0);`}
           >
-            {pin.current ? `${pin.place} · now` : pin.place}
+            {pin.place}
           </span>
         ))
       }
@@ -87,19 +84,28 @@ const markers = pins.map((pin) => ({
       {
         pins.map((pin) => (
           <span
-            class:list={[
-              "globe-static-label bg-background/90 px-1.5 py-0.5 font-mono text-[11px] leading-none",
-              pin.current ? "text-foreground" : "text-muted-foreground",
-            ]}
+            class="globe-static-label"
             data-globe-static-label={pin.id}
             data-side={pin.labelSide}
             style={`--pin-x: ${pin.staticX}%; --pin-y: ${pin.staticY}%;`}
             aria-hidden="true"
           >
-            {pin.current ? `${pin.place} · now` : pin.place}
+            {pin.place}
           </span>
         ))
       }
+
+      {currentPin ? (
+        <div
+          class="globe-pulse"
+          aria-hidden="true"
+          style={`position-anchor: --cobe-${currentPin.id}; --globe-visible: var(--cobe-visible-${currentPin.id}, 0);`}
+        >
+          <span class="globe-pulse-ring"></span>
+          <span class="globe-pulse-ring"></span>
+          <span class="globe-pulse-dot"></span>
+        </div>
+      ) : null}
     </div>
   </div>
 
@@ -133,43 +139,71 @@ const markers = pins.map((pin) => ({
     opacity: 0;
   }
 
+  [data-globe-shell] {
+    --ink: var(--color-foreground);
+    --bg: var(--color-background);
+  }
+
   .globe-label,
   .globe-static-label {
     position: absolute;
     z-index: 10;
-    pointer-events: none;
+    padding: 0.15rem 0.35rem;
+    background: var(--ink);
+    color: var(--bg);
+    font-family: var(--font-mono, monospace);
+    font-size: 0.6rem;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
     white-space: nowrap;
+    pointer-events: none;
+    transition: opacity 0.3s, filter 0.3s;
   }
 
   .globe-label {
     display: none;
-    opacity: 0;
-    transition: opacity 160ms ease-out;
   }
 
   @supports (position-anchor: --test) {
     .globe-label {
       display: block;
       opacity: var(--globe-visible, 0);
+      filter: blur(calc((1 - var(--globe-visible, 0)) * 8px));
     }
   }
 
   .globe-label[data-side="above"] {
     bottom: anchor(top);
     left: anchor(center);
-    translate: -50% -8px;
+    translate: -50% 0;
+    margin-bottom: 8px;
   }
 
   .globe-label[data-side="below"] {
     top: anchor(bottom);
     left: anchor(center);
-    translate: -50% 8px;
+    translate: -50% 0;
+    margin-top: 8px;
   }
 
-  .globe-label[data-active="true"] {
-    color: var(--color-foreground);
-    text-decoration: underline;
-    text-underline-offset: 2px;
+  .globe-label::after,
+  .globe-static-label::after {
+    content: "";
+    position: absolute;
+    top: 100%;
+    left: 50%;
+    transform: translate3d(-50%, -1px, 0);
+    border: 5px solid transparent;
+    border-top-color: var(--ink);
+  }
+
+  .globe-label[data-side="below"]::after,
+  .globe-static-label[data-side="below"]::after {
+    top: auto;
+    bottom: 100%;
+    transform: translate3d(-50%, 1px, 0);
+    border-top-color: transparent;
+    border-bottom-color: var(--ink);
   }
 
   .globe-static-label {
@@ -179,11 +213,70 @@ const markers = pins.map((pin) => ({
   }
 
   .globe-static-label[data-side="above"] {
-    transform: translate(-50%, -100%) translateY(-8px);
+    transform: translate(-50%, calc(-100% - 8px));
   }
 
   .globe-static-label[data-side="below"] {
-    transform: translate(-50%, 0) translateY(8px);
+    transform: translate(-50%, 8px);
+  }
+
+  .globe-pulse {
+    position: absolute;
+    z-index: 9;
+    bottom: anchor(center);
+    left: anchor(center);
+    translate: -50% 50%;
+    width: 40px;
+    height: 40px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    opacity: var(--globe-visible, 0);
+    filter: blur(calc((1 - var(--globe-visible, 0)) * 8px));
+    pointer-events: none;
+    transition: opacity 0.4s, filter 0.4s;
+  }
+
+  .globe-pulse-ring {
+    position: absolute;
+    inset: 0;
+    border: 2px solid var(--ink);
+    border-radius: 50%;
+    opacity: 0;
+    animation: pulse-expand 2s ease-out infinite;
+    animation-delay: var(--delay, 0s);
+  }
+
+  .globe-pulse-ring:nth-child(2) {
+    animation-delay: calc(var(--delay, 0s) + 0.5s);
+  }
+
+  @keyframes pulse-expand {
+    0% {
+      transform: scale(0.3);
+      opacity: 0.8;
+    }
+    100% {
+      transform: scale(1.5);
+      opacity: 0;
+    }
+  }
+
+  .globe-pulse-dot {
+    width: 10px;
+    height: 10px;
+    background: var(--ink);
+    border-radius: 50%;
+    box-shadow:
+      0 0 0 3px var(--bg),
+      0 0 0 5px var(--ink);
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .globe-pulse-ring {
+      animation: none;
+      opacity: 0;
+    }
   }
 </style>
 
@@ -244,10 +337,6 @@ const markers = pins.map((pin) => ({
         let lastFrame = 0;
         let dirty = true;
 
-        const labels = Array.from(
-          document.querySelectorAll<HTMLElement>("[data-globe-label]"),
-        );
-
         const markers = JSON.parse(canvas.dataset.markers ?? "[]") as {
           location: [number, number];
           size: number;
@@ -280,10 +369,6 @@ const markers = pins.map((pin) => ({
 
         const setActivePin = (id: string | null) => {
           activePin = id;
-
-          for (const label of labels) {
-            label.dataset.active = String(label.dataset.globeLabel === id);
-          }
         };
 
         const focusLocation = (id: string) => {

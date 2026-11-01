@@ -291,11 +291,13 @@ legend, link, or rule above it. Cobe draws a dotted land map over a light
 sphere; the wireframe is reserved for the no-JS/WebGL-failure fallback and is
 removed once Cobe is ready.
 
-Pins carry always-visible labels: Shizuoka (current, larger and darker),
-Tangerang, and Bandung. Tangerang's label sits above its pin and Bandung's
-below so the two nearby locations stay legible. The current label is set in
-foreground ink; the others are muted; an active pin underlines its label.
-Kalbe Farma was remote and has no pin.
+Pins use Cobe's playground marker treatment: 0.04 dots under always-visible
+uppercase ink labels with pointer triangles. Shizuoka uses the Cobe pulse — a
+40px container, two 2px expanding rings on a 2s loop offset by 0.5s, and a 10px
+ink dot with a 3px paper halo and 5px ink ring. Its label is simply
+`Shizuoka`; the pulse alone marks it current. Tangerang's label sits above its
+pin and Bandung's below so the two nearby locations stay legible. Kalbe Farma
+was remote and has no pin.
 
 Cobe is imported only when the footer comes within 300px of the viewport.
 `globe.update()` runs in a `requestAnimationFrame` loop: idle auto-rotation at
@@ -303,10 +305,10 @@ Cobe is imported only when the footer comes within 300px of the viewport.
 offscreen. Pointer drag has momentum; arrow keys rotate. Location text in the
 header and experience cards links to the globe, scrolls here, and eases the
 shortest horizontal path to its pin while keeping the tilt. Under reduced
-motion Cobe still draws, but auto-rotation, momentum, and eased focus are
-removed; drag and location focus remain direct. A no-JS or WebGL failure leaves
-the static SVG sphere, pins, and labels. The canvas and footer are
-print-hidden.
+motion Cobe still draws, but the pulse rings, auto-rotation, momentum, and
+eased focus are removed; drag and location focus remain direct. A no-JS or
+WebGL failure leaves the static SVG sphere, pins, and labels. The canvas and
+footer are print-hidden.
 
 ### Motion
 
@@ -324,11 +326,12 @@ The `.motion` class is set by an inline head script only when
 Without JavaScript or under reduced motion, no hiding class is applied and the
 content is fully visible. Print forces every target visible. Keyboard focus
 reveals the containing card immediately, without a fade. The footer globe adds
-one user-driven interaction layer: idle auto-rotation, pointer momentum,
-keyboard rotation, and eased focus from a location link. Reduced motion renders
-the same globe without auto-rotation, momentum, or eased focus; direct drag and
-pin focus remain. There is no parallax, scroll-jacking, or layout animation.
-The confetti easter egg is separate and hover-only.
+one user-driven interaction layer (idle auto-rotation, pointer momentum,
+keyboard rotation, and eased focus from a location link) plus a current-location
+pulse of two expanding rings. Reduced motion removes the pulse rings,
+auto-rotation, momentum, and eased focus; direct drag and pin focus remain.
+There is no parallax, scroll-jacking, or layout animation. The confetti easter
+egg is separate and hover-only.
 
 ### Social Preview
 
@@ -371,11 +374,16 @@ hairline rings remain.
   legend, link, rule, margin, or padding above or below it.
 - **Do** link location text in the header and experience cards to the globe and
   focus its pin; leave remote roles unpinned.
-- **Do** keep Shizuoka's dot and label larger and darker, set Tangerang's label
-  above and Bandung's below, and keep every pin label visible.
+- **Do** use Cobe's playground marker labels for every experience pin: 0.04
+  dots, uppercase ink labels, 8px offset, and pointer triangles.
+- **Do** use the Cobe pulse for Shizuoka: 40px container, two 2s expanding
+  rings offset by 0.5s, a 10px ink dot, and the paper/ink halo.
+- **Do** set Tangerang's label above its pin and Bandung's below, and keep
+  every pin label visible.
 - **Do** let the globe be dragged and keyboard-rotated, and pause its render
-  loop when offscreen; under reduced motion, render it without auto-rotation,
-  momentum, or eased focus.
+  loop when offscreen.
+- **Do** remove the pulse rings, auto-rotation, momentum, and eased focus under
+  reduced motion; direct drag and pin focus remain.
 - **Do** generate `/og.png` from the CV view model with Satori and Resvg; never
   hand-maintain the social image.
 - **Do** hide contact icons in print and expose email and phone as text.
@@ -391,11 +399,13 @@ hairline rings remain.
 - **Don't** use pure black, hue-tinted grays, or darkened borders for emphasis.
 - **Don't** stack multiple shadows on content surfaces or add glow effects.
 - **Don't** add parallax, scroll-jacking, or layout animation; the only looping
-  motion is the footer globe's idle rotation, and reduced motion removes it.
+  motions are the footer globe's idle rotation and current-location pulse, and
+  reduced motion removes both.
 - **Don't** hide content behind a reveal without the reduced-motion and no-JS
   fallback.
-- **Don't** add auto-rotation, momentum, or eased focus under reduced motion;
-  the Cobe globe still draws, but only direct interaction moves it.
+- **Don't** add auto-rotation, momentum, eased focus, or pulse rings under
+  reduced motion; the Cobe globe still draws, but only direct interaction moves
+  it and the current dot remains.
 - **Don't** add a caption, legend, link, rule, bottom margin, or bottom padding
   around the half globe; the page ends at the clipped sphere.
 - **Don't** make pin labels hover-only; they are the footer's only key.

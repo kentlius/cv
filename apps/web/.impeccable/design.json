@@ -1,6 +1,6 @@
 {
   "schemaVersion": 2,
-  "generatedAt": "2026-11-01T09:26:40.398Z",
+  "generatedAt": "2026-11-01T09:40:37.953Z",
   "title": "Design System: Kent Liusudarso CV",
   "extensions": {
     "colorMeta": {
@@ -188,6 +188,11 @@
         "name": "globe-focus",
         "value": "shortest path · 0.12 ease",
         "purpose": "Ease a chosen place into view while keeping the tilt."
+      },
+      {
+        "name": "globe-pulse",
+        "value": "2s ease-out infinite · +0.5s offset",
+        "purpose": "Current-location rings; removed under reduced motion."
       }
     ],
     "breakpoints": [
@@ -233,9 +238,9 @@
     {
       "name": "Footer Globe",
       "kind": "custom",
-      "description": "A captionless full-bleed half globe with always-visible location labels; header and experience location text links focus the matching pin.",
-      "html": "<div class=\"ds-footer\"><div class=\"ds-globe-stage\"><div class=\"ds-globe\"><svg viewBox=\"0 0 100 100\" aria-hidden=\"true\"><circle cx=\"50\" cy=\"50\" r=\"46\" fill=\"currentColor\" fill-opacity=\"0.055\" stroke=\"currentColor\" stroke-width=\"0.6\"/><g fill=\"var(--foreground, oklch(0.145 0 0))\"><circle cx=\"69.8\" cy=\"12.4\" r=\"1.3\"/><circle cx=\"48.1\" cy=\"39.7\" r=\"0.9\"/><circle cx=\"49\" cy=\"40.3\" r=\"0.9\"/></g></svg><span class=\"ds-label ds-label-current\" data-side=\"above\" style=\"--pin-x: 69.8%; --pin-y: 12.4%;\">Shizuoka · now</span><span class=\"ds-label\" data-side=\"above\" style=\"--pin-x: 48.1%; --pin-y: 39.7%;\">Tangerang</span><span class=\"ds-label\" data-side=\"below\" style=\"--pin-x: 49%; --pin-y: 40.3%;\">Bandung</span></div></div></div>",
-      "css": ".ds-footer { background: var(--background, oklch(1 0 0)); color: var(--foreground, oklch(0.145 0 0)); font-family: var(--font-instrument, sans-serif); } .ds-globe-stage { position: relative; height: 260px; overflow: hidden; } .ds-globe { position: absolute; top: 0; left: 50%; width: 520px; height: 520px; transform: translateX(-50%); overflow: hidden; border-radius: 9999px; color: color-mix(in oklab, var(--muted-foreground, oklch(0.556 0 0)) 60%, transparent); } .ds-globe svg { position: absolute; inset: 0; width: 100%; height: 100%; } .ds-label { position: absolute; z-index: 1; left: var(--pin-x); top: var(--pin-y); padding: 4px 6px; background: color-mix(in oklab, var(--background, oklch(1 0 0)) 90%, transparent); color: var(--muted-foreground, oklch(0.556 0 0)); font-family: var(--font-geist-mono, monospace); font-size: 11px; line-height: 1; white-space: nowrap; } .ds-label[data-side=\"above\"] { transform: translate(-50%, -100%) translateY(-8px); } .ds-label[data-side=\"below\"] { transform: translate(-50%, 0) translateY(8px); } .ds-label-current { color: var(--foreground, oklch(0.145 0 0)); }"
+      "description": "A captionless full-bleed half globe using Cobe playground marker labels and the Cobe pulse around the current location.",
+      "html": "<div class=\"ds-footer\"><div class=\"ds-globe-stage\"><div class=\"ds-globe\"><svg viewBox=\"0 0 100 100\" aria-hidden=\"true\"><circle cx=\"50\" cy=\"50\" r=\"46\" fill=\"currentColor\" fill-opacity=\"0.055\" stroke=\"currentColor\" stroke-width=\"0.6\"/><g fill=\"var(--foreground, oklch(0.145 0 0))\"><circle cx=\"69.8\" cy=\"12.4\" r=\"0.8\"/><circle cx=\"48.1\" cy=\"39.7\" r=\"1\"/><circle cx=\"49\" cy=\"40.3\" r=\"1\"/></g></svg><span class=\"ds-label\" data-side=\"above\" style=\"--pin-x: 69.8%; --pin-y: 12.4%;\">Shizuoka</span><span class=\"ds-label\" data-side=\"above\" style=\"--pin-x: 48.1%; --pin-y: 39.7%;\">Tangerang</span><span class=\"ds-label\" data-side=\"below\" style=\"--pin-x: 49%; --pin-y: 40.3%;\">Bandung</span><div class=\"ds-pulse\" style=\"--pin-x: 69.8%; --pin-y: 12.4%;\"><span class=\"ds-pulse-ring\"></span><span class=\"ds-pulse-ring\"></span><span class=\"ds-pulse-dot\"></span></div></div></div></div>",
+      "css": ".ds-footer { background: var(--background, oklch(1 0 0)); color: var(--foreground, oklch(0.145 0 0)); } .ds-globe-stage { position: relative; height: 260px; overflow: hidden; } .ds-globe { position: absolute; top: 0; left: 50%; width: 520px; height: 520px; transform: translateX(-50%); overflow: hidden; border-radius: 9999px; color: color-mix(in oklab, var(--muted-foreground, oklch(0.556 0 0)) 60%, transparent); --ink: var(--foreground, oklch(0.145 0 0)); --bg: var(--background, oklch(1 0 0)); } .ds-globe svg { position: absolute; inset: 0; width: 100%; height: 100%; } .ds-label { position: absolute; z-index: 2; left: var(--pin-x); top: var(--pin-y); padding: 0.15rem 0.35rem; background: var(--ink); color: var(--bg); font-family: var(--font-mono, monospace); font-size: 0.6rem; letter-spacing: 0.08em; text-transform: uppercase; white-space: nowrap; } .ds-label[data-side=\"above\"] { transform: translate(-50%, calc(-100% - 8px)); } .ds-label[data-side=\"below\"] { transform: translate(-50%, 8px); } .ds-label::after { content: \"\"; position: absolute; top: 100%; left: 50%; transform: translate3d(-50%, -1px, 0); border: 5px solid transparent; border-top-color: var(--ink); } .ds-label[data-side=\"below\"]::after { top: auto; bottom: 100%; transform: translate3d(-50%, 1px, 0); border-top-color: transparent; border-bottom-color: var(--ink); } .ds-pulse { position: absolute; z-index: 1; left: var(--pin-x); top: var(--pin-y); width: 40px; height: 40px; transform: translate(-50%, -50%); display: flex; align-items: center; justify-content: center; pointer-events: none; } .ds-pulse-ring { position: absolute; inset: 0; border: 2px solid var(--ink); border-radius: 50%; opacity: 0; animation: pulse-expand 2s ease-out infinite; } .ds-pulse-ring:nth-child(2) { animation-delay: 0.5s; } @keyframes pulse-expand { 0% { transform: scale(0.3); opacity: 0.8; } 100% { transform: scale(1.5); opacity: 0; } } .ds-pulse-dot { width: 10px; height: 10px; background: var(--ink); border-radius: 50%; box-shadow: 0 0 0 3px var(--bg), 0 0 0 5px var(--ink); }"
     }
   ],
   "narrative": {
@@ -291,11 +296,13 @@
       "Do keep the reveal to one 12px rise plus opacity, 450ms ease-out, once per element; grouped items wait 60ms.",
       "Do ship content visible without JavaScript and under reduced motion; print forces every reveal visible.",
       "Do reveal a card immediately on keyboard focus, without waiting for the transition.",
-      "Do keep the globe monochrome, captionless, and pinned to physical experience locations; keep its static sphere and labels for no-JS or WebGL failure.",
+      "Do keep the globe monochrome, captionless, and pinned to physical experience locations; keep the static sphere and labels for no-JS or WebGL failure.",
       "Do link header and experience location text to the globe and focus its pin; leave remote roles unpinned.",
-      "Do keep every pin label visible; Shizuoka is larger and darker, with Tangerang's label above and Bandung's below.",
+      "Do use Cobe's playground marker labels for experience pins: 0.04 dots, uppercase ink labels, 8px offset, and pointer triangles.",
+      "Do use the Cobe pulse for Shizuoka: two 2s expanding rings offset by 0.5s and a 10px ink dot with paper/ink halos.",
+      "Do set Tangerang's label above and Bandung's below, and keep every label visible.",
       "Do let the globe be dragged and keyboard-rotated, and pause its render loop when offscreen.",
-      "Do render Cobe statically under reduced motion; remove auto-rotation, momentum, and eased focus.",
+      "Do remove the pulse rings, auto-rotation, momentum, and eased focus under reduced motion; direct drag and pin focus remain.",
       "Do keep the half globe flush to the page's bottom edge, with no copy, legend, link, rule, margin, or padding above or below it.",
       "Do generate /og.png from the CV view model with Satori and Resvg; never hand-maintain the social image.",
       "Do hide contact icons in print and expose email and phone as text.",
@@ -307,10 +314,10 @@
       "Don't add a second typeface or a serif/display face; Instrument Sans and Geist Mono are the whole voice.",
       "Don't use pure black, hue-tinted grays, or darkened borders for emphasis.",
       "Don't stack multiple shadows on content surfaces or add glow effects.",
-      "Don't add parallax, scroll-jacking, or layout animation; the only looping motion is the footer globe's idle rotation, and reduced motion removes it.",
+      "Don't add parallax, scroll-jacking, or layout animation; the only looping motions are the footer globe's idle rotation and current pulse, and reduced motion removes both.",
       "Don't hide content behind a reveal without the reduced-motion and no-JS fallback.",
       "Don't load Cobe above the fold, and don't add photography, a headshot, or a logo wall around the globe.",
-      "Don't add auto-rotation, momentum, or eased focus under reduced motion; direct interaction remains.",
+      "Don't add pulse rings, auto-rotation, momentum, or eased focus under reduced motion; direct interaction and the current dot remain.",
       "Don't add a caption, legend, link, rule, bottom margin, or bottom padding around the half globe; the page ends at the clipped sphere.",
       "Don't make pin labels hover-only; they are the footer's only key.",
       "Don't fabricate a map pin for a remote role.",
