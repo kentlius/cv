@@ -8,6 +8,7 @@ import CvHeader from "@/components/cv/cv-header.astro";
 import Education from "@/components/cv/education.astro";
 import Experience from "@/components/cv/experience.astro";
 import Skills from "@/components/cv/skills.astro";
+import SiteFooter from "@/components/site-footer.astro";
 import { getCv } from "@/lib/cv-source";
 import { buildCvView } from "@/lib/cv-view";
 
@@ -19,8 +20,7 @@ const role = view.experience[0]?.position ?? "Curriculum vitae";
 const description = `${view.profile.name} — ${role}${
   view.profile.locationLabel ? ` · ${view.profile.locationLabel}` : ""
 }`;
-const ogImage = `${siteUrl}/og.gif`;
-const twitterImage = `${siteUrl}/og.png`;
+const ogImage = `${siteUrl}/og.png`;
 ---
 
 <html lang="en">
@@ -86,7 +86,7 @@ const twitterImage = `${siteUrl}/og.png`;
     <meta property="og:description" content={description} />
     <meta property="og:url" content={siteUrl} />
     <meta property="og:image" content={ogImage} />
-    <meta property="og:image:type" content="image/gif" />
+    <meta property="og:image:type" content="image/png" />
     <meta property="og:image:width" content="1200" />
     <meta property="og:image:height" content="630" />
     <meta property="og:image:alt" content={`${view.profile.name} — ${role}`} />
@@ -94,7 +94,7 @@ const twitterImage = `${siteUrl}/og.png`;
     <meta name="twitter:card" content="summary_large_image" />
     <meta name="twitter:title" content={`${view.profile.name} — ${role}`} />
     <meta name="twitter:description" content={description} />
-    <meta name="twitter:image" content={twitterImage} />
+    <meta name="twitter:image" content={ogImage} />
     <meta name="twitter:image:alt" content={`${view.profile.name} — ${role}`} />
   </head>
   <body>
@@ -117,6 +117,7 @@ const twitterImage = `${siteUrl}/og.png`;
         <Certifications items={view.certifications} />
         <Awards items={view.awards} />
         <Skills groups={view.skills} />
+        <SiteFooter profile={view.profile} />
       </section>
     </main>
   </body>

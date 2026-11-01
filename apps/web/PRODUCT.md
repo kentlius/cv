@@ -66,12 +66,19 @@ Confirmed and observed:
   paths.
 - Contact channels are email, phone, LinkedIn (`kentlius`), and GitHub
   (`kentlius`).
+- A small monochrome globe in the footer marks the location. Cobe is loaded
+  only as the footer approaches; a static SVG wireframe is the fallback, and
+  reduced motion keeps the wireframe instead of starting WebGL.
+- The Open Graph image is generated at build time from the same CV data with
+  Satori and Resvg (`/og.png`, 1200×630). There is no hand-made social image.
 - Initial and scroll reveals are progressive enhancement: content is visible
   without JavaScript, disabled under `prefers-reduced-motion: reduce`, and
-  forced visible for print. The reveal script and the confetti/console script
-  are the only authored client-side scripts; the rest of the page is static
-  HTML. Cloudflare Web Analytics is injected at the zone, not by a page script.
-- Print styles disable all reveal motion and keep the CV as a document.
+  forced visible for print. The reveal script, footer globe script, and
+  confetti/console script are the only authored client-side scripts; the rest
+  of the page is static HTML. Cloudflare Web Analytics is injected at the zone,
+  not by a page script.
+- Print styles disable all reveal motion and hide the footer globe to keep the
+  CV as a document.
 - Content is derived from the generated YAML; the web app holds no authored CV
   copy of its own.
 - There is no headshot asset; the avatar is rendered from initials.
@@ -94,8 +101,7 @@ Undecided (asked during init, left unanswered — do not treat as commitments):
 - Instrument Sans and Geist Mono are bundled locally
   (`apps/web/src/assets/fonts/`) rather than fetched from a font CDN.
 - The only identity assets in the repository are the name, the initials avatar,
-  `apps/web/public/favicon.svg`, and the animated `apps/web/public/og.gif` /
-  `apps/web/public/og.png` social previews.
+  `apps/web/public/favicon.svg`, and the generated `/og.png` social preview.
 
 ## Evidence on Hand
 
@@ -105,8 +111,8 @@ Undecided (asked during init, left unanswered — do not treat as commitments):
   Engineer certification with a public Credly link).
 - Rendered PDFs published as GitHub release assets; local render output under
   `cv/rendercv_output/`.
-- Social preview assets in `apps/web/public/` with their source in
-  `apps/web/og/`.
+- The build-time `/og.png` social preview, generated from the CV view model by
+  Satori and Resvg; its static fonts are under `apps/web/src/assets/fonts/og/`.
 - Web tests under `apps/web/test/` covering the schema, the view model, and the
   real CV document.
 

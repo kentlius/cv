@@ -41,10 +41,10 @@ Only the parts that are not obvious from their names:
 
 - `apps/web` — Astro + Tailwind site. It reads the generated English
   YAML through a content collection; its UI lives in the repo as local code
-  rather than a generated component registry. Initial and scroll reveals plus
-  the confetti/console script are the only client-side behaviour; everything
-  else ships as static HTML. `apps/web/og` holds the source for the animated
-  social preview in `public/og.gif` and `public/og.png`.
+  rather than a generated component registry. Initial and scroll reveals, the
+  lazy Cobe footer globe, and the confetti/console script are the only
+  client-side behaviour; everything else ships as static HTML. The social
+  preview is generated at build by Satori and Resvg (`/og.png`).
 - `cv/source/cv.yaml` — the structured CV, and the only file edited by hand.
 - `cv/scripts` — `build_cv.py` (source → RenderCV YAML) and `render-all.sh`
   (renders every `*_CV*.yaml`).

@@ -82,9 +82,10 @@ components:
 The page is one sheet of ink on paper. Instrument Sans carries every
 proportional sentence; Geist Mono annotates it — dates, locations, roles,
 annotations. A 672px column keeps prose at a reading measure even when the
-shell is wide. There is no imagery, no display face, and no chromatic accent.
-The CV should read as a document that happens to be interactive, not as a
-product surface wearing a CV.
+shell is wide. There is no photography, no display face, and no chromatic
+accent; a single monochrome globe in the footer marks the location. The CV
+should read as a document that happens to be interactive, not as a product
+surface wearing a CV.
 
 Density is deliberate: 12px card prose under 16px entry titles under 20px
 section headings, with 32px between sections. Cards are paper sheets separated
@@ -106,6 +107,7 @@ keeps its document character.
   under icon buttons.
 - One authored reveal language, once per element, removed under reduced motion
   and in print.
+- A single monochrome footer globe marks the location; no photography.
 - Print is a first-class output: chrome hides, contacts become text.
 
 ## Colors
@@ -279,6 +281,16 @@ GitHub.
 padding. They wrap in a 4px-gapped flex row under a mono 12px muted group
 label. Chips are labels, not filters: no selected state exists.
 
+### Footer Globe
+
+A 112–128px circle at the end of the sheet, hairline border, holding a Cobe
+canvas over a static SVG wireframe. The globe is ink-on-paper: a light gray
+sphere with a dotted map, a dark marker at Shizuoka, and the wireframe's
+meridians always visible on top. Cobe is imported only when the footer comes
+within 200px of the viewport; the SVG alone renders without JavaScript, WebGL,
+or `prefers-reduced-motion`. The canvas is print-hidden. Rotation is
+0.0015 radians per frame, and stops under reduced motion.
+
 ### Motion
 
 One reveal language, used twice: on entry and on scroll. Elements begin at
@@ -294,9 +306,19 @@ The `.motion` class is set by an inline head script only when
 `prefers-reduced-motion` is not `reduce` and `IntersectionObserver` exists.
 Without JavaScript or under reduced motion, no hiding class is applied and the
 content is fully visible. Print forces every target visible. Keyboard focus
-reveals the containing card immediately, without a fade. There is no parallax,
-scroll-jacking, looping, or layout animation. The confetti easter egg is
-separate and hover-only.
+reveals the containing card immediately, without a fade. The footer globe adds
+one slow rotation after its lazy load; reduced motion keeps the static
+wireframe. There is no parallax, scroll-jacking, or layout animation. The
+confetti easter egg is separate and hover-only.
+
+### Social Preview
+
+`/og.png` is generated at build time from the same CV view model: 1200×630,
+paper and ink, the name in Instrument Sans 700 at 96px, role and company in
+Geist Mono, a hairline globe motif on the right, and a mono footer with the
+site and location. Satori produces the SVG and Resvg rasterizes it. There is no
+hand-made or animated social image; Open Graph and Twitter both point at the
+generated PNG.
 
 ### Print Output
 
@@ -323,6 +345,10 @@ hairline rings remain.
   print forces every reveal visible.
 - **Do** reveal a card immediately on keyboard focus, without waiting for the
   transition.
+- **Do** keep the footer globe monochrome and marked at the CV location; keep
+  its static SVG wireframe visible so it works without WebGL or JavaScript.
+- **Do** generate `/og.png` from the CV view model with Satori and Resvg; never
+  hand-maintain the social image.
 - **Do** hide contact icons in print and expose email and phone as text.
 - **Do** keep the avatar as initials; it is the only identity mark.
 - **Do** use the 2px ink focus outline with its 2px offset; a low-contrast halo
@@ -339,6 +365,8 @@ hairline rings remain.
   reveals that re-run on every scroll direction.
 - **Don't** hide content behind a reveal without the reduced-motion and no-JS
   fallback.
+- **Don't** load Cobe above the fold or on reduced motion, and don't add
+  photography, a headshot, or a logo wall around the globe.
 - **Don't** widen cards or the reading column beyond 672px.
 - **Don't** add dark mode without an explicit theme decision; the stylesheet
   declares `color-scheme: light` and carries no dark tokens.

@@ -1,0 +1,116 @@
+---
+import type { ProfileView } from "@/lib/cv-view";
+
+interface Props {
+  profile: ProfileView;
+}
+
+const { profile } = Astro.props;
+const location = profile.locationLabel ?? "Shizuoka, Japan";
+const mapsUrl =
+  profile.locationHref ??
+  `https://www.google.com/maps/search/?api=1&query=${encodeURIComponent(location)}`;
+---
+
+<footer
+  class="flex items-center justify-between gap-6 border-t border-border pt-6 print:hidden"
+  data-reveal
+>
+  <div class="min-w-0 space-y-1.5">
+    <p class="font-mono text-xs text-muted-foreground">Based in</p>
+    <a
+      class="inline-flex max-w-full items-center gap-x-1.5 font-mono text-sm leading-tight text-muted-foreground hover:underline"
+      href={mapsUrl}
+      target="_blank"
+      rel="noreferrer noopener"
+    >
+      {location}
+    </a>
+    <a
+      class="block font-mono text-xs text-muted-foreground hover:underline"
+      href="https://github.com/kentlius/cv"
+      target="_blank"
+      rel="noreferrer noopener"
+    >
+      github.com/kentlius/cv
+    </a>
+  </div>
+
+  <div
+    class="relative size-28 shrink-0 overflow-hidden rounded-full border border-border sm:size-32"
+    data-globe-shell
+  >
+    <canvas
+      width="256"
+      height="256"
+      class="absolute inset-0 size-full"
+      aria-hidden="true"
+      data-globe
+    ></canvas>
+    <svg
+      viewBox="0 0 100 100"
+      class="pointer-events-none absolute inset-0 size-full text-muted-foreground/60"
+      aria-hidden="true"
+      data-globe-fallback
+    >
+      <circle cx="50" cy="50" r="46" fill="none" stroke="currentColor" stroke-width="0.6" />
+      <ellipse cx="50" cy="50" rx="18" ry="46" fill="none" stroke="currentColor" stroke-width="0.6" />
+      <ellipse cx="50" cy="50" rx="36" ry="46" fill="none" stroke="currentColor" stroke-width="0.6" />
+      <path d="M4 50h92M12 30h76M12 70h76" fill="none" stroke="currentColor" stroke-width="0.6" />
+    </svg>
+  </div>
+</footer>
+
+<script>
+  const canvas = document.querySelector<HTMLCanvasElement>("[data-globe]");
+  const reduceMotion = window.matchMedia("(prefers-reduced-motion: reduce)");
+
+  if (canvas) {
+    const init = async () => {
+      if (reduceMotion.matches) return;
+
+      try {
+        const { default: createGlobe } = await import("cobe");
+        let phi = 2.6;
+
+        createGlobe(canvas, {
+          devicePixelRatio: 2,
+          width: 128,
+          height: 128,
+          phi,
+          theta: 0.22,
+          dark: 0,
+          diffuse: 1.2,
+          scale: 1,
+          mapSamples: 8000,
+          mapBrightness: 6,
+          mapBaseBrightness: 0.5,
+          baseColor: [0.92, 0.92, 0.92],
+          markerColor: [0.145, 0.145, 0.145],
+          glowColor: [1, 1, 1],
+          markers: [{ location: [34.9756, 138.3828], size: 0.07 }],
+          onRender: (state) => {
+            state.phi = phi;
+            if (!reduceMotion.matches) phi += 0.0015;
+          },
+        });
+      } catch {
+        // The static SVG globe remains.
+      }
+    };
+
+    if ("IntersectionObserver" in window) {
+      const observer = new IntersectionObserver(
+        (entries) => {
+          if (!entries.some((entry) => entry.isIntersecting)) return;
+          observer.disconnect();
+          void init();
+        },
+        { rootMargin: "200px" },
+      );
+      observer.observe(canvas);
+    } else {
+      void init();
+    }
+  }
+</script>
