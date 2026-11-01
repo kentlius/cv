@@ -13,7 +13,6 @@ export interface ProfileView {
   name: string;
   headline?: string;
   locationLabel?: string;
-  locationHref?: string;
   initials: string;
 }
 
@@ -223,9 +222,6 @@ export function buildCvView(cv: Cv): CvView {
   ];
 
   const locationLabel = cv.location;
-  const locationHref = locationLabel
-    ? `https://www.google.com/maps/search/?api=1&query=${encodeURIComponent(locationLabel)}`
-    : undefined;
 
   const experience: ExperienceView[] = (sections.experience ?? []).map((job) => ({
     company: job.company,
@@ -283,7 +279,6 @@ export function buildCvView(cv: Cv): CvView {
       name: cv.name,
       headline: cv.headline,
       locationLabel,
-      locationHref,
       initials: initialsOf(cv.name),
     },
     contacts,

@@ -153,10 +153,6 @@ test("builds every section from the document in one pass", () => {
   assert.equal(view.profile.name, "Kent Liusudarso");
   assert.equal(view.profile.headline, "Software engineer");
   assert.equal(view.profile.locationLabel, "Shizuoka, Japan");
-  assert.equal(
-    view.profile.locationHref,
-    "https://www.google.com/maps/search/?api=1&query=Shizuoka%2C%20Japan",
-  );
   assert.equal(view.profile.initials, "KL");
 
   assert.deepEqual(
@@ -245,7 +241,6 @@ test("empty documents produce empty sections and no contacts", () => {
   const view = buildCvView({ name: "Solo" });
 
   assert.equal(view.profile.initials, "S");
-  assert.equal(view.profile.locationHref, undefined);
   assert.deepEqual(view.contacts, []);
   assert.deepEqual(view.experience, []);
   assert.deepEqual(view.education, []);

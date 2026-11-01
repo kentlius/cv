@@ -284,22 +284,28 @@ label. Chips are labels, not filters: no selected state exists.
 
 ### Footer Globe
 
-The last element is a full-bleed half sphere. Its size is
+The last element is a captionless full-bleed half sphere. Its size is
 `min(100vw, 90rem)`; the stage is exactly half that tall, and the shell's lower
-half is clipped by the page edge. There is no margin or padding below it. Cobe
-draws a dotted land map over a light sphere, and a static SVG wireframe sits on
-top. Pins mark Shizuoka (current, larger), Tangerang (BCA and IMS), and Bandung
-(STEI ITB). Kalbe Farma was remote, so it appears in the legend as a hollow
-marker and never receives a fabricated coordinate.
+half is clipped by the page edge. There is no margin below it and no copy,
+legend, link, or rule above it. Cobe draws a dotted land map over a light
+sphere; the wireframe is reserved for the no-JS/WebGL-failure fallback and is
+removed once Cobe is ready.
+
+Pins carry always-visible labels: Shizuoka (current, larger and darker),
+Tangerang, and Bandung. Tangerang's label sits above its pin and Bandung's
+below so the two nearby locations stay legible. The current label is set in
+foreground ink; the others are muted; an active pin underlines its label.
+Kalbe Farma was remote and has no pin.
 
 Cobe is imported only when the footer comes within 300px of the viewport.
 `globe.update()` runs in a `requestAnimationFrame` loop: idle auto-rotation at
 0.0015 radians per frame after 2.4s, paused while hovered, focused, or
-offscreen. Pointer drag has momentum; arrow keys rotate; choosing a place eases
-the shortest horizontal path to that pin while keeping the tilt. The active pin
-gets a CSS-anchored label; labels are hidden in browsers without anchor
-positioning. The static SVG, its pins, and the disabled place buttons are the
-no-JavaScript and reduced-motion fallback. The canvas and footer are
+offscreen. Pointer drag has momentum; arrow keys rotate. Location text in the
+header and experience cards links to the globe, scrolls here, and eases the
+shortest horizontal path to its pin while keeping the tilt. Under reduced
+motion Cobe still draws, but auto-rotation, momentum, and eased focus are
+removed; drag and location focus remain direct. A no-JS or WebGL failure leaves
+the static SVG sphere, pins, and labels. The canvas and footer are
 print-hidden.
 
 ### Motion
@@ -319,10 +325,10 @@ Without JavaScript or under reduced motion, no hiding class is applied and the
 content is fully visible. Print forces every target visible. Keyboard focus
 reveals the containing card immediately, without a fade. The footer globe adds
 one user-driven interaction layer: idle auto-rotation, pointer momentum,
-keyboard rotation, and eased focus on a chosen place. Reduced motion keeps the
-static wireframe and does not start WebGL. There is no parallax,
-scroll-jacking, or layout animation. The confetti easter egg is separate and
-hover-only.
+keyboard rotation, and eased focus from a location link. Reduced motion renders
+the same globe without auto-rotation, momentum, or eased focus; direct drag and
+pin focus remain. There is no parallax, scroll-jacking, or layout animation.
+The confetti easter egg is separate and hover-only.
 
 ### Social Preview
 
@@ -358,15 +364,18 @@ hairline rings remain.
   print forces every reveal visible.
 - **Do** reveal a card immediately on keyboard focus, without waiting for the
   transition.
-- **Do** keep the footer globe monochrome and pinned to physical experience
-  locations; keep its static SVG wireframe and pins for no-JS and reduced
-  motion.
-- **Do** keep the half globe flush to the page's bottom edge, with no margin or
-  padding below it.
-- **Do** let the globe be dragged, keyboard-rotated, and focused from its place
-  list, and pause its render loop when offscreen.
-- **Do** leave remote roles unpinned; name them in the legend instead of
-  inventing a coordinate.
+- **Do** keep the footer globe monochrome, captionless, and pinned to physical
+  experience locations; keep its static SVG sphere and labels for no-JS or
+  WebGL failure.
+- **Do** keep the half globe flush to the page's bottom edge, with no copy,
+  legend, link, rule, margin, or padding above or below it.
+- **Do** link location text in the header and experience cards to the globe and
+  focus its pin; leave remote roles unpinned.
+- **Do** keep Shizuoka's dot and label larger and darker, set Tangerang's label
+  above and Bandung's below, and keep every pin label visible.
+- **Do** let the globe be dragged and keyboard-rotated, and pause its render
+  loop when offscreen; under reduced motion, render it without auto-rotation,
+  momentum, or eased focus.
 - **Do** generate `/og.png` from the CV view model with Satori and Resvg; never
   hand-maintain the social image.
 - **Do** hide contact icons in print and expose email and phone as text.
@@ -385,10 +394,11 @@ hairline rings remain.
   motion is the footer globe's idle rotation, and reduced motion removes it.
 - **Don't** hide content behind a reveal without the reduced-motion and no-JS
   fallback.
-- **Don't** load Cobe above the fold or on reduced motion, and don't add
-  photography, a headshot, or a logo wall around the globe.
-- **Don't** add a bottom margin, bottom padding, or a border under the half
-  globe; the page ends at the clipped sphere.
+- **Don't** add auto-rotation, momentum, or eased focus under reduced motion;
+  the Cobe globe still draws, but only direct interaction moves it.
+- **Don't** add a caption, legend, link, rule, bottom margin, or bottom padding
+  around the half globe; the page ends at the clipped sphere.
+- **Don't** make pin labels hover-only; they are the footer's only key.
 - **Don't** fabricate a map pin for a remote role.
 - **Don't** widen cards or the reading column beyond 672px.
 - **Don't** add dark mode without an explicit theme decision; the stylesheet

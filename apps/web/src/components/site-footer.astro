@@ -1,133 +1,27 @@
 ---
-import type { ProfileView } from "@/lib/cv-view";
+import { GLOBE_PINS } from "@/lib/globe-locations";
 
-interface Props {
-  profile: ProfileView;
-}
-
-const { profile } = Astro.props;
-const location = profile.locationLabel ?? "Shizuoka, Japan";
-const mapsUrl =
-  profile.locationHref ??
-  `https://www.google.com/maps/search/?api=1&query=${encodeURIComponent(location)}`;
-
-const pins = [
-  {
-    id: "shizuoka",
-    place: "Shizuoka",
-    detail: "current",
-    coords: [34.9756, 138.3828] as [number, number],
-    size: 0.042,
-    current: true,
-  },
-  {
-    id: "tangerang",
-    place: "Tangerang",
-    detail: "BCA · IMS",
-    coords: [-6.1783, 106.6319] as [number, number],
-    size: 0.019,
-    current: false,
-  },
-  {
-    id: "bandung",
-    place: "Bandung",
-    detail: "STEI ITB",
-    coords: [-6.9175, 107.6191] as [number, number],
-    size: 0.017,
-    current: false,
-  },
-];
-
+const pins = GLOBE_PINS;
 const markers = pins.map((pin) => ({
   location: pin.coords,
   size: pin.size,
+  color: pin.color,
   id: pin.id,
 }));
 ---
 
 <footer
-  class="relative w-full overflow-hidden border-t border-border selection:bg-fuchsia-300 selection:text-fuchsia-900 print:hidden"
+  class="relative w-full overflow-hidden selection:bg-fuchsia-300 selection:text-fuchsia-900 print:hidden"
   data-reveal
 >
   <div
-    class="mx-auto flex w-full max-w-2xl flex-col gap-8 px-4 pb-8 pt-10 sm:flex-row sm:items-start sm:justify-between md:pb-10 md:pt-12"
-  >
-    <div class="min-w-0 space-y-1.5">
-      <p class="font-mono text-xs text-muted-foreground">Based in</p>
-      <a
-        class="inline-flex max-w-full items-center gap-x-1.5 font-mono text-sm leading-tight text-muted-foreground hover:underline"
-        href={mapsUrl}
-        target="_blank"
-        rel="noreferrer noopener"
-      >
-        {location}
-      </a>
-      <a
-        class="block font-mono text-xs text-muted-foreground hover:underline"
-        href="https://github.com/kentlius/cv"
-        target="_blank"
-        rel="noreferrer noopener"
-      >
-        github.com/kentlius/cv
-      </a>
-      <p
-        class="invisible pt-4 font-mono text-[11px] text-muted-foreground"
-        data-globe-hint
-        aria-hidden="true"
-      >
-        Drag to rotate, or pick a place
-      </p>
-    </div>
-
-    <div class="shrink-0 space-y-2">
-      <p class="font-mono text-xs text-muted-foreground">Experience</p>
-      <ul class="space-y-1 font-mono text-[11px] leading-tight text-muted-foreground">
-        {
-          pins.map((pin) => (
-            <li>
-              <button
-                type="button"
-                class="globe-focus flex w-full cursor-pointer items-center gap-2 whitespace-nowrap text-left text-muted-foreground transition-colors hover:text-foreground hover:underline focus-visible:text-foreground focus-visible:underline disabled:pointer-events-none disabled:opacity-100 data-[active=true]:text-foreground data-[active=true]:underline"
-                data-globe-focus={pin.id}
-                data-active="false"
-                aria-label={`Rotate the globe to ${pin.place}`}
-                aria-pressed="false"
-                disabled
-              >
-                <span
-                  class:list={[
-                    "rounded-full",
-                    pin.current ? "size-1.5 bg-foreground" : "size-1 bg-foreground/50",
-                  ]}
-                  aria-hidden="true"
-                />
-                <span>{pin.place}</span>
-                <span class="text-muted-foreground/50" aria-hidden="true">·</span>
-                <span>{pin.detail}</span>
-              </button>
-            </li>
-          ))
-        }
-        <li class="flex items-center gap-2 whitespace-nowrap">
-          <span
-            class="size-1 rounded-full border border-muted-foreground/50"
-            aria-hidden="true"
-          />
-          <span>Remote</span>
-          <span class="text-muted-foreground/50" aria-hidden="true">·</span>
-          <span>Kalbe Farma</span>
-        </li>
-      </ul>
-    </div>
-  </div>
-
-  <div
+    id="globe"
     class="relative w-full overflow-hidden"
     style="--globe-size: min(100vw, 90rem); height: calc(var(--globe-size) / 2);"
     data-globe-stage
   >
     <div
-      class="absolute left-1/2 top-0 h-[var(--globe-size)] w-[var(--globe-size)] -translate-x-1/2 overflow-hidden rounded-full border border-border"
+      class="absolute left-1/2 top-0 h-[var(--globe-size)] w-[var(--globe-size)] -translate-x-1/2 overflow-hidden rounded-full"
       data-globe-shell
     >
       <canvas
@@ -150,26 +44,57 @@ const markers = pins.map((pin) => ({
         data-globe-fallback
       >
         <g fill="none" stroke="currentColor" stroke-width="1" vector-effect="non-scaling-stroke">
-          <circle cx="50" cy="50" r="46" vector-effect="non-scaling-stroke" />
-          <ellipse cx="50" cy="50" rx="18" ry="46" vector-effect="non-scaling-stroke" />
-          <ellipse cx="50" cy="50" rx="36" ry="46" vector-effect="non-scaling-stroke" />
-          <path d="M4 50h92M12 30h76M12 70h76" vector-effect="non-scaling-stroke" />
+          <circle
+            cx="50"
+            cy="50"
+            r="46"
+            fill="currentColor"
+            fill-opacity="0.055"
+            vector-effect="non-scaling-stroke"
+          />
         </g>
         <g data-globe-fallback-pins class="text-foreground" fill="currentColor">
-          <circle cx="69.8" cy="12.4" r="1.1" />
-          <circle cx="48.1" cy="39.7" r="0.65" />
-          <circle cx="49" cy="40.3" r="0.65" />
+          {
+            pins.map((pin) => (
+              <circle
+                cx={pin.staticX}
+                cy={pin.staticY}
+                r={pin.current ? 1.3 : 0.9}
+              />
+            ))
+          }
         </g>
       </svg>
 
       {
         pins.map((pin) => (
           <span
-            class="globe-label z-10 rounded-sm border border-border bg-background px-2 py-1 font-mono text-[11px] leading-none text-muted-foreground"
+            class:list={[
+              "globe-label bg-background/90 px-1.5 py-0.5 font-mono text-[11px] leading-none",
+              pin.current ? "text-foreground" : "text-muted-foreground",
+            ]}
             data-globe-label={pin.id}
+            data-side={pin.labelSide}
             data-active="false"
             aria-hidden="true"
             style={`position-anchor: --cobe-${pin.id}; --globe-visible: var(--cobe-visible-${pin.id}, 0);`}
+          >
+            {pin.current ? `${pin.place} · now` : pin.place}
+          </span>
+        ))
+      }
+
+      {
+        pins.map((pin) => (
+          <span
+            class:list={[
+              "globe-static-label bg-background/90 px-1.5 py-0.5 font-mono text-[11px] leading-none",
+              pin.current ? "text-foreground" : "text-muted-foreground",
+            ]}
+            data-globe-static-label={pin.id}
+            data-side={pin.labelSide}
+            style={`--pin-x: ${pin.staticX}%; --pin-y: ${pin.staticY}%;`}
+            aria-hidden="true"
           >
             {pin.current ? `${pin.place} · now` : pin.place}
           </span>
@@ -179,9 +104,8 @@ const markers = pins.map((pin) => ({
   </div>
 
   <p id="globe-instructions" class="sr-only">
-    Drag the globe or use the arrow keys to rotate it. Choose a place in the
-    experience list to rotate its pin into view. Pins mark Shizuoka,
-    Tangerang, and Bandung. The Kalbe Farma role was remote.
+    Drag the globe or use the arrow keys to rotate it. Location links in the CV
+    scroll here and highlight their pin. The Kalbe Farma role was remote.
   </p>
 </footer>
 
@@ -189,11 +113,6 @@ const markers = pins.map((pin) => ({
   [data-globe-shell]:has(canvas:focus-visible) {
     outline: 2px solid var(--color-foreground);
     outline-offset: 4px;
-  }
-
-  .globe-focus:focus-visible {
-    outline: 2px solid var(--color-foreground);
-    outline-offset: 2px;
   }
 
   [data-globe-shell][data-ready] canvas {
@@ -204,46 +123,106 @@ const markers = pins.map((pin) => ({
     cursor: grabbing;
   }
 
-  [data-globe-shell][data-ready] [data-globe-fallback-pins] {
-    opacity: 0;
-  }
-
-  [data-globe-fallback-pins] {
+  [data-globe-fallback],
+  .globe-static-label {
     transition: opacity 240ms ease-out;
   }
 
-  .globe-label {
-    position: absolute;
-    bottom: anchor(top);
-    left: anchor(center);
-    display: none;
-    translate: -50% -8px;
+  [data-globe-shell][data-ready] [data-globe-fallback],
+  [data-globe-shell][data-ready] [data-globe-static-label] {
     opacity: 0;
+  }
+
+  .globe-label,
+  .globe-static-label {
+    position: absolute;
+    z-index: 10;
     pointer-events: none;
     white-space: nowrap;
+  }
+
+  .globe-label {
+    display: none;
+    opacity: 0;
     transition: opacity 160ms ease-out;
   }
 
   @supports (position-anchor: --test) {
     .globe-label {
       display: block;
+      opacity: var(--globe-visible, 0);
     }
   }
 
+  .globe-label[data-side="above"] {
+    bottom: anchor(top);
+    left: anchor(center);
+    translate: -50% -8px;
+  }
+
+  .globe-label[data-side="below"] {
+    top: anchor(bottom);
+    left: anchor(center);
+    translate: -50% 8px;
+  }
+
   .globe-label[data-active="true"] {
-    opacity: var(--globe-visible, 0);
+    color: var(--color-foreground);
+    text-decoration: underline;
+    text-underline-offset: 2px;
+  }
+
+  .globe-static-label {
+    display: block;
+    left: var(--pin-x);
+    top: var(--pin-y);
+  }
+
+  .globe-static-label[data-side="above"] {
+    transform: translate(-50%, -100%) translateY(-8px);
+  }
+
+  .globe-static-label[data-side="below"] {
+    transform: translate(-50%, 0) translateY(8px);
   }
 </style>
 
 <script>
   const canvas = document.querySelector<HTMLCanvasElement>("[data-globe]");
   const shell = document.querySelector<HTMLElement>("[data-globe-shell]");
-  const hint = document.querySelector<HTMLElement>("[data-globe-hint]");
   const reduceMotion = window.matchMedia("(prefers-reduced-motion: reduce)");
+  const globeStage = document.getElementById("globe");
+  const locationLinks = Array.from(
+    document.querySelectorAll<HTMLAnchorElement>('a[href="#globe"]'),
+  );
+
+  let focusFromLink: ((id: string) => void) | null = null;
+  let pendingPin: string | null = null;
+
+  for (const link of locationLinks) {
+    link.addEventListener("click", (event) => {
+      if (!globeStage) return;
+      event.preventDefault();
+
+      const id = link.dataset.globeFocus;
+      if (id) {
+        if (focusFromLink) focusFromLink(id);
+        else pendingPin = id;
+      } else {
+        pendingPin = null;
+      }
+
+      globeStage.scrollIntoView({
+        behavior: reduceMotion.matches ? "auto" : "smooth",
+        block: "end",
+      });
+    });
+  }
 
   if (canvas && shell) {
     const init = async () => {
-      if (reduceMotion.matches) return;
+      const probe = document.createElement("canvas");
+      if (!(probe.getContext("webgl2") || probe.getContext("webgl"))) return;
 
       try {
         const { default: createGlobe } = await import("cobe");
@@ -253,6 +232,7 @@ const markers = pins.map((pin) => ({
         let theta = -0.32;
         let dragging = false;
         let hovering = false;
+        let focused = false;
         let pointerId: number | null = null;
         let lastX = 0;
         let lastY = 0;
@@ -260,14 +240,10 @@ const markers = pins.map((pin) => ({
         let lastInteraction = performance.now();
         let activePin: string | null = null;
         let targetPhi: number | null = null;
-        let focused = false;
         let raf = 0;
         let lastFrame = 0;
         let dirty = true;
 
-        const focusButtons = Array.from(
-          document.querySelectorAll<HTMLButtonElement>("[data-globe-focus]"),
-        );
         const labels = Array.from(
           document.querySelectorAll<HTMLElement>("[data-globe-label]"),
         );
@@ -275,6 +251,7 @@ const markers = pins.map((pin) => ({
         const markers = JSON.parse(canvas.dataset.markers ?? "[]") as {
           location: [number, number];
           size: number;
+          color: [number, number, number];
           id?: string;
         }[];
 
@@ -307,25 +284,11 @@ const markers = pins.map((pin) => ({
           for (const label of labels) {
             label.dataset.active = String(label.dataset.globeLabel === id);
           }
-
-          for (const button of focusButtons) {
-            const isActive = button.dataset.globeFocus === id;
-            button.dataset.active = String(isActive);
-            button.setAttribute("aria-pressed", String(isActive));
-          }
         };
 
         const focusLocation = (id: string) => {
           const marker = markers.find((candidate) => candidate.id === id);
           if (!marker) return;
-
-          if (activePin === id) {
-            setActivePin(null);
-            targetPhi = null;
-            velocity = 0;
-            lastInteraction = performance.now();
-            return;
-          }
 
           const desiredPhi =
             Math.PI - ((marker.location[1] * Math.PI) / 180 - Math.PI / 2);
@@ -339,6 +302,7 @@ const markers = pins.map((pin) => ({
           velocity = 0;
           setActivePin(id);
           lastInteraction = performance.now();
+          dirty = true;
         };
 
         const frame = (now: number) => {
@@ -348,16 +312,21 @@ const markers = pins.map((pin) => ({
           let changed = false;
 
           if (targetPhi !== null) {
-            const distance = targetPhi - phi;
-            if (Math.abs(distance) < 0.0005) {
+            if (reduceMotion.matches) {
               phi = targetPhi;
               targetPhi = null;
             } else {
-              phi += distance * Math.min(1, 0.12 * step);
+              const distance = targetPhi - phi;
+              if (Math.abs(distance) < 0.0005) {
+                phi = targetPhi;
+                targetPhi = null;
+              } else {
+                phi += distance * Math.min(1, 0.12 * step);
+              }
             }
             changed = true;
           } else if (!dragging) {
-            if (Math.abs(velocity) > 0.0002) {
+            if (!reduceMotion.matches && Math.abs(velocity) > 0.0002) {
               phi += velocity * step;
               velocity *= Math.pow(0.92, step);
               if (Math.abs(velocity) <= 0.0002) velocity = 0;
@@ -399,17 +368,10 @@ const markers = pins.map((pin) => ({
         shell.dataset.ready = "true";
         canvas.removeAttribute("aria-hidden");
         canvas.tabIndex = 0;
-        if (hint) {
-          hint.classList.remove("invisible");
-          hint.removeAttribute("aria-hidden");
-        }
-
-        for (const button of focusButtons) {
-          button.disabled = false;
-          button.addEventListener("click", () => {
-            const id = button.dataset.globeFocus;
-            if (id) focusLocation(id);
-          });
+        focusFromLink = focusLocation;
+        if (pendingPin) {
+          focusLocation(pendingPin);
+          pendingPin = null;
         }
 
         if ("IntersectionObserver" in window) {
@@ -464,7 +426,7 @@ const markers = pins.map((pin) => ({
 
           phi += dx * 0.005;
           theta = clamp(theta + dy * 0.004, -0.75, 0.45);
-          velocity = dx * 0.005;
+          velocity = reduceMotion.matches ? 0 : dx * 0.005;
           lastInteraction = performance.now();
           dirty = true;
         });
@@ -531,7 +493,7 @@ const markers = pins.map((pin) => ({
           globe.update({ width: size, height: size, phi, theta });
         });
       } catch {
-        // The static SVG globe and its pins remain.
+        // The static SVG globe and its labels remain.
       }
     };
 

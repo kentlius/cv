@@ -4,19 +4,20 @@ import Icon from "@/components/icons/icon.astro";
 import Avatar from "@/components/cv/avatar.astro";
 import ContactRow from "@/components/cv/contact-row.astro";
 import type { ContactView } from "@/lib/cv-view";
+import { GLOBE_HREF, pinForLocation } from "@/lib/globe-locations";
 
 interface Props {
   profile: {
     name: string;
     headline?: string;
     locationLabel?: string;
-    locationHref?: string;
     initials: string;
   };
   contacts: ContactView[];
 }
 
 const { profile, contacts } = Astro.props;
+const locationPin = pinForLocation(profile.locationLabel);
 ---
 
 <div class="flex items-start justify-between gap-4">
@@ -42,12 +43,12 @@ const { profile, contacts } = Astro.props;
           data-intro
           style="--reveal-delay: 120ms"
         >
-          {profile.locationHref ? (
+          {profile.locationLabel ? (
             <a
-              class="inline-flex max-w-full items-center gap-x-1.5 leading-tight hover:underline"
-              href={profile.locationHref}
-              target="_blank"
-              rel="noreferrer noopener"
+              class="inline-flex max-w-full items-center gap-x-1.5 leading-tight hover:underline focus-visible:underline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-foreground"
+              href={GLOBE_HREF}
+              data-globe-focus={locationPin?.id}
+              aria-label={`Show ${profile.locationLabel} on the globe`}
             >
               <Icon name="globe" class="size-4 shrink-0" />
               {profile.locationLabel}
