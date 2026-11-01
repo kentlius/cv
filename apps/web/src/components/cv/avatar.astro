@@ -1,0 +1,20 @@
+---
+interface Props {
+  name: string;
+  initials: string;
+}
+
+const { name, initials } = Astro.props;
+---
+
+<div
+  class="relative flex size-28 shrink-0 select-none overflow-hidden rounded-full border border-border"
+  role="img"
+  aria-label={name}
+  data-intro
+  style="--reveal-delay: 120ms"
+>
+  <span class="flex size-full items-center justify-center rounded-full bg-muted text-sm text-muted-foreground">
+    {initials}
+  </span>
+</div>

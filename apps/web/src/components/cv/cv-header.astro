@@ -1,0 +1,65 @@
+---
+import Icon from "@/components/icons/icon.astro";
+
+import Avatar from "@/components/cv/avatar.astro";
+import ContactRow from "@/components/cv/contact-row.astro";
+import type { ContactView } from "@/lib/cv-view";
+
+interface Props {
+  profile: {
+    name: string;
+    headline?: string;
+    locationLabel?: string;
+    locationHref?: string;
+    initials: string;
+  };
+  contacts: ContactView[];
+}
+
+const { profile, contacts } = Astro.props;
+---
+
+<div class="flex items-start justify-between gap-4">
+  <div class="min-w-0 flex-1 space-y-1.5 [overflow-wrap:anywhere]">
+    <h1 class="text-2xl font-bold text-pretty" data-intro style="--reveal-delay: 0ms">
+      {profile.name}
+    </h1>
+    {
+      profile.headline ? (
+        <p
+          class="min-w-0 max-w-md text-pretty font-mono text-sm text-muted-foreground"
+          data-intro
+          style="--reveal-delay: 60ms"
+        >
+          {profile.headline}
+        </p>
+      ) : null
+    }
+    {
+      profile.locationLabel ? (
+        <p
+          class="min-w-0 max-w-md text-pretty font-mono text-xs text-muted-foreground"
+          data-intro
+          style="--reveal-delay: 120ms"
+        >
+          {profile.locationHref ? (
+            <a
+              class="inline-flex max-w-full items-center gap-x-1.5 leading-tight hover:underline"
+              href={profile.locationHref}
+              target="_blank"
+              rel="noreferrer noopener"
+            >
+              <Icon name="globe" class="size-4 shrink-0" />
+              {profile.locationLabel}
+            </a>
+          ) : (
+            <span>{profile.locationLabel}</span>
+          )}
+        </p>
+      ) : null
+    }
+    <ContactRow contacts={contacts} />
+  </div>
+
+  <Avatar name={profile.name} initials={profile.initials} />
+</div>

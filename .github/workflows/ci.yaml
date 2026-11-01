@@ -13,18 +13,16 @@ jobs:
   web:
     name: apps/web (astro)
     runs-on: ubuntu-latest
-    defaults:
-      run:
-        working-directory: apps/web
     steps:
-      - uses: actions/checkout@v4
-      - uses: pnpm/action-setup@v4
-      - uses: actions/setup-node@v4
+      - uses: actions/checkout@v7
+      - uses: pnpm/action-setup@v6
+      - uses: actions/setup-node@v7
         with:
           node-version-file: .nvmrc
           cache: pnpm
       - run: pnpm install --frozen-lockfile
-      - run: pnpm run build
+      - run: pnpm --filter web test
+      - run: pnpm --filter web build
 
   cv:
     name: cv (rendercv)
@@ -33,23 +31,13 @@ jobs:
       run:
         working-directory: cv
     steps:
-      - uses: actions/checkout@v4
-      - uses: astral-sh/setup-uv@v4
+      - uses: actions/checkout@v7
+      - uses: astral-sh/setup-uv@v10
         with:
-          python-version-file: .python-version
           enable-cache: true
           cache-dependency-glob: "cv/uv.lock"
       - run: uv sync --frozen
+      - name: Check generated CVs are in sync
+        run: uv run python scripts/build_cv.py --check
       - name: Smoke test rendercv
-        run: |
-          shopt -s nullglob
-          cv_files=(*_CV*.yaml)
-          if [ ${#cv_files[@]} -eq 0 ]; then
-            echo "No RenderCV file found!"
-            exit 1
-          fi
-          for cv_file in "${cv_files[@]}"; do
-            uv run rendercv render "$cv_file"
-          done
-          test -f rendercv_output/Kent_Liusudarso_CV.pdf
-          test -f rendercv_output/Kent_Liusudarso_CV_ja.pdf
+        run: bash scripts/render-all.sh

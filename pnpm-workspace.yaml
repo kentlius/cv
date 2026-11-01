@@ -1,2 +1,11 @@
 packages:
   - "apps/*"
+
+allowBuilds:
+  esbuild: true
+  workerd: true
+
+trustPolicy: no-downgrade
+
+update:
+  githubActions: true

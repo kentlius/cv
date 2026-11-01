@@ -1,0 +1,292 @@
+{
+  "schemaVersion": 2,
+  "generatedAt": "2026-11-01T16:38:45+09:00",
+  "title": "Design System: Kent Liusudarso CV",
+  "extensions": {
+    "colorMeta": {
+      "ink": {
+        "role": "primary",
+        "displayName": "Ink",
+        "canonical": "oklch(0.145 0 0)",
+        "tonalRamp": [
+          "oklch(0.15 0 0)",
+          "oklch(0.26 0 0)",
+          "oklch(0.38 0 0)",
+          "oklch(0.50 0 0)",
+          "oklch(0.62 0 0)",
+          "oklch(0.74 0 0)",
+          "oklch(0.86 0 0)",
+          "oklch(0.95 0 0)"
+        ]
+      },
+      "ink-strong": {
+        "role": "neutral",
+        "displayName": "Ink Strong",
+        "canonical": "oklch(0.205 0 0)",
+        "tonalRamp": [
+          "oklch(0.15 0 0)",
+          "oklch(0.26 0 0)",
+          "oklch(0.38 0 0)",
+          "oklch(0.50 0 0)",
+          "oklch(0.62 0 0)",
+          "oklch(0.74 0 0)",
+          "oklch(0.86 0 0)",
+          "oklch(0.95 0 0)"
+        ]
+      },
+      "ink-muted": {
+        "role": "neutral",
+        "displayName": "Muted Ink",
+        "canonical": "oklch(0.556 0 0)",
+        "tonalRamp": [
+          "oklch(0.15 0 0)",
+          "oklch(0.26 0 0)",
+          "oklch(0.38 0 0)",
+          "oklch(0.50 0 0)",
+          "oklch(0.62 0 0)",
+          "oklch(0.74 0 0)",
+          "oklch(0.86 0 0)",
+          "oklch(0.95 0 0)"
+        ]
+      },
+      "hairline": {
+        "role": "neutral",
+        "displayName": "Hairline",
+        "canonical": "oklch(0.922 0 0)",
+        "tonalRamp": [
+          "oklch(0.15 0 0)",
+          "oklch(0.26 0 0)",
+          "oklch(0.38 0 0)",
+          "oklch(0.50 0 0)",
+          "oklch(0.62 0 0)",
+          "oklch(0.74 0 0)",
+          "oklch(0.86 0 0)",
+          "oklch(0.95 0 0)"
+        ]
+      },
+      "wash": {
+        "role": "neutral",
+        "displayName": "Wash",
+        "canonical": "oklch(0.97 0 0)",
+        "tonalRamp": [
+          "oklch(0.15 0 0)",
+          "oklch(0.26 0 0)",
+          "oklch(0.38 0 0)",
+          "oklch(0.50 0 0)",
+          "oklch(0.62 0 0)",
+          "oklch(0.74 0 0)",
+          "oklch(0.86 0 0)",
+          "oklch(0.95 0 0)"
+        ]
+      },
+      "paper": {
+        "role": "neutral",
+        "displayName": "Paper",
+        "canonical": "oklch(1 0 0)",
+        "tonalRamp": [
+          "oklch(0.15 0 0)",
+          "oklch(0.26 0 0)",
+          "oklch(0.38 0 0)",
+          "oklch(0.50 0 0)",
+          "oklch(0.62 0 0)",
+          "oklch(0.74 0 0)",
+          "oklch(0.86 0 0)",
+          "oklch(0.95 0 0)"
+        ]
+      },
+      "focus-ring": {
+        "role": "neutral",
+        "displayName": "Focus Ring",
+        "canonical": "oklch(0.145 0 0)",
+        "tonalRamp": [
+          "oklch(0.15 0 0)",
+          "oklch(0.26 0 0)",
+          "oklch(0.38 0 0)",
+          "oklch(0.50 0 0)",
+          "oklch(0.62 0 0)",
+          "oklch(0.74 0 0)",
+          "oklch(0.86 0 0)",
+          "oklch(0.95 0 0)"
+        ]
+      }
+    },
+    "typographyMeta": {
+      "display": {
+        "displayName": "Display",
+        "purpose": "The name in the page header, and nothing else."
+      },
+      "headline": {
+        "displayName": "Headline",
+        "purpose": "Section titles."
+      },
+      "title": {
+        "displayName": "Title",
+        "purpose": "Entry names — company, institution, award, certification."
+      },
+      "body": {
+        "displayName": "Body",
+        "purpose": "Card framing copy."
+      },
+      "label": {
+        "displayName": "Label",
+        "purpose": "Monospace role lines, dates, locations, and contacts."
+      },
+      "caption": {
+        "displayName": "Caption",
+        "purpose": "Monospace skill group labels, field labels, tooltips."
+      }
+    },
+    "shadows": [
+      {
+        "name": "control-rest",
+        "value": "0 1px 2px 0 rgb(0 0 0 / 0.05)",
+        "purpose": "A hint of physical key under 32px icon buttons."
+      }
+    ],
+    "motion": [
+      {
+        "name": "ease-standard",
+        "value": "cubic-bezier(0.4, 0, 0.2, 1)",
+        "purpose": "Default easing for color and opacity transitions."
+      },
+      {
+        "name": "state-color",
+        "value": "150ms",
+        "purpose": "Hover and focus color changes on buttons and links."
+      },
+      {
+        "name": "tooltip-opacity",
+        "value": "150ms",
+        "purpose": "Contact tooltip fade on hover and focus."
+      },
+      {
+        "name": "reveal-ease",
+        "value": "cubic-bezier(0.23, 1, 0.32, 1)",
+        "purpose": "Initial and scroll reveal easing."
+      },
+      {
+        "name": "reveal-duration",
+        "value": "450ms",
+        "purpose": "One reveal per element, entry or scroll."
+      },
+      {
+        "name": "reveal-distance",
+        "value": "12px",
+        "purpose": "Vertical rise before settling."
+      },
+      {
+        "name": "reveal-stagger",
+        "value": "60ms",
+        "purpose": "Header and grouped-item delay."
+      }
+    ],
+    "breakpoints": [
+      {
+        "name": "md",
+        "value": "768px"
+      },
+      {
+        "name": "xl",
+        "value": "1280px"
+      },
+      {
+        "name": "print-page",
+        "value": "48px padding"
+      }
+    ]
+  },
+  "components": [
+    {
+      "name": "Experience Card",
+      "kind": "card",
+      "refersTo": "card",
+      "description": "A paper sheet for one dated CV entry: a wrapping title, right-aligned date, a monospace role/location line, and tight bullet highlights.",
+      "html": "<article class=\"ds-card\"><header class=\"ds-card-head\"><div class=\"ds-card-row\"><h3 class=\"ds-card-title\">Toyota Motor East Japan</h3><span class=\"ds-card-date\">Aug 2025 – Present</span></div><p class=\"ds-card-role\">Software Engineer <span class=\"ds-card-loc\">· Shizuoka, Japan</span></p></header><div class=\"ds-card-body\"><ul><li>Lead a cross-company initiative centralizing design requirement data across multiple sources.</li><li>Built the company's first dedicated development environment on air-gapped infrastructure.</li></ul></div></article>",
+      "css": ".ds-card { font-family: var(--font-instrument, sans-serif); background: var(--background, oklch(1 0 0)); color: var(--foreground, oklch(0.145 0 0)); border-radius: 14px; padding: 16px 0; box-shadow: 0 0 0 1px color-mix(in oklab, var(--foreground, oklch(0.145 0 0)) 10%, transparent); } .ds-card-head { display: grid; gap: 4px; padding: 0 16px; } .ds-card-row { display: grid; grid-template-columns: minmax(0, 1fr) auto; align-items: start; gap: 8px; } .ds-card-title { margin: 0; min-width: 0; font-size: 16px; line-height: 1.25; font-weight: 600; overflow-wrap: anywhere; } .ds-card-loc { margin-left: 8px; font-family: var(--font-geist-mono, monospace); font-size: 12px; font-weight: 400; color: var(--muted-foreground, oklch(0.556 0 0)); } .ds-card-date { justify-self: end; font-size: 14px; line-height: 20px; color: var(--muted-foreground, oklch(0.556 0 0)); font-variant-numeric: tabular-nums; white-space: nowrap; } .ds-card-role { margin: 4px 0 0; font-family: var(--font-geist-mono, monospace); font-size: 14px; line-height: 1.25; color: var(--muted-foreground, oklch(0.556 0 0)); } .ds-card-body { margin-top: 8px; padding: 0 16px; font-size: 12px; line-height: 16px; } .ds-card-body ul { margin: 0; padding-left: 16px; list-style: disc; } .ds-card-body li + li { margin-top: 4px; }"
+    },
+    {
+      "name": "Contact Icon Button",
+      "kind": "button",
+      "refersTo": "contact-button",
+      "description": "A 32px bordered icon square for email, phone, or a network, with a monospace tooltip on hover and focus.",
+      "html": "<a class=\"ds-icon-btn\" href=\"#\" aria-label=\"Email\"><svg width=\"16\" height=\"16\" viewBox=\"0 0 24 24\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"2\" stroke-linecap=\"round\" stroke-linejoin=\"round\" aria-hidden=\"true\"><rect width=\"20\" height=\"16\" x=\"2\" y=\"4\" rx=\"2\"></rect><path d=\"m22 7-8.97 5.7a1.94 1.94 0 0 1-2.06 0L2 7\"></path></svg><span class=\"ds-icon-tip\">Email</span></a>",
+      "css": ".ds-icon-btn { position: relative; display: inline-flex; width: 32px; height: 32px; align-items: center; justify-content: center; border: 1px solid var(--border, oklch(0.922 0 0)); border-radius: 8px; background: var(--background, oklch(1 0 0)); color: var(--muted-foreground, oklch(0.556 0 0)); box-shadow: 0 1px 2px 0 rgb(0 0 0 / 0.05); transition: background-color 150ms cubic-bezier(0.4, 0, 0.2, 1), color 150ms cubic-bezier(0.4, 0, 0.2, 1); } .ds-icon-btn:hover { background: var(--accent, oklch(0.97 0 0)); color: var(--accent-foreground, oklch(0.205 0 0)); } .ds-icon-btn:focus-visible { outline: 2px solid var(--foreground, oklch(0.145 0 0)); outline-offset: 2px; } .ds-icon-tip { position: absolute; bottom: -32px; left: 50%; transform: translateX(-50%); padding: 2px 6px; border-radius: 4px; background: var(--foreground, oklch(0.145 0 0)); color: var(--background, oklch(1 0 0)); font-family: var(--font-geist-mono, monospace); font-size: 10px; line-height: 1.4; white-space: nowrap; opacity: 0; pointer-events: none; transition: opacity 150ms cubic-bezier(0.4, 0, 0.2, 1); } .ds-icon-btn:hover .ds-icon-tip, .ds-icon-btn:focus-visible .ds-icon-tip { opacity: 1; }"
+    },
+    {
+      "name": "Skill Chip",
+      "kind": "chip",
+      "refersTo": "skill-badge",
+      "description": "A 20px wash pill labelling one skill under a monospace group heading.",
+      "html": "<span class=\"ds-chip\">Python</span>",
+      "css": ".ds-chip { display: inline-flex; height: 20px; width: fit-content; align-items: center; justify-content: center; padding: 2px 8px; border-radius: 9999px; background: var(--secondary, oklch(0.97 0 0)); color: var(--secondary-foreground, oklch(0.205 0 0)); font-family: var(--font-instrument, sans-serif); font-size: 12px; line-height: 16px; font-weight: 500; white-space: nowrap; }"
+    }
+  ],
+  "narrative": {
+    "northStar": "The Annotated Spec Sheet",
+    "overview": "The page is one sheet of ink on paper. Instrument Sans carries every proportional sentence; Geist Mono annotates it — dates, locations, roles, annotations. A 672px column keeps prose at a reading measure even when the shell is wide. There is no imagery, no display face, and no chromatic accent. The CV should read as a document that happens to be interactive, not as a product surface wearing a CV.\n\nDensity is deliberate: 12px card prose under 16px entry titles under 20px section headings, with 32px between sections. Cards are paper sheets separated by a hairline ring rather than elevation. Interaction lives at the edges — 32px icon buttons — and all of it disappears in print. A restrained 12px rise plus opacity marks entry and scroll, once per element; the document is fully readable with motion disabled.\n\nThe confirmed component direction is soft lifted surfaces: a layered-paper feel. Today that lift is carried by rounded corners and a 1px ink/10 ring; any shadow added to content must stay low-contrast and single-layer, so the page keeps its document character.",
+    "keyCharacteristics": [
+      "Achromatic palette; hierarchy by size and weight, never hue.",
+      "One proportional family (Instrument Sans) plus Geist Mono for metadata.",
+      "672px reading column inside a 1280px shell.",
+      "Flat content sheets with hairline rings; the only shadow is the control-rest under icon buttons.",
+      "One authored reveal language, once per element, removed under reduced motion and in print.",
+      "Print is a first-class output: chrome hides, contacts become text."
+    ],
+    "rules": [
+      {
+        "name": "The No-Hue Rule",
+        "body": "The interface carries zero chroma. The chromatic moments in the product — fuchsia text selection, confetti on certification hover, the emerald console signature — are easter eggs, not tokens. They never appear as layout color, state color, or emphasis in the CV itself.",
+        "section": "colors"
+      },
+      {
+        "name": "The Weight-Not-Color Rule",
+        "body": "Emphasis is expressed with weight, size, and spacing. If a change needs a color to read as important, the hierarchy is wrong.",
+        "section": "colors"
+      },
+      {
+        "name": "The Mono Is Metadata Rule",
+        "body": "Monospace marks data about the document — dates, locations, roles, handles, annotations. It never sets a paragraph, a highlight, or a section title.",
+        "section": "typography"
+      },
+      {
+        "name": "The Pair Rule",
+        "body": "Instrument Sans carries every proportional glyph; Geist Mono carries annotations. Do not add a third family, a serif display face, or a second mono; hierarchy comes from scale and weight inside the pair.",
+        "section": "typography"
+      },
+      {
+        "name": "The Hairline-First Rule",
+        "body": "A surface is separated by a 1px ink/10 ring before any shadow is considered. Two competing separation devices on one surface is a bug.",
+        "section": "elevation"
+      },
+      {
+        "name": "The Control-Only Rule",
+        "body": "The only shadow on the page is the control-rest under an icon button. Content, cards, and page chrome stay flat.",
+        "section": "elevation"
+      }
+    ],
+    "dos": [
+      "Do keep the CV column at 672px and the content measure inside it; wider prose breaks the spec-sheet character.",
+      "Do carry hierarchy with weight and size before touching color.",
+      "Do set metadata — dates, locations, roles, annotations — in Geist Mono at 12–14px.",
+      "Do separate cards with the 1px ink/10 ring; when applying the confirmed soft lift, pair it with that hairline instead of replacing it.",
+      "Do reserve the control-rest shadow for icon buttons; content stays flat.",
+      "Do keep the reveal to one 12px rise plus opacity, 450ms ease-out, once per element; grouped items wait 60ms.",
+      "Do ship content visible without JavaScript and under reduced motion; print forces every reveal visible.",
+      "Do reveal a card immediately on keyboard focus, without waiting for the transition.",
+      "Do hide contact icons in print and expose email and phone as text.",
+      "Do keep the avatar as initials; it is the only identity mark.",
+      "Do use the 2px ink focus outline with its 2px offset; a low-contrast halo is not a focus indicator."
+    ],
+    "donts": [
+      "Don't introduce a chromatic accent into the UI. Selection fuchsia, confetti, and the console signature stay outside the system.",
+      "Don't add a second typeface or a serif/display face; Instrument Sans and Geist Mono are the whole voice.",
+      "Don't use pure black, hue-tinted grays, or darkened borders for emphasis.",
+      "Don't stack multiple shadows on content surfaces or add glow effects.",
+      "Don't add parallax, scroll-jacking, looping motion, layout animation, or reveals that re-run on every scroll direction.",
+      "Don't hide content behind a reveal without the reduced-motion and no-JS fallback.",
+      "Don't widen cards or the reading column beyond 672px.",
+      "Don't add dark mode without an explicit theme decision; the stylesheet declares color-scheme: light and carries no dark tokens.",
+      "Don't add a headshot, logo wall, decorative illustration, or background texture."
+    ]
+  }
+}

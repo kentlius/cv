@@ -1,0 +1,58 @@
+---
+import Icon from "@/components/icons/icon.astro";
+import type { ContactView } from "@/lib/cv-view";
+
+interface Props {
+  contacts: ContactView[];
+}
+
+const { contacts } = Astro.props;
+
+const printable = contacts.filter(
+  (contact) => contact.icon === "mail" || contact.icon === "phone",
+);
+---
+
+{
+  contacts.length > 0 ? (
+    <ul
+      class="flex min-w-0 flex-wrap gap-1 pt-1 font-mono text-sm text-muted-foreground print:hidden"
+      data-intro
+      style="--reveal-delay: 180ms"
+    >
+      {contacts.map((contact) => {
+        return (
+          <li class="relative">
+            <a
+              class="group relative inline-flex size-8 items-center justify-center rounded-md border border-input bg-background shadow-xs transition-colors hover:bg-accent hover:text-accent-foreground active:bg-foreground/10 active:text-foreground"
+              href={contact.href}
+              target={contact.newtab ? "_blank" : undefined}
+              rel={contact.newtab ? "noreferrer noopener" : undefined}
+              aria-label={contact.title}
+            >
+              <Icon name={contact.icon} class="size-4" />
+              <span
+                aria-hidden="true"
+                class="pointer-events-none absolute -bottom-8 left-1/2 z-20 -translate-x-1/2 rounded bg-foreground px-1.5 py-0.5 text-[10px] whitespace-nowrap text-background opacity-0 transition-opacity group-hover:opacity-100 group-focus-visible:opacity-100"
+              >
+                {contact.title}
+              </span>
+            </a>
+          </li>
+        );
+      })}
+    </ul>
+  ) : null
+}
+
+{
+  printable.length > 0 ? (
+    <div class="hidden min-w-0 flex-col gap-y-1 font-mono text-sm text-muted-foreground [overflow-wrap:anywhere] print:flex print:text-xs">
+      {printable.map((contact) => (
+        <a href={contact.href}>
+          <span class="underline">{contact.href.replace(/^(mailto:|tel:)/, "")}</span>
+        </a>
+      ))}
+    </div>
+  ) : null
+}

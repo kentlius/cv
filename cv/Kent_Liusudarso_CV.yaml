@@ -120,9 +120,9 @@ settings:
   current_date: today
   render_command:
     output_folder: rendercv_output
+    dont_generate_html: true
+    dont_generate_png: true
     typst_path: OUTPUT_FOLDER/NAME_IN_SNAKE_CASE_CV.typ
     pdf_path: OUTPUT_FOLDER/NAME_IN_SNAKE_CASE_CV.pdf
     markdown_path: README.md
-    dont_generate_html: true
-    dont_generate_png: true
   pdf_title: NAME - CV

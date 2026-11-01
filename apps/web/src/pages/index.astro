@@ -1,431 +1,186 @@
 ---
-import * as React from "react";
-import { GlobeIcon, MailIcon, PhoneIcon } from "lucide-react";
-
 import "@/styles/globals.css";
 
-import { getEntry } from "astro:content";
+import { Font } from "astro:assets";
+import Awards from "@/components/cv/awards.astro";
+import Certifications from "@/components/cv/certifications.astro";
+import CvHeader from "@/components/cv/cv-header.astro";
+import Education from "@/components/cv/education.astro";
+import Experience from "@/components/cv/experience.astro";
+import Skills from "@/components/cv/skills.astro";
+import { getCv } from "@/lib/cv-source";
+import { buildCvView } from "@/lib/cv-view";
 
-import { AvatarWrapper } from "@/components/avatar-wrapper";
-import { CommandMenu } from "@/components/command-menu";
-import { ContactLink } from "@/components/contact-link";
-import { GitHubIcon, LinkedInIcon } from "@/components/icons/brand-icons";
-import { Badge } from "@/components/ui/badge";
-import { Card, CardContent, CardHeader } from "@/components/ui/card";
-import { Section } from "@/components/ui/section";
+const cv = await getCv();
+const view = buildCvView(cv);
 
-const cvEntry = await getEntry("cv", "kent");
-if (!cvEntry) {
-  throw new Error("CV not found in content collection");
-}
-const cv = cvEntry.data.cv;
-
-function formatDate(value: string | undefined): string {
-  if (!value) return "";
-  const v = value.trim();
-  if (v.toLowerCase() === "present") return "Present";
-  if (/^\d{4}-\d{2}$/.test(v)) {
-    const [year, month] = v.split("-");
-    const date = new Date(Number(year), Number(month) - 1, 1);
-    return date.toLocaleString("en-US", {
-      month: "short",
-      year: "numeric",
-    });
-  }
-  if (/^\d{4}$/.test(v)) return v;
-  return v;
-}
-
-function formatRange(start: string | undefined, end: string | undefined): string {
-  const s = formatDate(start);
-  const e = formatDate(end);
-  if (s && e) return `${s} – ${e}`;
-  if (s) return s;
-  if (e) return e;
-  return "";
-}
-
-const SOCIAL_URLS: Record<string, (username: string) => string> = {
-  LinkedIn: (u) => `https://linkedin.com/in/${u}`,
-  GitHub: (u) => `https://github.com/${u}`,
-  Twitter: (u) => `https://x.com/${u}`,
-  X: (u) => `https://x.com/${u}`,
-  Instagram: (u) => `https://instagram.com/${u}`,
-  YouTube: (u) => `https://youtube.com/@${u}`,
-  Facebook: (u) => `https://facebook.com/${u}`,
-  Website: (u) => (u.startsWith("http") ? u : `https://${u}`),
-};
-
-function socialUrl(network: string, username: string): string {
-  const fn = SOCIAL_URLS[network];
-  return fn ? fn(username) : `https://${username}`;
-}
-
-const NETWORK_ICON: Record<
-  string,
-  React.ComponentType<{ className?: string }>
-> = {
-  LinkedIn: LinkedInIcon,
-  GitHub: GitHubIcon,
-};
-
-function parseMarkdownLink(
-  text: string | undefined,
-): { text: string; href: string } | null {
-  if (!text) return null;
-  const m = /^\[([^\]]+)\]\(([^)]+)\)\s*$/.exec(text.trim());
-  return m ? { text: m[1], href: m[2] } : null;
-}
-
-const initials = cv.name
-  .split(/\s+/)
-  .map((part) => part[0])
-  .join("")
-  .slice(0, 2)
-  .toUpperCase();
-
-const locationQuery = encodeURIComponent(cv.location ?? "");
-const locationHref = locationQuery
-  ? `https://www.google.com/maps/search/?api=1&query=${locationQuery}`
-  : undefined;
-
-const experience = cv.sections?.experience ?? [];
-const education = cv.sections?.education ?? [];
-const certifications = cv.sections?.certifications ?? [];
-const awards = cv.sections?.awards ?? [];
-const skills = cv.sections?.skills ?? [];
-
-const commandLinks = [
-  ...(cv.email ? [{ url: `mailto:${cv.email}`, title: "Email" }] : []),
-  ...(cv.phone ? [{ url: `tel:${cv.phone}`, title: "Phone" }] : []),
-  ...(cv.social_networks ?? []).map((s) => ({
-    url: socialUrl(s.network, s.username),
-    title: s.network,
-  })),
-];
+const siteUrl = Astro.site!.toString().replace(/\/$/, "");
+const role = view.experience[0]?.position ?? "Curriculum vitae";
+const description = `${view.profile.name} — ${role}${
+  view.profile.locationLabel ? ` · ${view.profile.locationLabel}` : ""
+}`;
+const ogImage = `${siteUrl}/og.gif`;
+const twitterImage = `${siteUrl}/og.png`;
 ---
 
 <html lang="en">
   <head>
     <meta charset="utf-8" />
     <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
-    <meta name="viewport" content="width=device-width" />
+    <meta
+      name="viewport"
+      content="width=device-width, initial-scale=1, viewport-fit=cover, interactive-widget=resizes-content"
+    />
+    <meta name="theme-color" content="#ffffff" />
+    <meta name="color-scheme" content="light" />
+    <script is:inline>
+      (() => {
+        if (window.matchMedia("(prefers-reduced-motion: reduce)").matches) return;
+        if (!("IntersectionObserver" in window)) return;
+
+        document.documentElement.classList.add("motion");
+
+        const reveal = () => {
+          const observer = new IntersectionObserver(
+            (entries) => {
+              for (const entry of entries) {
+                if (!entry.isIntersecting) continue;
+                entry.target.classList.add("is-visible");
+                observer.unobserve(entry.target);
+              }
+            },
+            { rootMargin: "0px 0px -8% 0px", threshold: 0.08 },
+          );
+
+          document
+            .querySelectorAll("[data-reveal], [data-intro]")
+            .forEach((element) => observer.observe(element));
+
+          document.addEventListener("focusin", (event) => {
+            const target =
+              event.target instanceof Element
+                ? event.target.closest("[data-reveal], [data-intro]")
+                : null;
+            if (target) target.classList.add("is-visible");
+          });
+        };
+
+        if (document.readyState === "loading") {
+          document.addEventListener("DOMContentLoaded", reveal, { once: true });
+        } else {
+          reveal();
+        }
+      })();
+    </script>
+    <Font cssVariable="--font-instrument" preload />
+    <Font cssVariable="--font-geist-mono" />
     <meta name="generator" content={Astro.generator} />
-    <title>{cv.name}</title>
-    <meta name="description" content={cv.headline} />
-    <meta name="author" content={cv.name} />
+    <title>{view.profile.name} — {role}</title>
+    <meta name="description" content={description} />
+    <meta name="author" content={view.profile.name} />
+    <link rel="canonical" href={siteUrl} />
+
+    <meta property="og:type" content="website" />
+    <meta property="og:site_name" content={`${view.profile.name} — CV`} />
+    <meta property="og:title" content={`${view.profile.name} — ${role}`} />
+    <meta property="og:description" content={description} />
+    <meta property="og:url" content={siteUrl} />
+    <meta property="og:image" content={ogImage} />
+    <meta property="og:image:type" content="image/gif" />
+    <meta property="og:image:width" content="1200" />
+    <meta property="og:image:height" content="630" />
+    <meta property="og:image:alt" content={`${view.profile.name} — ${role}`} />
+
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:title" content={`${view.profile.name} — ${role}`} />
+    <meta name="twitter:description" content={description} />
+    <meta name="twitter:image" content={twitterImage} />
+    <meta name="twitter:image:alt" content={`${view.profile.name} — ${role}`} />
     <script
       is:inline
       defer
       src="https://cloud.umami.is/script.js"
-      data-website-id="75aa81ff-9c6d-4ef9-8829-6eaca8616ba9"></script>
+      data-website-id="75aa81ff-9c6d-4ef9-8829-6eaca8616ba9"
+      data-domains="cv.kntl.zip"></script>
   </head>
   <body>
     <main
-      class="container relative mx-auto scroll-my-12 overflow-auto p-4 print:p-12 md:p-16 selection:bg-fuchsia-300 selection:text-fuchsia-900"
+      class="container relative mx-auto p-4 pb-[calc(1rem+env(safe-area-inset-bottom,0px))] pl-[max(1rem,env(safe-area-inset-left,0px))] pr-[max(1rem,env(safe-area-inset-right,0px))] print:p-12 md:p-16 selection:bg-fuchsia-300 selection:text-fuchsia-900"
     >
       <section
         class="mx-auto w-full max-w-2xl space-y-8 bg-white print:space-y-6"
       >
-        <div class="flex items-center justify-between">
-          <div class="flex-1 space-y-1.5">
-            <h1 class="text-2xl font-bold">{cv.name}</h1>
-            {cv.headline ? (
-              <p
-                class="max-w-md text-pretty font-mono text-sm text-muted-foreground"
-              >
-                {cv.headline}
-              </p>
-            ) : null}
-            {cv.location ? (
-              <p
-                class="max-w-md items-center text-pretty font-mono text-xs text-muted-foreground"
-              >
-                {locationHref ? (
-                  <a
-                    class="inline-flex gap-x-1.5 align-baseline leading-none hover:underline"
-                    href={locationHref}
-                    target="_blank"
-                    rel="noreferrer noopener"
-                  >
-                    <GlobeIcon />
-                    {cv.location}
-                  </a>
-                ) : (
-                  <span>{cv.location}</span>
-                )}
-              </p>
-            ) : null}
-            <div
-              class="flex gap-x-1 pt-1 font-mono text-sm text-muted-foreground print:hidden"
-            >
-              {cv.email ? (
-                <ContactLink
-                  href={`mailto:${cv.email}`}
-                  tooltip="Email"
-                  client:load
-                >
-                  <MailIcon className="size-4" />
-                </ContactLink>
-              ) : null}
-              {cv.phone ? (
-                <ContactLink
-                  href={`tel:${cv.phone}`}
-                  tooltip="Phone"
-                  client:load
-                >
-                  <PhoneIcon className="size-4" />
-                </ContactLink>
-              ) : null}
-              {(cv.social_networks ?? []).map((social) => {
-                const Icon = NETWORK_ICON[social.network];
-                return (
-                  <ContactLink
-                    href={socialUrl(social.network, social.username)}
-                    tooltip={social.network}
-                    newtab={true}
-                    client:load
-                  >
-                    {Icon ? <Icon className="size-4" /> : null}
-                  </ContactLink>
-                );
-              })}
-            </div>
-            <div
-              class="hidden flex-col gap-x-1 font-mono text-sm text-muted-foreground print:flex"
-            >
-              {cv.email ? (
-                <a href={`mailto:${cv.email}`}>
-                  <span class="underline">{cv.email}</span>
-                </a>
-              ) : null}
-              {cv.phone ? (
-                <a href={`tel:${cv.phone}`}>
-                  <span class="underline">{cv.phone}</span>
-                </a>
-              ) : null}
-            </div>
-          </div>
+        <CvHeader
+          profile={{
+            ...view.profile,
+            headline: view.profile.headline ?? view.experience[0]?.position,
+          }}
+          contacts={view.contacts}
+        />
 
-          <AvatarWrapper
-            name={cv.name}
-            initials={initials}
-            client:load
-          />
-        </div>
-
-        {experience.length > 0 ? (
-          <Section>
-            <h2 class="text-xl font-bold">Work Experience</h2>
-            {experience.map((job) => (
-              <Card>
-                <CardHeader>
-                  <div class="flex items-center justify-between gap-x-2 text-base">
-                    <h3 class="font-semibold leading-none">
-                      {job.company}
-                      {job.location ? (
-                        <span class="ml-2 font-mono text-xs font-normal text-muted-foreground">
-                          · {job.location}
-                        </span>
-                      ) : null}
-                    </h3>
-                    <div class="text-sm tabular-nums text-muted-foreground">
-                      {formatRange(job.start_date, job.end_date)}
-                    </div>
-                  </div>
-                  <h4 class="font-mono text-sm leading-none text-muted-foreground">
-                    {job.position}
-                  </h4>
-                </CardHeader>
-                {job.highlights && job.highlights.length > 0 ? (
-                  <CardContent className="mt-2 text-xs">
-                    <ul class="list-disc space-y-1 pl-4">
-                      {job.highlights.map((h) => <li>{h}</li>)}
-                    </ul>
-                  </CardContent>
-                ) : null}
-              </Card>
-            ))}
-          </Section>
-        ) : null}
-
-        {education.length > 0 ? (
-          <Section>
-            <h2 class="text-xl font-bold">Education</h2>
-            {education.map((ed) => (
-              <Card>
-                <CardHeader>
-                  <div class="flex items-center justify-between gap-x-2 text-base">
-                    <h3 class="font-semibold leading-none">
-                      {ed.institution}
-                      {ed.location ? (
-                        <span class="ml-2 font-mono text-xs font-normal text-muted-foreground">
-                          · {ed.location}
-                        </span>
-                      ) : null}
-                    </h3>
-                    <div class="text-sm tabular-nums text-muted-foreground">
-                      {formatRange(ed.start_date, ed.end_date)}
-                    </div>
-                  </div>
-                  {ed.area || ed.degree ? (
-                    <h4 class="font-mono text-sm leading-none text-muted-foreground">
-                      {[ed.degree, ed.area].filter(Boolean).join(" · ")}
-                    </h4>
-                  ) : null}
-                </CardHeader>
-                {ed.highlights && ed.highlights.length > 0 ? (
-                  <CardContent className="mt-2 text-xs">
-                    <ul class="list-disc space-y-1 pl-4">
-                      {ed.highlights.map((h) => <li>{h}</li>)}
-                    </ul>
-                  </CardContent>
-                ) : null}
-              </Card>
-            ))}
-          </Section>
-        ) : null}
-
-        {certifications.length > 0 ? (
-          <Section>
-            <h2 class="text-xl font-bold">Certifications</h2>
-            {certifications.map((cert) => {
-              const link = parseMarkdownLink(cert.location);
-              const detail = link?.text ?? cert.location;
-              return (
-                <Card>
-                  <CardHeader>
-                    <div
-                      class="flex items-center justify-between gap-x-2 text-base"
-                    >
-                      <h3 class="font-semibold leading-none">
-                        {link ? (
-                          <a
-                            class="hover:underline"
-                            href={link.href}
-                            target="_blank"
-                            rel="noreferrer noopener"
-                            data-confetti-hover
-                          >
-                            {cert.name}
-                          </a>
-                        ) : (
-                          cert.name
-                        )}
-                      </h3>
-                      {cert.date ? (
-                        <div class="text-sm tabular-nums text-muted-foreground">
-                          {formatDate(cert.date)}
-                        </div>
-                      ) : null}
-                    </div>
-                    {detail ? (
-                      <h4 class="font-mono text-sm leading-none text-muted-foreground">
-                        {detail}
-                      </h4>
-                    ) : null}
-                    {cert.summary ? (
-                      <p class="text-xs text-muted-foreground">
-                        {cert.summary}
-                      </p>
-                    ) : null}
-                  </CardHeader>
-                </Card>
-              );
-            })}
-          </Section>
-        ) : null}
-
-        {awards.length > 0 ? (
-          <Section>
-            <h2 class="text-xl font-bold">Honors &amp; Awards</h2>
-            {awards.map((award) => {
-              const link = parseMarkdownLink(award.location);
-              return (
-                <Card>
-                  <CardHeader>
-                    <div class="flex items-center justify-between gap-x-2 text-base">
-                      <h3 class="font-semibold leading-none">
-                        {link ? (
-                          <a
-                            class="hover:underline"
-                            href={link.href}
-                            target="_blank"
-                            rel="noreferrer noopener"
-                            data-confetti-hover
-                          >
-                            {award.name}
-                          </a>
-                        ) : (
-                          award.name
-                        )}
-                      </h3>
-                      {award.date ? (
-                        <div class="text-sm tabular-nums text-muted-foreground">
-                          {formatDate(award.date)}
-                        </div>
-                      ) : null}
-                    </div>
-                    {award.summary ? (
-                      <p class="text-xs text-muted-foreground">
-                        {award.summary}
-                      </p>
-                    ) : null}
-                  </CardHeader>
-                  {award.highlights && award.highlights.length > 0 ? (
-                    <CardContent className="mt-2 text-xs">
-                      <ul class="list-disc space-y-1 pl-4">
-                        {award.highlights.map((h) => <li>{h}</li>)}
-                      </ul>
-                    </CardContent>
-                  ) : null}
-                </Card>
-              );
-            })}
-          </Section>
-        ) : null}
-
-        {skills.length > 0 ? (
-          <Section>
-            <h2 class="text-xl font-bold">Skills</h2>
-            <div class="space-y-3">
-              {skills.map((group) => (
-                <div class="space-y-1.5">
-                  <p class="font-mono text-xs text-muted-foreground">
-                    {group.label}
-                  </p>
-                  <div class="flex flex-wrap gap-1">
-                    {group.details
-                      .split(",")
-                      .map((s) => s.trim())
-                      .filter(Boolean)
-                      .map((skill) => (
-                        <Badge variant="secondary">{skill}</Badge>
-                      ))}
-                  </div>
-                </div>
-              ))}
-            </div>
-          </Section>
-        ) : null}
-
-        <CommandMenu links={commandLinks} client:load />
+        <Experience items={view.experience} />
+        <Education items={view.education} />
+        <Certifications items={view.certifications} />
+        <Awards items={view.awards} />
+        <Skills groups={view.skills} />
       </section>
     </main>
   </body>
 </html>
 
 <script>
-  import confetti from "canvas-confetti";
+  type Confetti = typeof import("canvas-confetti").default;
+
+  let confettiPromise: Promise<Confetti> | null = null;
+  let activeConfetti: Confetti | null = null;
+  let lastBurst = 0;
+
+  const reduceMotion = window.matchMedia("(prefers-reduced-motion: reduce)");
+  const finePointer = window.matchMedia("(hover: hover) and (pointer: fine)");
+
+  const getConfetti = () =>
+    (confettiPromise ??= import("canvas-confetti").then((module) => {
+      activeConfetti = module.default;
+      return activeConfetti;
+    }));
 
   document.querySelectorAll("[data-confetti-hover]").forEach((element) => {
-    element.addEventListener("mouseenter", (e) => {
+    element.addEventListener("mouseenter", async (event) => {
+      if (!finePointer.matches || reduceMotion.matches) return;
+
+      const now = performance.now();
+      if (now - lastBurst < 600) return;
+      lastBurst = now;
+
+      const confetti = await getConfetti();
+      const pointer = event as MouseEvent;
       confetti({
+        disableForReducedMotion: true,
         origin: {
-          x: (e as MouseEvent).clientX / window.innerWidth,
-          y: (e as MouseEvent).clientY / window.innerHeight,
+          x: pointer.clientX / window.innerWidth,
+          y: pointer.clientY / window.innerHeight,
         },
       });
     });
   });
+
+  window.addEventListener("beforeprint", () => activeConfetti?.reset());
+
+  console.log(
+    "%c KL %c Kent Liusudarso — Software Engineer ",
+    "background:#0f172a;color:#fff;font-weight:700;padding:4px 8px;border-radius:6px 0 0 6px;font-size:12px",
+    "background:#10b981;color:#022c22;font-weight:600;padding:4px 8px;border-radius:0 6px 6px 0;font-size:12px",
+  );
+  console.log(
+    "%cYou found the console. This CV is one YAML file rendered three ways: web, PDF, and the embed you just came from.",
+    "color:#64748b;font-style:italic",
+  );
+  console.log(
+    "%c→ github.com/kentlius/cv",
+    "color:#10b981;font-weight:600",
+  );
+  console.log(
+    "%cP.S. The certification links throw confetti. That is the whole trick.",
+    "color:#94a3b8;font-size:11px",
+  );
 </script>

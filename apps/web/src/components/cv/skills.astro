@@ -1,0 +1,30 @@
+---
+import Badge from "@/components/local/badge.astro";
+import Section from "@/components/local/section.astro";
+
+interface Props {
+  groups: Array<{ label: string; items: string[] }>;
+}
+
+const { groups } = Astro.props;
+---
+
+{
+  groups.length > 0 ? (
+    <Section>
+      <h2 class="text-xl font-bold" data-reveal>Skills</h2>
+      <div class="space-y-3" data-reveal="group">
+        {groups.map((group) => (
+          <div class="space-y-1.5">
+            <p class="font-mono text-xs text-muted-foreground [overflow-wrap:anywhere]">{group.label}</p>
+            <div class="flex flex-wrap gap-1">
+              {group.items.map((item) => (
+                <Badge>{item}</Badge>
+              ))}
+            </div>
+          </div>
+        ))}
+      </div>
+    </Section>
+  ) : null
+}

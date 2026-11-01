@@ -1,0 +1,17 @@
+---
+interface Props {
+  class?: string;
+}
+
+const { class: className } = Astro.props;
+---
+
+<div
+  class:list={[
+    "flex flex-col gap-3 overflow-hidden rounded-xl bg-card py-4 text-sm text-card-foreground ring-1 ring-foreground/10 [overflow-wrap:anywhere] print:break-inside-avoid",
+    className,
+  ]}
+  data-reveal="card"
+>
+  <slot />
+</div>

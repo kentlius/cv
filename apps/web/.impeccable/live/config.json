@@ -1,0 +1,6 @@
+{
+  "files": ["src/pages/index.astro", "src/pages/404.astro"],
+  "insertBefore": "</body>",
+  "commentSyntax": "html",
+  "cspChecked": true
+}

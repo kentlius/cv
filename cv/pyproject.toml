@@ -7,4 +7,5 @@ readme = "README.md"
 
 dependencies = [
     "rendercv[full]==2.8",
+    "ruamel.yaml>=0.18",
 ]
