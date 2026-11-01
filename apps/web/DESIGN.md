@@ -83,9 +83,9 @@ The page is one sheet of ink on paper. Instrument Sans carries every
 proportional sentence; Geist Mono annotates it — dates, locations, roles,
 annotations. A 672px column keeps prose at a reading measure even when the
 shell is wide. There is no photography, no display face, and no chromatic
-accent; a single monochrome globe in the footer marks the location. The CV
-should read as a document that happens to be interactive, not as a product
-surface wearing a CV.
+accent; a full-bleed half globe closes the page, its pins marking where the
+work happened. The CV should read as a document that happens to be interactive,
+not as a product surface wearing a CV.
 
 Density is deliberate: 12px card prose under 16px entry titles under 20px
 section headings, with 32px between sections. Cards are paper sheets separated
@@ -107,7 +107,8 @@ keeps its document character.
   under icon buttons.
 - One authored reveal language, once per element, removed under reduced motion
   and in print.
-- A single monochrome footer globe marks the location; no photography.
+- A full-bleed half globe closes the page at the bottom edge; pins mark
+  physical experience locations, with the current role distinguished.
 - Print is a first-class output: chrome hides, contacts become text.
 
 ## Colors
@@ -283,13 +284,23 @@ label. Chips are labels, not filters: no selected state exists.
 
 ### Footer Globe
 
-A 112–128px circle at the end of the sheet, hairline border, holding a Cobe
-canvas over a static SVG wireframe. The globe is ink-on-paper: a light gray
-sphere with a dotted map, a dark marker at Shizuoka, and the wireframe's
-meridians always visible on top. Cobe is imported only when the footer comes
-within 200px of the viewport; the SVG alone renders without JavaScript, WebGL,
-or `prefers-reduced-motion`. The canvas is print-hidden. Rotation is
-0.0015 radians per frame, and stops under reduced motion.
+The last element is a full-bleed half sphere. Its size is
+`min(100vw, 90rem)`; the stage is exactly half that tall, and the shell's lower
+half is clipped by the page edge. There is no margin or padding below it. Cobe
+draws a dotted land map over a light sphere, and a static SVG wireframe sits on
+top. Pins mark Shizuoka (current, larger), Tangerang (BCA and IMS), and Bandung
+(STEI ITB). Kalbe Farma was remote, so it appears in the legend as a hollow
+marker and never receives a fabricated coordinate.
+
+Cobe is imported only when the footer comes within 300px of the viewport.
+`globe.update()` runs in a `requestAnimationFrame` loop: idle auto-rotation at
+0.0015 radians per frame after 2.4s, paused while hovered, focused, or
+offscreen. Pointer drag has momentum; arrow keys rotate; choosing a place eases
+the shortest horizontal path to that pin while keeping the tilt. The active pin
+gets a CSS-anchored label; labels are hidden in browsers without anchor
+positioning. The static SVG, its pins, and the disabled place buttons are the
+no-JavaScript and reduced-motion fallback. The canvas and footer are
+print-hidden.
 
 ### Motion
 
@@ -307,9 +318,11 @@ The `.motion` class is set by an inline head script only when
 Without JavaScript or under reduced motion, no hiding class is applied and the
 content is fully visible. Print forces every target visible. Keyboard focus
 reveals the containing card immediately, without a fade. The footer globe adds
-one slow rotation after its lazy load; reduced motion keeps the static
-wireframe. There is no parallax, scroll-jacking, or layout animation. The
-confetti easter egg is separate and hover-only.
+one user-driven interaction layer: idle auto-rotation, pointer momentum,
+keyboard rotation, and eased focus on a chosen place. Reduced motion keeps the
+static wireframe and does not start WebGL. There is no parallax,
+scroll-jacking, or layout animation. The confetti easter egg is separate and
+hover-only.
 
 ### Social Preview
 
@@ -345,8 +358,15 @@ hairline rings remain.
   print forces every reveal visible.
 - **Do** reveal a card immediately on keyboard focus, without waiting for the
   transition.
-- **Do** keep the footer globe monochrome and marked at the CV location; keep
-  its static SVG wireframe visible so it works without WebGL or JavaScript.
+- **Do** keep the footer globe monochrome and pinned to physical experience
+  locations; keep its static SVG wireframe and pins for no-JS and reduced
+  motion.
+- **Do** keep the half globe flush to the page's bottom edge, with no margin or
+  padding below it.
+- **Do** let the globe be dragged, keyboard-rotated, and focused from its place
+  list, and pause its render loop when offscreen.
+- **Do** leave remote roles unpinned; name them in the legend instead of
+  inventing a coordinate.
 - **Do** generate `/og.png` from the CV view model with Satori and Resvg; never
   hand-maintain the social image.
 - **Do** hide contact icons in print and expose email and phone as text.
@@ -361,12 +381,15 @@ hairline rings remain.
   Geist Mono are the whole voice.
 - **Don't** use pure black, hue-tinted grays, or darkened borders for emphasis.
 - **Don't** stack multiple shadows on content surfaces or add glow effects.
-- **Don't** add parallax, scroll-jacking, looping motion, layout animation, or
-  reveals that re-run on every scroll direction.
+- **Don't** add parallax, scroll-jacking, or layout animation; the only looping
+  motion is the footer globe's idle rotation, and reduced motion removes it.
 - **Don't** hide content behind a reveal without the reduced-motion and no-JS
   fallback.
 - **Don't** load Cobe above the fold or on reduced motion, and don't add
   photography, a headshot, or a logo wall around the globe.
+- **Don't** add a bottom margin, bottom padding, or a border under the half
+  globe; the page ends at the clipped sphere.
+- **Don't** fabricate a map pin for a remote role.
 - **Don't** widen cards or the reading column beyond 672px.
 - **Don't** add dark mode without an explicit theme decision; the stylesheet
   declares `color-scheme: light` and carries no dark tokens.

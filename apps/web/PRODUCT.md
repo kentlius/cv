@@ -66,9 +66,13 @@ Confirmed and observed:
   paths.
 - Contact channels are email, phone, LinkedIn (`kentlius`), and GitHub
   (`kentlius`).
-- A small monochrome globe in the footer marks the location. Cobe is loaded
-  only as the footer approaches; a static SVG wireframe is the fallback, and
-  reduced motion keeps the wireframe instead of starting WebGL.
+- A playable, full-bleed half globe closes the page. It is clipped by the page
+  edge, auto-rotates when idle, can be dragged, and can be rotated to a chosen
+  place from the footer list. Pins mark Shizuoka (current), Tangerang
+  (BCA/IMS), and Bandung (STEI ITB); the Kalbe Farma role is listed as remote
+  rather than given a fabricated coordinate.
+- Cobe loads only as the footer approaches; a static SVG wireframe with the
+  same pins is the no-JavaScript and reduced-motion fallback.
 - The Open Graph image is generated at build time from the same CV data with
   Satori and Resvg (`/og.png`, 1200×630). There is no hand-made social image.
 - Initial and scroll reveals are progressive enhancement: content is visible
