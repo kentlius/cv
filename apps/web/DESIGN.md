@@ -291,7 +291,7 @@ legend, link, or rule above it. Cobe draws a dotted land map over a light
 sphere; the wireframe is reserved for the no-JS/WebGL-failure fallback and is
 removed once Cobe is ready.
 
-Pins use Cobe's playground marker treatment: 0.04 dots under always-visible
+Pins use Cobe's playground marker treatment: 0.022 dots under always-visible
 uppercase ink labels with pointer triangles. Shizuoka uses the Cobe pulse — a
 40px container, two 2px expanding rings on a 2s loop offset by 0.5s, and a 10px
 ink dot with a 3px paper halo and 5px ink ring. Its label is simply
@@ -374,7 +374,7 @@ hairline rings remain.
   legend, link, rule, margin, or padding above or below it.
 - **Do** link location text in the header and experience cards to the globe and
   focus its pin; leave remote roles unpinned.
-- **Do** use Cobe's playground marker labels for every experience pin: 0.04
+- **Do** use Cobe's playground marker labels for every experience pin: 0.022
   dots, uppercase ink labels, 8px offset, and pointer triangles.
 - **Do** use the Cobe pulse for Shizuoka: 40px container, two 2s expanding
   rings offset by 0.5s, a 10px ink dot, and the paper/ink halo.

@@ -67,7 +67,7 @@ Confirmed and observed:
 - Contact channels are email, phone, LinkedIn (`kentlius`), and GitHub
   (`kentlius`).
 - A captionless, full-bleed half globe closes the page. Experience pins use
-  Cobe's playground marker treatment: 0.04 dots under always-visible uppercase
+  Cobe's playground marker treatment: 0.022 dots under always-visible uppercase
   ink labels with pointer triangles. Shizuoka uses Cobe's pulse — two expanding
   rings and a 10px dot — as the current indicator. Tangerang's label sits above
   its pin and Bandung's below. Kalbe Farma was remote and has no pin.

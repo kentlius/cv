@@ -1,6 +1,6 @@
 {
   "schemaVersion": 2,
-  "generatedAt": "2026-11-01T09:40:37.953Z",
+  "generatedAt": "2026-11-01T09:49:00.475Z",
   "title": "Design System: Kent Liusudarso CV",
   "extensions": {
     "colorMeta": {
@@ -298,7 +298,7 @@
       "Do reveal a card immediately on keyboard focus, without waiting for the transition.",
       "Do keep the globe monochrome, captionless, and pinned to physical experience locations; keep the static sphere and labels for no-JS or WebGL failure.",
       "Do link header and experience location text to the globe and focus its pin; leave remote roles unpinned.",
-      "Do use Cobe's playground marker labels for experience pins: 0.04 dots, uppercase ink labels, 8px offset, and pointer triangles.",
+      "Do use Cobe's playground marker labels for experience pins: 0.022 dots, uppercase ink labels, 8px offset, and pointer triangles.",
       "Do use the Cobe pulse for Shizuoka: two 2s expanding rings offset by 0.5s and a 10px ink dot with paper/ink halos.",
       "Do set Tangerang's label above and Bandung's below, and keep every label visible.",
       "Do let the globe be dragged and keyboard-rotated, and pause its render loop when offscreen.",
