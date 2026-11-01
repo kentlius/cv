@@ -52,7 +52,10 @@ built.
   `https://cv.kntl.zip`.
 - Japanese exists as a PDF locale; the website renders the English document
   only.
-- Umami analytics is loaded on the public page.
+- Analytics is provided by Cloudflare Web Analytics at the zone level, injected
+  by Cloudflare rather than loaded by a page script. It reports aggregate
+  visitors, page views, paths, referrers, countries, devices, and browsers; it
+  does not identify individual people.
 
 ## Capabilities and Constraints
 
@@ -67,7 +70,7 @@ Confirmed and observed:
   without JavaScript, disabled under `prefers-reduced-motion: reduce`, and
   forced visible for print. The reveal script and the confetti/console script
   are the only authored client-side scripts; the rest of the page is static
-  HTML. Umami analytics is a separate third-party loader.
+  HTML. Cloudflare Web Analytics is injected at the zone, not by a page script.
 - Print styles disable all reveal motion and keep the CV as a document.
 - Content is derived from the generated YAML; the web app holds no authored CV
   copy of its own.
